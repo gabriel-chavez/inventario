@@ -1,40 +1,109 @@
 ﻿@model List<sistemainventario.Models.enlaces>
-<h2 class="page-header">
-    Enlaces
-</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Proveedor</th>
-            <th>Oficina</th>
-            <th>Tipo enlace</th>
-            <th>Enlace</th>
-            <th>Enlace tecnologia</th>
-            <th>Velocidad</th>
-            <th>Mensualidad</th>
-            
-            <th>Observaciones</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var m in Model)
-        {
-            <tr>
-                <th>@m.proveedores.proveedor</th>
-                <th>@m.oficinas.nombre_oficina</th>
-                <th>@m.enlacesTipo.tipo</th>
-                <th>@m.enlace</th>
-                <th>@m.enlacesTecnologia.tecnologia</th>
-                <th>@m.velocidad</th>
-                <th>@m.mensualidad</th>
-                
-                <th>@m.observaciones</th>
 
-                <th>
-                    <a class="btn btn-xs btn-primary btn-block" href="">Ver</a>
-                </th>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>
+                Comunicaciones <small> Enlaces </small>
+            </h3>
+        </div>
+
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <!--<div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Enlaces de comunicacion</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        <!--<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Settings 1</a></li>
+                                <li><a href="#">Settings 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>-->
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- content starts here -->
+                    <table id="tabla-enlaces" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Tipo Oficina</th>
+                                <th>Nro. Of.</th>                                
+                                <th>Tipo enlace</th>
+                                <th>Enlace</th>
+                                <th>Enlace tecnologia</th>
+                                <th>Proveedor</th>
+                                <th>Velocidad</th>
+                                <th>Mensualidad</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Tipo Oficina</th>
+                                <th>Nro. Of.</th>                               
+                                <th>Tipo enlace</th>
+                                <th>Enlace</th>
+                                <th>Enlace tecnologia</th>
+                                <th>Proveedor</th>
+                                <th>Velocidad</th>
+                                <th>Mensualidad</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var m in Model)
+                            {
+                                <tr>
+
+                                    <td>@m.oficinas.nombre_oficina</td>
+                                    <td>@m.oficinas.tipoOficina.tipo.</td>
+                                    <td>@m.oficinas.nroOficina</td>                                    
+                                    <td>@m.enlacesTipo.tipo</td>
+                                    <td>@m.enlace</td>
+                                    <td>@m.enlacesTecnologia.tecnologia</td>
+                                    <td>@m.proveedores.proveedor</td>
+                                    <td>@m.velocidad</td>
+                                    <td>@m.mensualidad</td>
+
+                                    <td>@m.observaciones</td>
+
+                                    <td>
+                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                 
+                    <!-- content ends here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

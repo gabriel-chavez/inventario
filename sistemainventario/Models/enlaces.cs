@@ -68,6 +68,7 @@ namespace sistemainventario.Models
                     enlaces = ctx.enlaces.Include("proveedores")
                                         .Include("oficinas")
                                         .Include("oficinas.ciudades")
+                                        .Include("oficinas.tipoOficina")
                                         .Include("oficinas.ciudades.departamentos")
                                         .Include("enlacesTipo")
                                         .Include("enlacesTecnologia")

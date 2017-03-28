@@ -2508,8 +2508,31 @@ if (typeof NProgress != 'undefined') {
 				console.log('run_datatables');
 				
 				if( typeof ($.fn.DataTable) === 'undefined'){ return; }
-				console.log('init_DataTables');
-				
+				console.log('init_DataTables');				
+				var espaniol = {
+				    "sProcessing": "Procesando...",
+				    "sLengthMenu": "Mostrar _MENU_ registros",
+				    "sZeroRecords": "No se encontraron resultados",
+				    "sEmptyTable": "Ningún dato disponible en esta tabla",
+				    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+				    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+				    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+				    "sInfoPostFix": "",
+				    "sSearch": "Buscar:",
+				    "sUrl": "",
+				    "sInfoThousands": ",",
+				    "sLoadingRecords": "Cargando...",
+				    "oPaginate": {
+				        "sFirst": "Primero",
+				        "sLast": "Último",
+				        "sNext": "Siguiente",
+				        "sPrevious": "Anterior"
+				    },
+				    "oAria": {
+				        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+				        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+				    }
+				};
 				var handleDataTableButtons = function() {
 				  if ($("#datatable-buttons").length) {
 					$("#datatable-buttons").DataTable({
@@ -2549,8 +2572,45 @@ if (typeof NProgress != 'undefined') {
 					}
 				  };
 				}();
+                /***************************************/			    
+				$('#tabla-enlaces tfoot th').each(function () {
+				    var title = $(this).text();
+                    if(title!="")
+				    $(this).html('<input type="text" class="form-control inputfiltro" placeholder="' + title + '" />');
+				});
+				var table = $('#tabla-enlaces').DataTable({
+				    autoWidth: false, 
+				    columnDefs: [
+                       { width: '15%', targets: 0 }, // column 1 out of 4
+                       { width: '10%', targets: 1 }, // column 2 out of 4
+                       { width: '5%', targets: 2 },  // column 3 out of 4
+				       { width: '10%', targets: 3 },  // column 3 out of 4
+                       { width: '5%', targets: 4 },  // column 3 out of 4
+                       { width: '5%', targets: 5 },  // column 3 out of 4
+                       { width: '8%', targets: 6 },  // column 3 out of 4
+                       { width: '5%', targets: 7 },  // column 3 out of 4
+                       { width: '5%', targets: 8 },  // column 3 out of 4
+                       { width: '10%', targets: 9 },  // column 3 out of 4
+				    ],
+				    language: espaniol,				    
+				    
+				});
 
-				$('#datatable').dataTable();
+
+				table.columns().every(function () {
+				    var that = this;
+
+				    $('input', this.footer()).on('keyup change', function () {
+				        if (that.search() !== this.value) {
+				            that
+                                .search(this.value)
+                                .draw();
+				        }
+				    });
+				});
+                ///*********************/
+
+				
 
 				$('#datatable-keytable').DataTable({
 				  keys: true
