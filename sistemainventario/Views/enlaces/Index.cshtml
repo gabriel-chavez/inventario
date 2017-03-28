@@ -1,0 +1,40 @@
+﻿@model List<sistemainventario.Models.enlaces>
+<h2 class="page-header">
+    Enlaces
+</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Proveedor</th>
+            <th>Oficina</th>
+            <th>Tipo enlace</th>
+            <th>Enlace</th>
+            <th>Enlace tecnologia</th>
+            <th>Velocidad</th>
+            <th>Mensualidad</th>
+            
+            <th>Observaciones</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <th>@m.proveedores.proveedor</th>
+                <th>@m.oficinas.nombre_oficina</th>
+                <th>@m.enlacesTipo.tipo</th>
+                <th>@m.enlace</th>
+                <th>@m.enlacesTecnologia.tecnologia</th>
+                <th>@m.velocidad</th>
+                <th>@m.mensualidad</th>
+                
+                <th>@m.observaciones</th>
+
+                <th>
+                    <a class="btn btn-xs btn-primary btn-block" href="">Ver</a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
