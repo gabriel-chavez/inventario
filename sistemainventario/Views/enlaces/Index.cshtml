@@ -1,5 +1,14 @@
-﻿@model List<sistemainventario.Models.enlaces>
+﻿@{//model List<sistemainventario.Models.enlaces>
 
+}
+
+@{ 
+    //WebApplication2.Models.PessoaAplic Pessoa = (WebApplication2.Models.PessoaAplic)ViewBag.DadosPessoa;
+    List<sistemainventario.Models.enlaces> enlacesNacional = ViewBag.nacional;
+    List<sistemainventario.Models.enlaces> enlacesLocal = ViewBag.local;
+    List<sistemainventario.Models.enlaces> enlacesServicios = ViewBag.servicios;
+    List<sistemainventario.Models.enlaces> enlacesInternet = ViewBag.Internet;
+}
 
 <div class="">
     <div class="page-title">
@@ -21,12 +30,14 @@
         </div>
     </div>
     <div class="clearfix"></div>
-
+    @{      /*Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath*/
+    }
+    <!--Nacional-->
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Enlaces de comunicacion</h2>
+                    <h2><b>Enlaces Nacional</b><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         <!--<li class="dropdown">
@@ -44,7 +55,10 @@
                 </div>
                 <div class="x_content">
                     <!-- content starts here -->
-                    <table id="tabla-enlaces" class="table table-striped table-bordered">
+                    <div >
+                        <button style="margin-right:0px" class="btn btn-default btn-md pull-right">Agregar Nuevo enlace</button>
+                    </div>
+                    <table id="tabla-nacional" class="table table-striped table-bordered tabla-enlaces">
                         <thead>
                             <tr>
                                 <th>Oficina</th>
@@ -76,7 +90,7 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach (var m in Model)
+                            @foreach (var m in enlacesNacional)
                             {
                                 <tr>
 
@@ -91,6 +105,7 @@
                                     <td>@m.mensualidad</td>
 
                                     <td>@m.observaciones</td>
+                                    
 
                                     <td>
                                         <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
@@ -101,6 +116,264 @@
                         </tbody>
                     </table>
                  
+                    <!-- content ends here -->
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!--Local-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><b>Enlaces Local</b><small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        <!--<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Settings 1</a></li>
+                                <li><a href="#">Settings 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>-->
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- content starts here -->
+                    <table id="tabla-local" class="table table-striped table-bordered tabla-enlaces">
+                        <thead>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Tipo Oficina</th>
+                                <th>Nro. Of.</th>
+                                <th>Tipo enlace</th>
+                                <th>Enlace</th>
+                                <th>Enlace tecnologia</th>
+                                <th>Proveedor</th>
+                                <th>Velocidad</th>
+                                <th>Mensualidad</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Tipo Oficina</th>
+                                <th>Nro. Of.</th>
+                                <th>Tipo enlace</th>
+                                <th>Enlace</th>
+                                <th>Enlace tecnologia</th>
+                                <th>Proveedor</th>
+                                <th>Velocidad</th>
+                                <th>Mensualidad</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var m in enlacesLocal)
+                            {
+                                <tr>
+
+                                    <td>@m.oficinas.nombre_oficina</td>
+                                    <td>@m.oficinas.tipoOficina.tipo.</td>
+                                    <td>@m.oficinas.nroOficina</td>
+                                    <td>@m.enlacesTipo.tipo</td>
+                                    <td>@m.enlace</td>
+                                    <td>@m.enlacesTecnologia.tecnologia</td>
+                                    <td>@m.proveedores.proveedor</td>
+                                    <td>@m.velocidad</td>
+                                    <td>@m.mensualidad</td>
+
+                                    <td>@m.observaciones</td>
+
+
+                                    <td>
+                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <!-- content ends here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Servicio-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><b>Enlaces Servicios</b></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        <!--<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Settings 1</a></li>
+                                <li><a href="#">Settings 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>-->
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- content starts here -->
+                    <table id="tabla-servicio" class="table table-striped table-bordered tabla-enlaces">
+                        <thead>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Tipo Oficina</th>
+                                <th>Nro. Of.</th>
+                                <th>Tipo enlace</th>
+                                <th>Enlace</th>
+                                <th>Enlace tecnologia</th>
+                                <th>Proveedor</th>
+                                <th>Velocidad</th>
+                                <th>Mensualidad</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Tipo Oficina</th>
+                                <th>Nro. Of.</th>
+                                <th>Tipo enlace</th>
+                                <th>Enlace</th>
+                                <th>Enlace tecnologia</th>
+                                <th>Proveedor</th>
+                                <th>Velocidad</th>
+                                <th>Mensualidad</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var m in enlacesServicios)
+                            {
+                                <tr>
+
+                                    <td>@m.oficinas.nombre_oficina</td>
+                                    <td>@m.oficinas.tipoOficina.tipo.</td>
+                                    <td>@m.oficinas.nroOficina</td>
+                                    <td>@m.enlacesTipo.tipo</td>
+                                    <td>@m.enlace</td>
+                                    <td>@m.enlacesTecnologia.tecnologia</td>
+                                    <td>@m.proveedores.proveedor</td>
+                                    <td>@m.velocidad</td>
+                                    <td>@m.mensualidad</td>
+
+                                    <td>@m.observaciones</td>
+
+
+                                    <td>
+                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <!-- content ends here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Internet-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><b>Enlaces Internet</b><small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        <!--<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Settings 1</a></li>
+                                <li><a href="#">Settings 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>-->
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- content starts here -->
+                    <table id="tabla-internet" class="table table-striped table-bordered tabla-enlaces">
+                        <thead>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Tipo Oficina</th>
+                                <th>Nro. Of.</th>
+                                <th>Tipo enlace</th>
+                                <th>Enlace</th>
+                                <th>Enlace tecnologia</th>
+                                <th>Proveedor</th>
+                                <th>Velocidad</th>
+                                <th>Mensualidad</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Tipo Oficina</th>
+                                <th>Nro. Of.</th>
+                                <th>Tipo enlace</th>
+                                <th>Enlace</th>
+                                <th>Enlace tecnologia</th>
+                                <th>Proveedor</th>
+                                <th>Velocidad</th>
+                                <th>Mensualidad</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var m in enlacesInternet)
+                            {
+                                <tr>
+
+                                    <td>@m.oficinas.nombre_oficina</td>
+                                    <td>@m.oficinas.tipoOficina.tipo.</td>
+                                    <td>@m.oficinas.nroOficina</td>
+                                    <td>@m.enlacesTipo.tipo</td>
+                                    <td>@m.enlace</td>
+                                    <td>@m.enlacesTecnologia.tecnologia</td>
+                                    <td>@m.proveedores.proveedor</td>
+                                    <td>@m.velocidad</td>
+                                    <td>@m.mensualidad</td>
+
+                                    <td>@m.observaciones</td>
+
+
+                                    <td>
+                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
                     <!-- content ends here -->
                 </div>
             </div>

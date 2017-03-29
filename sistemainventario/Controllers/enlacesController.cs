@@ -13,7 +13,18 @@ namespace sistemainventario.Controllers
         private enlaces enlaces = new enlaces();
         public ActionResult Index()
         {
-            return View(enlaces.Listar());
+            /*
+            enlaceTipoID	tipo
+                    1	Nacional
+                    2	Local
+                    3	Servicio
+                    4	Internet
+             */
+            ViewBag.nacional = enlaces.Listar(1);
+            ViewBag.local = enlaces.Listar(2);
+            ViewBag.servicios = enlaces.Listar(3);
+            ViewBag.internet = enlaces.Listar(4);
+            return View();
         }
         
     }

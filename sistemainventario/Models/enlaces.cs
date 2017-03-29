@@ -57,7 +57,7 @@ namespace sistemainventario.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enlacesServicios> enlacesServicios { get; set; }
         /*********************************/
-        public List<enlaces> Listar()
+        public List<enlaces> Listar(int tipo)
         {
             List<enlaces> enlaces = new List<enlaces>();
             try
@@ -72,6 +72,7 @@ namespace sistemainventario.Models
                                         .Include("oficinas.ciudades.departamentos")
                                         .Include("enlacesTipo")
                                         .Include("enlacesTecnologia")
+                                        .Where(x=> x.enlaceTipoID==tipo)
                                         .ToList();
                 }
             }

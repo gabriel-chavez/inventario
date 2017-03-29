@@ -2572,15 +2572,8 @@ if (typeof NProgress != 'undefined') {
 					}
 				  };
 				}();
-                /***************************************/			    
-				$('#tabla-enlaces tfoot th').each(function () {
-				    var title = $(this).text();
-                    if(title!="")
-				    $(this).html('<input type="text" class="form-control inputfiltro" placeholder="' + title + '" />');
-				});
-				var table = $('#tabla-enlaces').DataTable({
-				    autoWidth: false, 
-				    columnDefs: [
+			    /***************************************/
+			    var columnas=[
                        { width: '15%', targets: 0 }, // column 1 out of 4
                        { width: '10%', targets: 1 }, // column 2 out of 4
                        { width: '5%', targets: 2 },  // column 3 out of 4
@@ -2591,16 +2584,71 @@ if (typeof NProgress != 'undefined') {
                        { width: '5%', targets: 7 },  // column 3 out of 4
                        { width: '5%', targets: 8 },  // column 3 out of 4
                        { width: '10%', targets: 9 },  // column 3 out of 4
-				    ],
-				    language: espaniol,				    
-				    
+			    ]
+				
+				$('.tabla-enlaces tfoot th').each(function () {
+				    var title = $(this).text();
+                    if(title!="")
+				    $(this).html('<input type="text" class="form-control inputfiltro" placeholder="' + title + '" />');
+				});
+				var nacional = $('#tabla-nacional').DataTable({
+				    autoWidth: false,
+				    columnDefs: columnas,
+				    language: espaniol
+				});
+				var local = $('#tabla-local').DataTable({
+				    autoWidth: false,
+				    columnDefs: columnas,
+				    language: espaniol
+				});
+				var servicio = $('#tabla-servicio').DataTable({
+				    autoWidth: false,
+				    columnDefs: columnas,
+				    language: espaniol
+			    });
+				var internet = $('#tabla-internet').DataTable({
+				    autoWidth: false,
+				    columnDefs: columnas,
+				    language: espaniol
 				});
 
-
-				table.columns().every(function () {
+				nacional.columns().every(function () {
 				    var that = this;
-
 				    $('input', this.footer()).on('keyup change', function () {
+                        console.log(this)
+				        if (that.search() !== this.value) {
+				            that
+                                .search(this.value)
+                                .draw();
+				        }
+				    });
+				});
+				local.columns().every(function () {
+				    var that = this;
+				    $('input', this.footer()).on('keyup change', function () {
+				        console.log(this)
+				        if (that.search() !== this.value) {
+				            that
+                                .search(this.value)
+                                .draw();
+				        }
+				    });
+				});
+				servicio.columns().every(function () {
+				    var that = this;
+				    $('input', this.footer()).on('keyup change', function () {
+				        console.log(this)
+				        if (that.search() !== this.value) {
+				            that
+                                .search(this.value)
+                                .draw();
+				        }
+				    });
+				});
+				internet.columns().every(function () {
+				    var that = this;
+				    $('input', this.footer()).on('keyup change', function () {
+				        console.log(this)
 				        if (that.search() !== this.value) {
 				            that
                                 .search(this.value)
