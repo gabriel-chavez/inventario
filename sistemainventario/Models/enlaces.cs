@@ -5,6 +5,7 @@ namespace sistemainventario.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Data.Entity;
     using System.Linq;
 
     public partial class enlaces
@@ -82,6 +83,38 @@ namespace sistemainventario.Models
                 throw;
             }
             return enlaces;
+        }
+        public enlaces Obtener(int id)
+        {
+            enlaces enlace = new enlaces();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    //para retornar solo de la tabla alumno
+                    // alumno = ctx.Alumno.Where(x => x.id == id)
+                    //                   .SingleOrDefault();
+                    //para retornar la relacion
+           
+                    enlace = ctx.enlaces.Include("proveedores")
+                                       .Include("oficinas")
+                                       .Include("oficinas.ciudades")
+                                       .Include("oficinas.tipoOficina")
+                                       .Include("oficinas.ciudades.departamentos")
+                                       .Include("enlacesTipo")
+                                       .Include("enlacesTecnologia")                                                                              
+                                       .Include(x=>x.contratos)
+                                       .Where(x => x.enlaceID == id)
+                                       .SingleOrDefault();
+                    enlace.contratos = enlace.contratos.OrderByDescending(x => x.contratoID).ToList();                    
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            return enlace;
         }
     }
 }

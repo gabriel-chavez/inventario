@@ -1,0 +1,150 @@
+﻿@model sistemainventario.Models.enlaces
+@{
+    ViewBag.Title = "";
+}
+
+
+@{
+    //ViewBag.titulo = Model.Nombre + " " + Model.Apellido;
+    ViewBag.titulo = "Enlaces Nacional " + Model.oficinas.nombre_oficina;
+}
+<ol class="breadcrumb">
+    <li><a href="~/enlaces">Enlaces</a></li>
+    <li class="active">@(Model.oficinas.nombre_oficina)</li>
+</ol>
+
+
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>
+                Comunicaciones <small> Enlaces </small>
+            </h3>
+        </div>
+
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+               
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    @{        /*Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath*/
+    }
+    <!--datos oficina-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Datos oficina<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>                       
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- Contenido -->
+                    <dl class="dl-horizontal">
+                        <dt>Numero de Oficina</dt>
+                        <dd>@Model.oficinas.nroOficina</dd>
+                        <dt>Oficina</dt>
+                        <dd>@Model.oficinas.nombre_oficina</dd>
+                        <dt>Tipo Oficina</dt>
+                        <dd>@Model.oficinas.tipoOficina.tipo</dd>
+                        <dt>Departamento</dt>
+                        <dd>@Model.oficinas.ciudades.departamentos.departamento</dd>
+                        <dt>Ciudad</dt>
+                        <dd>@Model.oficinas.ciudades.ciudad</dd>
+                        <dt>Direccion</dt>
+                        <dd>@Model.oficinas.direccion</dd>
+
+                    </dl>
+                    <!-- FIN Contenido -->
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    <!--datos Enlace-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Datos enlace<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- Contenido -->
+                    <dl class="dl-horizontal">
+                        <dt>Enlace</dt>
+                        <dd>@(Model.enlace == 1 ? "Primario" : "Secundario")</dd>
+                        <dt>Proveedor</dt>
+                        <dd>@Model.proveedores.proveedor</dd>
+                        <dt>Contrato</dt>
+                        <dd>
+                            @foreach (var c in Model.contratos)
+                            {
+                                @(c.contrato+",")
+                            }
+                        </dd>
+                        <dt>Tecnologia</dt>
+                        <dd>@Model.enlacesTecnologia.tecnologia</dd>
+                        <dt>Velocidad</dt>
+                        <dd>@Model.velocidad</dd>
+                        <dt>Mensualidad</dt>
+                        <dd>@Model.mensualidad</dd>
+                        <dt>Observaciones</dt>
+                        <dd>@Model.observaciones</dd>
+
+
+
+                    </dl>
+                    <!-- FIN Contenido -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--datos Servicios-->
+    @{ 
+        var aux = Model.contratos.ToArray();
+    }
+    @for (int i = 0; i < aux.Length; i++)
+    {
+        @aux[i];
+        <h1>asd</h1>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Datos Servicios<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- Contenido -->
+                    <dl class="dl-horizontal">                                                
+                        @*<dt>Servicio</dt>
+                        <dd>@Model.enlacesServicios.ToArray()</dd>                                                
+                        <dt>Direccion</dt>*@
+                        @*<dd>@Model.enlacesServicios.toArray()</dd>*@
+                        
+
+
+
+                    </dl>
+                    <!-- FIN Contenido -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+ </div>

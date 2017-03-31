@@ -1,6 +1,7 @@
 ﻿
 <!-- Modal -->
 <form action=" " method="post" id="form_linea">
+    @Html.TextBoxFor(x => x.enlace, new { @class = "form-control" })
     <div class="modal fade" id="modalEnlaceNacional" role="dialog">
         <input type="text" name="cod" value="" id="cod_linea" hidden> <!-- input oculto para el codigo de almacen-->
         <div class="modal-dialog">
@@ -19,7 +20,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
                                     <input autofocus name="linea" placeholder="Nombre de la Linea" id="modalnombrelinea" class="form-control" type="text" style="text-transform:uppercase; " onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                    @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control" })
+                                    
                                 </div>
                             </div>
 

@@ -24,8 +24,12 @@ namespace sistemainventario.Controllers
             ViewBag.local = enlaces.Listar(2);
             ViewBag.servicios = enlaces.Listar(3);
             ViewBag.internet = enlaces.Listar(4);
-            return View();
+            return View(enlaces);
         }
-        
+        public ActionResult nacional(int id)
+        {            
+            return View(enlaces.Obtener(id));
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿@model List<sistemainventario.Models.enlaces>
+﻿@model sistemainventario.Models.enlaces
 
 @{ 
     //WebApplication2.Models.PessoaAplic Pessoa = (WebApplication2.Models.PessoaAplic)ViewBag.DadosPessoa;
@@ -6,8 +6,10 @@
     List<sistemainventario.Models.enlaces> enlacesLocal = ViewBag.local;
     List<sistemainventario.Models.enlaces> enlacesServicios = ViewBag.servicios;
     List<sistemainventario.Models.enlaces> enlacesInternet = ViewBag.Internet;
+    //sistemainventario.Models.enlaces modeloenlaces = sistemainventario.Models.enlaces;
 }
-@Html.TextBoxFor(x => x.nombrea, new { @class = "form-control" })
+@Html.TextBoxFor(x => x.enlace, new { @class = "form-control" })
+
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -106,7 +108,8 @@
                                     
 
                                     <td>
-                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+                                        <a class="btn btn-md btn-primary" href="~/enlaces/nacional/@m.enlaceID"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                        
                                         <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
@@ -378,4 +381,5 @@
         </div>
     </div>
 </div>
-@Html.Partial("modal/enlaceNacional")
+
+
