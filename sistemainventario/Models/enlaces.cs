@@ -77,7 +77,7 @@ namespace sistemainventario.Models
                                         .ToList();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 throw;
@@ -102,14 +102,16 @@ namespace sistemainventario.Models
                                        .Include("oficinas.tipoOficina")
                                        .Include("oficinas.ciudades.departamentos")
                                        .Include("enlacesTipo")
-                                       .Include("enlacesTecnologia")                                                                              
+                                       .Include("enlacesTecnologia")
+                                       .Include("enlacesServicios")
+                                       .Include("enlacesInternet")
                                        .Include(x=>x.contratos)
                                        .Where(x => x.enlaceID == id)
                                        .SingleOrDefault();
                     enlace.contratos = enlace.contratos.OrderByDescending(x => x.contratoID).ToList();                    
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 throw;

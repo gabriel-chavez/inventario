@@ -6,12 +6,12 @@
 
 @{
     //ViewBag.titulo = Model.Nombre + " " + Model.Apellido;
-    ViewBag.titulo = "Enlaces Nacional " + Model.oficinas.nombre_oficina;
+    ViewBag.titulo = "Enlace " + Model.oficinas.nombre_oficina;
 }
-<ol class="breadcrumb">
+@*<ol class="breadcrumb">
     <li><a href="~/enlaces">Enlaces</a></li>
     <li class="active">@(Model.oficinas.nombre_oficina)</li>
-</ol>
+</ol>*@
 
 
 <div class="">
@@ -36,7 +36,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Datos oficina<small></small></h2>
+                    <h2>Oficina<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>                       
                     </ul>
@@ -71,7 +71,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Datos enlace<small></small></h2>
+                    <h2>Enlace<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         
@@ -89,7 +89,7 @@
                         <dd>
                             @foreach (var c in Model.contratos)
                             {
-                                @(c.contrato+",")
+                                @(c.contrato + ",")
                             }
                         </dd>
                         <dt>Tecnologia</dt>
@@ -100,51 +100,39 @@
                         <dd>@Model.mensualidad</dd>
                         <dt>Observaciones</dt>
                         <dd>@Model.observaciones</dd>
-
-
-
-                    </dl>
-                    <!-- FIN Contenido -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--datos Servicios-->
-    @{ 
-        var aux = Model.contratos.ToArray();
-    }
-    @for (int i = 0; i < aux.Length; i++)
-    {
-        @aux[i];
-        <h1>asd</h1>
-    }
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Datos Servicios<small></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    <!-- Contenido -->
-                    <dl class="dl-horizontal">                                                
-                        @*<dt>Servicio</dt>
-                        <dd>@Model.enlacesServicios.ToArray()</dd>                                                
-                        <dt>Direccion</dt>*@
-                        @*<dd>@Model.enlacesServicios.toArray()</dd>*@
                         
-
-
-
                     </dl>
+                @if (Model.enlacesServicios.Count() > 0)
+                {
+
+                    var auxservicio = Model.enlacesServicios.SingleOrDefault();
+                    <hr>
+                    <dl class="dl-horizontal">
+                        <dt>Servicio</dt>
+                        <dd>@auxservicio.servicio</dd>
+                        <dt>Direccion</dt>
+                        <dd>@auxservicio.direccion</dd>
+                    </dl>
+                }
+                @if (Model.enlacesInternet.Count() > 0)
+                {
+
+                    var auxinternet = Model.enlacesInternet.SingleOrDefault();
+                    <hr>
+                    <dl class="dl-horizontal">
+                        <dt>Plan internet</dt>
+                        <dd>@auxinternet.planinternet</dd>                        
+                    </dl>
+                }
                     <!-- FIN Contenido -->
                 </div>
             </div>
         </div>
     </div>
 
+   
+
+ 
+
+    
  </div>

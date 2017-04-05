@@ -2575,15 +2575,16 @@ if (typeof NProgress != 'undefined') {
 			    /***************************************/
 			    var columnas=[
                        { width: '15%', targets: 0 }, // column 1 out of 4
-                       { width: '10%', targets: 1 }, // column 2 out of 4
+                       { width: '5%', targets: 1 }, // column 2 out of 4
                        { width: '5%', targets: 2 },  // column 3 out of 4
-				       { width: '10%', targets: 3 },  // column 3 out of 4
+				       { width: '5%', targets: 3 },  // column 3 out of 4
                        { width: '5%', targets: 4 },  // column 3 out of 4
                        { width: '5%', targets: 5 },  // column 3 out of 4
                        { width: '8%', targets: 6 },  // column 3 out of 4
                        { width: '5%', targets: 7 },  // column 3 out of 4
                        { width: '5%', targets: 8 },  // column 3 out of 4
                        { width: '10%', targets: 9 },  // column 3 out of 4
+                       { width: '10%', targets: 10 },  // column 3 out of 4
 			    ]
 				
 				$('.tabla-enlaces tfoot th').each(function () {

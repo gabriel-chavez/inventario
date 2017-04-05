@@ -8,7 +8,7 @@
     List<sistemainventario.Models.enlaces> enlacesInternet = ViewBag.Internet;
     //sistemainventario.Models.enlaces modeloenlaces = sistemainventario.Models.enlaces;
 }
-@Html.TextBoxFor(x => x.enlace, new { @class = "form-control" })
+@*@Html.TextBoxFor(x => x.enlace, new { @class = "form-control" })*@
 
 <div class="">
     <div class="page-title">
@@ -18,16 +18,20 @@
             </h3>
         </div>
 
-        <div class="title_right">
+        <!--<div class="title_right">
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <!--<div class="input-group">
+                <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button">Go!</button>
                     </span>
-                </div>-->
+                </div>
+                <ol class="breadcrumb">
+                    <li><a href="~/enlaces">Enlaces</a></li>
+                    <li class="active"></li>
+                </ol>
             </div>
-        </div>
+        </div>-->
     </div>
     <div class="clearfix"></div>
     @{      /*Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath*/
@@ -107,10 +111,11 @@
                                     <td>@m.observaciones</td>
                                     
 
-                                    <td>
+                                    <td class="text-center">
+                                      
                                         <a class="btn btn-md btn-primary" href="~/enlaces/nacional/@m.enlaceID"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                        
                                         <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                       
                                     </td>
                                 </tr>
                             }
@@ -194,8 +199,8 @@
                                     <td>@m.observaciones</td>
 
 
-                                    <td>
-                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+                                    <td class="text-center">
+                                        <a class="btn btn-md btn-primary" href="~/enlaces/nacional/@m.enlaceID"><i class="fa fa-search" aria-hidden="true"></i></a>
                                         <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
@@ -280,8 +285,8 @@
                                     <td>@m.observaciones</td>
 
 
-                                    <td>
-                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+                                    <td class="text-center">
+                                        <a class="btn btn-md btn-primary" href="~/enlaces/nacional/@m.enlaceID"><i class="fa fa-search" aria-hidden="true"></i></a>
                                         <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
@@ -366,8 +371,8 @@
                                     <td>@m.observaciones</td>
 
 
-                                    <td>
-                                        <a class="btn btn-md btn-primary" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+                                    <td class="text-center">
+                                        <a class="btn btn-md btn-primary" href="~/enlaces/nacional/@m.enlaceID"><i class="fa fa-search" aria-hidden="true"></i></a>
                                         <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
