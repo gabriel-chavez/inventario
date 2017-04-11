@@ -26,7 +26,7 @@ namespace sistemainventario.Controllers
             ViewBag.internet = enlaces.Listar(4);
             return View(enlaces);
         }
-        public ActionResult nacional(int id)
+        public ActionResult VerEnlace(int id)
         {            
             return View(enlaces.Obtener(id));
         }

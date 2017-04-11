@@ -562,6 +562,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\enlaces\modal\enlaceNacional.cshtml" />
     <Content Include="Views\enlaces\Nacional.cshtml" />
+    <Content Include="Views\enlaces\VerEnlace.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
