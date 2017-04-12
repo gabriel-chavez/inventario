@@ -560,9 +560,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\enlaces\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\enlaces\modal\enlaceNacional.cshtml" />
     <Content Include="Views\enlaces\Nacional.cshtml" />
     <Content Include="Views\enlaces\VerEnlace.cshtml" />
+    <Content Include="Views\enlaces\tabla\tabla.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

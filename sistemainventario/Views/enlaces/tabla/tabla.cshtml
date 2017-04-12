@@ -1,0 +1,70 @@
+﻿@{ 
+    var enlaces=ViewBag.datos;
+    var titulo = ViewBag.titulo;
+}
+
+                <div>
+                    <button style="margin-right:0px" class="btn btn-default btn-md pull-right" data-toggle="modal" data-target="#modalEnlace">Agregar Nuevo enlace</button>
+                </div>
+                <table id="tabla-@titulo" class="table table-striped table-bordered tabla-enlaces">
+                    <thead>
+                        <tr>
+                            <th>Oficina</th>
+                            <th>Tipo Oficina</th>
+                            <th>Nro. Of.</th>
+                            <th>Tipo enlace</th>
+                            <th>Enlace</th>
+                            <th>Enlace tecnologia</th>
+                            <th>Proveedor</th>
+                            <th>Velocidad</th>
+                            <th>Mensualidad</th>
+                            <th>Observaciones</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Oficina</th>
+                            <th>Tipo Oficina</th>
+                            <th>Nro. Of.</th>
+                            <th>Tipo enlace</th>
+                            <th>Enlace</th>
+                            <th>Enlace tecnologia</th>
+                            <th>Proveedor</th>
+                            <th>Velocidad</th>
+                            <th>Mensualidad</th>
+                            <th>Observaciones</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var m in enlaces)
+                        {
+                            <tr>
+
+                                <td>@m.oficinas.nombre_oficina</td>
+                                <td>@m.oficinas.tipoOficina.tipo.</td>
+                                <td>@m.oficinas.nroOficina</td>
+                                <td>@m.enlacesTipo.tipo</td>
+                                <td>@m.enlace</td>
+                                <td>@m.enlacesTecnologia.tecnologia</td>
+                                <td>@m.proveedores.proveedor</td>
+                                <td>@m.velocidad</td>
+                                <td>@m.mensualidad</td>
+
+                                <td>@m.observaciones</td>
+
+
+                                <td class="text-center">
+
+                                    <a class="btn btn-md btn-primary" href="~/enlaces/verenlace/@m.enlaceID"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                    <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- content ends here -->
+       

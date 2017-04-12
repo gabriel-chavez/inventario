@@ -2592,22 +2592,22 @@ if (typeof NProgress != 'undefined') {
                     if(title!="")
 				    $(this).html('<input type="text" class="form-control inputfiltro" placeholder="' + title + '" />');
 				});
-				var nacional = $('#tabla-nacional').DataTable({
+				var nacional = $('#tabla-Nacional').DataTable({
 				    autoWidth: false,
 				    columnDefs: columnas,
 				    language: espaniol
 				});
-				var local = $('#tabla-local').DataTable({
+				var local = $('#tabla-Local').DataTable({
 				    autoWidth: false,
 				    columnDefs: columnas,
 				    language: espaniol
 				});
-				var servicio = $('#tabla-servicio').DataTable({
+				var servicio = $('#tabla-Servicios').DataTable({
 				    autoWidth: false,
 				    columnDefs: columnas,
 				    language: espaniol
 			    });
-				var internet = $('#tabla-internet').DataTable({
+				var internet = $('#tabla-Internet').DataTable({
 				    autoWidth: false,
 				    columnDefs: columnas,
 				    language: espaniol
