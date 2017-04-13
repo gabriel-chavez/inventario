@@ -5,6 +5,7 @@ namespace sistemainventario.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class oficinas
     {
@@ -37,5 +38,25 @@ namespace sistemainventario.Models
         public virtual ICollection<enlaces> enlaces { get; set; }
 
         public virtual tipoOficina tipoOficina { get; set; }
+
+
+
+        public List<oficinas> Listar()
+        {
+            List<oficinas> oficinas = new List<oficinas>();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    oficinas = ctx.oficinas.ToList();       
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return oficinas;
+        }
     }
 }

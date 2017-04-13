@@ -5,6 +5,7 @@ namespace sistemainventario.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class proveedores
     {
@@ -39,5 +40,23 @@ namespace sistemainventario.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enlaces> enlaces { get; set; }
+
+        public List<proveedores> Listar()
+        {
+            List<proveedores> proveedores = new List<proveedores>();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    proveedores = ctx.proveedores.ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return proveedores;
+        }
     }
 }

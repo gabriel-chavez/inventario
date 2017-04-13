@@ -2587,10 +2587,11 @@ if (typeof NProgress != 'undefined') {
                        { width: '10%', targets: 10 },  // column 3 out of 4
 			    ]
 				
-				$('.tabla-enlaces tfoot th').each(function () {
+			    $('.tabla-enlaces tfoot.filtros th').each(function () {
+			        
 				    var title = $(this).text();
-                    if(title!="")
-				    $(this).html('<input type="text" class="form-control inputfiltro" placeholder="' + title + '" />');
+                    if(title!="")                        
+                        $(this).html('<input type="text" class="form-control inputfiltro" placeholder="' + title + '" />');
 				});
 				var nacional = $('#tabla-Nacional').DataTable({
 				    autoWidth: false,

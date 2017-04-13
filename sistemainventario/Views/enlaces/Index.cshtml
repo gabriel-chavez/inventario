@@ -2,6 +2,11 @@
 
 @{
     //WebApplication2.Models.PessoaAplic Pessoa = (WebApplication2.Models.PessoaAplic)ViewBag.DadosPessoa;
+
+    var oficinas = ViewBag.oficinas;
+    var proveedores = ViewBag.proveedores;
+    var enlacesTipo = ViewBag.enlacesTipo;
+    var enlacesTecnologia = ViewBag.enlacesTecnologia;
     List<sistemainventario.Models.enlaces> enlacesNacional = ViewBag.nacional;
     List<sistemainventario.Models.enlaces> enlacesLocal = ViewBag.local;
     List<sistemainventario.Models.enlaces> enlacesServicios = ViewBag.servicios;
@@ -83,7 +88,9 @@
         </div>
     </div>
 </div> 
-
+@*var oficinas = ViewBag.oficinas;
+    var proveedores = ViewBag.proveedores;
+    var enlacesTipo = ViewBag.enlacesTipo;*@
 
 <!-- Modal -->
 <form action=" " method="post" id="form_linea">
@@ -101,67 +108,104 @@
                     <fieldset>
                         <!-- Oficina-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="modalnombrelinea">Linea</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <input autofocus name="" placeholder="Oficina" id="" class="form-control" type="text" style="text-transform:uppercase; " onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                </div>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Oficina<span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <!--<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">-->
+                                <select class="form-control col-md-7 col-xs-12">
+                                    @foreach(var fila in oficinas)
+                                    {
+                                        <option value="@fila.oficinaID">@fila.nombre_oficina</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                         <!-- Proveedor-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="modalnombrelinea">Proveedor</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <input autofocus name="" placeholder="Oficina" id="" class="form-control" type="text" style="text-transform:uppercase; " onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                </div>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Proveedor <span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12">
+                                    @foreach (var fila in proveedores)
+                                    {
+                                        <option value="@fila.proveedorID">@fila.proveedor</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                         <!-- Tipo Enlace-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="modalnombrelinea">Tipo Enlace</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <input autofocus name="" placeholder="Oficina" id="" class="form-control" type="text" style="text-transform:uppercase; " onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                </div>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Tipo <span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12">
+                                    @foreach (var fila in enlacesTipo)
+                                    {
+                                        <option value="@fila.enlaceTipoID">@fila.tipo</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Enlace-->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Enlace <span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12">                                   
+                                    <option value="1">Primario</option>                                   
+                                    <option value="1">Secundario</option>                                   
+                                </select>
                             </div>
                         </div>
                         <!-- Tecnologia-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="modalnombrelinea">Enlace tecnología</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <input autofocus name="" placeholder="Oficina" id="" class="form-control" type="text" style="text-transform:uppercase; " onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                </div>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Tecnologia <span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12">
+                                    @foreach (var fila in enlacesTecnologia)
+                                    {
+                                        <option value="@fila.enlaceTecnologiaID">@fila.tecnologia</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                         <!-- Velocidad-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="modalnombrelinea">Velocidad</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <input autofocus name="" placeholder="Oficina" id="" class="form-control" type="text" style="text-transform:uppercase; " onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                </div>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Velocidad <span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <!-- Mensualidad-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="modalnombrelinea">Mensualidad</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <input autofocus name="" placeholder="Oficina" id="" class="form-control" type="text" style="text-transform:uppercase; " onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                </div>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Mensualidad <span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <!-- Observaciones-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="modalnombrelinea">Observaciones</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <input autofocus name="" placeholder="Oficina" id="" class="form-control" type="text" style="text-transform:uppercase; " onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                </div>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Observaciones <span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
+
+
+
+                        
                         <!-- Ciudad
                         <div class="form-group">
                           <label class="col-md-3 control-label">Ciudad</label>
@@ -191,7 +235,7 @@
                         </div>
                     </fieldset>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary" id="bguardar_linea">Guardar</button>
                     </div>
                 </div> <!-- /.<div class="modal-body form">-->

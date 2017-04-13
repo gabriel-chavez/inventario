@@ -21,8 +21,9 @@
                             <th>Observaciones</th>
                             <th></th>
                         </tr>
+                        
                     </thead>
-                    <tfoot>
+                    <tfoot class="filtros">
                         <tr>
                             <th>Oficina</th>
                             <th>Tipo Oficina</th>
@@ -46,7 +47,7 @@
                                 <td>@m.oficinas.tipoOficina.tipo.</td>
                                 <td>@m.oficinas.nroOficina</td>
                                 <td>@m.enlacesTipo.tipo</td>
-                                <td>@m.enlace</td>
+                                <td>@(m.enlace==1?"Primario":"Secundario")</td>
                                 <td>@m.enlacesTecnologia.tecnologia</td>
                                 <td>@m.proveedores.proveedor</td>
                                 <td>@m.velocidad</td>

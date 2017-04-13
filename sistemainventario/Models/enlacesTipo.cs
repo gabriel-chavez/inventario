@@ -5,6 +5,7 @@ namespace sistemainventario.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("enlacesTipo")]
     public partial class enlacesTipo
@@ -23,5 +24,23 @@ namespace sistemainventario.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enlaces> enlaces { get; set; }
+
+        public List<enlacesTipo> Listar()
+        {
+            List<enlacesTipo> enlacesTipo = new List<enlacesTipo>();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    enlacesTipo = ctx.enlacesTipo.ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return enlacesTipo;
+        }
     }
 }
