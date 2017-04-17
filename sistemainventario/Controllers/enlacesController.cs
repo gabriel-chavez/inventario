@@ -21,6 +21,7 @@ namespace sistemainventario.Controllers
                     4	Internet
              */
             var oficinas = new oficinas();
+          
             var proveedores = new proveedores();
             var enlacesTipo = new enlacesTipo();
             var enlacesTecnologia = new enlacesTecnologia();

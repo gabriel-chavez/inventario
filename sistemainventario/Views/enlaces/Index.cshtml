@@ -12,6 +12,7 @@
     List<sistemainventario.Models.enlaces> enlacesServicios = ViewBag.servicios;
     List<sistemainventario.Models.enlaces> enlacesInternet = ViewBag.Internet;
     //sistemainventario.Models.enlaces modeloenlaces = sistemainventario.Models.enlaces;
+    
 }
 @*@Html.TextBoxFor(x => x.enlace, new { @class = "form-control" })*@
 
@@ -51,6 +52,10 @@
                                 <!--Nacional-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesNacional },
+                        { "oficinas", oficinas },
+                        { "proveedores", proveedores },
+                        { "enlacesTipo", enlacesTipo },
+                        { "enlacesTecnologia", enlacesTecnologia },
                         {"titulo","Nacional" }
                 })
                             </div>
@@ -58,6 +63,10 @@
                                 <!--Local-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesLocal },
+                        { "oficinas", oficinas },
+                        { "proveedores", proveedores },
+                        { "enlacesTipo", enlacesTipo },
+                        { "enlacesTecnologia", enlacesTecnologia },
                         {"titulo","Local" }
                 })
 
@@ -66,6 +75,10 @@
                                 <!--Servicio-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesServicios },
+                        { "oficinas", oficinas },
+                        { "proveedores", proveedores },
+                        { "enlacesTipo", enlacesTipo },
+                        { "enlacesTecnologia", enlacesTecnologia },
                         {"titulo","Servicios" }
                 })
                             </div>
@@ -73,6 +86,10 @@
                                 <!--Internet-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesInternet },
+                        { "oficinas", oficinas },
+                        { "proveedores", proveedores },
+                        { "enlacesTipo", enlacesTipo },
+                        { "enlacesTecnologia", enlacesTecnologia },
                         {"titulo","Internet" }
                 })
                             </div>
@@ -93,154 +110,4 @@
     var enlacesTipo = ViewBag.enlacesTipo;*@
 
 <!-- Modal -->
-<form action=" " method="post" id="form_linea">
-    @*@Html.TextBoxFor(x => x.enlace, new { @class = "form-control" })*@
-    <div class="modal fade" id="modalEnlace" role="dialog">
-        <input type="text" name="cod" value="" id="cod_linea" hidden> <!-- input oculto para el codigo de almacen-->
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title modalEnlaceNacionalTitulo"></h3>
-                </div>
-                <!--MODAL BODY-->
-                <div class="modal-body form form-horizontal">
-                    <fieldset>
-                        <!-- Oficina-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Oficina<span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <!--<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">-->
-                                <select class="form-control col-md-7 col-xs-12">
-                                    @foreach(var fila in oficinas)
-                                    {
-                                        <option value="@fila.oficinaID">@fila.nombre_oficina</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Proveedor-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Proveedor <span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12">
-                                    @foreach (var fila in proveedores)
-                                    {
-                                        <option value="@fila.proveedorID">@fila.proveedor</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Tipo Enlace-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Tipo <span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12">
-                                    @foreach (var fila in enlacesTipo)
-                                    {
-                                        <option value="@fila.enlaceTipoID">@fila.tipo</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Enlace-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Enlace <span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12">                                   
-                                    <option value="1">Primario</option>                                   
-                                    <option value="1">Secundario</option>                                   
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Tecnologia-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Tecnologia <span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12">
-                                    @foreach (var fila in enlacesTecnologia)
-                                    {
-                                        <option value="@fila.enlaceTecnologiaID">@fila.tecnologia</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Velocidad-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Velocidad <span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <!-- Mensualidad-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Mensualidad <span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <!-- Observaciones-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Observaciones <span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-
-
-
-                        
-                        <!-- Ciudad
-                        <div class="form-group">
-                          <label class="col-md-3 control-label">Ciudad</label>
-                            <div class="col-md-9 selectContainer">
-                              <div class="input-group">
-                                  <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
-                                <select name="ciudad" class="form-control selectpicker" id="modalciudadalmacen" >
-                                  <option value=" " >Selecciona</option>
-                                  <option>La Paz</option>
-                                  <option>Potosi</option>
-                                  <option >Santa Cruz</option>
-                                  <option >Tarija</option>
-                                </select>
-                             </div>
-                          </div>
-                        </div>-->
-                        <!-- Uso -->
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">En Uso</label>
-                            <div class="col-md-9">
-                                <div class="radio">
-                                    <label><input type="radio" name="enuso" value="1" checked /> Si </label>
-                                    <label><input type="radio" name="enuso" value="0" /> No </label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </fieldset>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary" id="bguardar_linea">Guardar</button>
-                    </div>
-                </div> <!-- /.<div class="modal-body form">-->
-            </div>
-        </div> <!-- /. modal -->
-    </div>
-</form>
 
