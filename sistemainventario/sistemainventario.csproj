@@ -128,6 +128,7 @@
     <Content Include="assets\bootstrap\package.js" />
     <Content Include="assets\css\custom.css" />
     <Content Include="assets\css\custom.min.css" />
+    <Content Include="assets\css\ini.css" />
     <Content Include="assets\fastclick\lib\fastclick.js" />
     <Content Include="assets\font-awesome\.gitignore" />
     <Content Include="assets\font-awesome\css\font-awesome.css" />
@@ -363,6 +364,8 @@
     <Content Include="assets\jquery\src\wrap.js" />
     <Content Include="assets\js\custom.js" />
     <Content Include="assets\js\custom.min.js" />
+    <Content Include="assets\js\funciones.js" />
+    <Content Include="assets\js\ini.js" />
     <Content Include="assets\nprogress\index.html" />
     <Content Include="assets\nprogress\nprogress.css" />
     <Content Include="assets\nprogress\nprogress.js" />
@@ -388,6 +391,7 @@
     <Compile Include="Models\inventarioContext.cs" />
     <Compile Include="Models\oficinas.cs" />
     <Compile Include="Models\proveedores.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\tipoOficina.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

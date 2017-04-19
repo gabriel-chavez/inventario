@@ -7,6 +7,7 @@ namespace sistemainventario.Models
     using System.Data.Entity.Spatial;
     using System.Data.Entity;
     using System.Linq;
+    using Proyecto.Models;
 
     public partial class enlaces
     {
@@ -117,6 +118,25 @@ namespace sistemainventario.Models
                 throw;
             }
             return enlace;
+        }
+        public ResponseModel Guardar()
+        {
+            var rm = new ResponseModel();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    ctx.Entry(this).State = EntityState.Added;
+                    ctx.SaveChanges();
+                    rm.SetResponse(true);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return rm;
         }
     }
 }

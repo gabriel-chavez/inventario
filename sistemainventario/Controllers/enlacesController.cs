@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using sistemainventario.Models;
+using Proyecto.Models;
 
 namespace sistemainventario.Controllers
 {
@@ -49,6 +50,20 @@ namespace sistemainventario.Controllers
             var oficinas = new List <oficinas>();
             
             return oficinas;
+        }
+        public JsonResult GuardarEnlace(enlaces model)
+        {
+            var rm = new ResponseModel();
+            if (ModelState.IsValid)
+            {
+                rm = model.Guardar();
+                if (rm.response)
+                {
+                    // rm.href = Url.Content("~/admin/experiencia?tipo=" + model.Tipo);
+                    rm.message = "se agrego correctamente";
+                }
+            }
+            return Json(rm);
         }
     }
 }

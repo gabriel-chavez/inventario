@@ -74,9 +74,10 @@
 
                 <!-- content ends here -->
 <!-- Modal -->
-<form action=" " method="post" id="form_linea">
-    @*@Html.TextBoxFor(x => x.enlace, new { @class = "form-control" })*@
-    <div class="modal fade" id="@("modalEnlace"+titulo)" role="dialog">
+
+@using (Html.BeginForm("GuardarEnlace", "enlaces", FormMethod.Post))
+{
+    <div class="modal fade" id="@("modalEnlace" + titulo)" role="dialog">
         <input type="text" name="cod" value="" id="cod_linea" hidden> <!-- input oculto para el codigo de almacen-->
         <div class="modal-dialog">
             <div class="modal-content">
@@ -94,10 +95,10 @@
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
                                 <!--<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">-->
-                                <select class="form-control col-md-7 col-xs-12">
+                                <select name="oficinaID" class="form-control col-md-7 col-xs-12">
                                     @foreach (var fila in oficinas)
                                     {
-                                        <option value="@fila.oficinaID" >@fila.nombre_oficina</option>
+                                        <option value="@fila.oficinaID">@fila.nombre_oficina</option>
                                     }
                                 </select>
                             </div>
@@ -108,7 +109,7 @@
                                 Proveedor <span class="required"></span>
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12">
+                                <select name="proveedorID" class="form-control col-md-7 col-xs-12">
                                     @foreach (var fila in proveedores)
                                     {
                                         <option value="@fila.proveedorID">@fila.proveedor</option>
@@ -122,10 +123,10 @@
                                 Tipo <span class="required"></span>
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12" >
+                                <select name="enlaceTipoID" class="form-control col-md-7 col-xs-12">
                                     @foreach (var fila in enlacesTipo)
                                     {
-                                        <option value="@fila.enlaceTipoID" >@fila.tipo</option>
+                                        <option value="@fila.enlaceTipoID">@fila.tipo</option>
                                     }
                                 </select>
                             </div>
@@ -136,7 +137,7 @@
                                 Enlace <span class="required"></span>
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12">
+                                <select name="enlace" class="form-control col-md-7 col-xs-12">
                                     <option value="1">Primario</option>
                                     <option value="1">Secundario</option>
                                 </select>
@@ -148,7 +149,7 @@
                                 Tecnologia <span class="required"></span>
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12">
+                                <select name="enlaceTecnologiaID" class="form-control col-md-7 col-xs-12">
                                     @foreach (var fila in enlacesTecnologia)
                                     {
                                         <option value="@fila.enlaceTecnologiaID">@fila.tecnologia</option>
@@ -162,7 +163,7 @@
                                 Velocidad <span class="required"></span>
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="first-name" required="required" name="velocidad" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <!-- Mensualidad-->
@@ -171,7 +172,7 @@
                                 Mensualidad <span class="required"></span>
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="first-name" required="required" name="mensualidad" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <!-- Observaciones-->
@@ -180,48 +181,58 @@
                                 Observaciones <span class="required"></span>
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input name="observaciones" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-
-
-
-
-                        <!-- Ciudad
-                        <div class="form-group">
-                          <label class="col-md-3 control-label">Ciudad</label>
-                            <div class="col-md-9 selectContainer">
-                              <div class="input-group">
-                                  <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
-                                <select name="ciudad" class="form-control selectpicker" id="modalciudadalmacen" >
-                                  <option value=" " >Selecciona</option>
-                                  <option>La Paz</option>
-                                  <option>Potosi</option>
-                                  <option >Santa Cruz</option>
-                                  <option >Tarija</option>
-                                </select>
-                             </div>
-                          </div>
-                        </div>-->
-                        <!-- Uso -->
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">En Uso</label>
-                            <div class="col-md-9">
-                                <div class="radio">
-                                    <label><input type="radio" name="enuso" value="1" checked /> Si </label>
-                                    <label><input type="radio" name="enuso" value="0" /> No </label>
+                        <input name="estado" value="1" class="hidden"/>
+                        <!--ENLACES SERVICIO-->
+                        <!--Servicio-->
+                        @if (titulo == "Servicios")
+                        {
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Servicio <span class="required"></span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+                            <!--Direccion-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Direccion Servicio <span class="required"></span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                        }
 
-                        </div>
+                        @if (titulo == "Internet")
+                        {
+                            <!--ENLACES INTERNET-->
+                            <!--Servicio-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Plan Internet <span class="required"></span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                        }
+
                     </fieldset>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary" id="bguardar_linea">Guardar</button>
+                        <button type="button" data-reset="true" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="" data-reset="true" data-ajax="true" class="btn btn-primary" id="bguardar_linea">Guardar</button>
                     </div>
                 </div> <!-- /.<div class="modal-body form">-->
             </div>
         </div> <!-- /. modal -->
     </div>
-</form>
+}
+    
+    
+
 
