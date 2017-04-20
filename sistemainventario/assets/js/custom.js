@@ -2603,7 +2603,7 @@ if (typeof NProgress != 'undefined') {
 				    columnDefs: columnas,
 				    language: espaniol
 				});
-				var servicio = $('#tabla-Servicios').DataTable({
+				var servicio = $('#tabla-Servicio').DataTable({
 				    autoWidth: false,
 				    columnDefs: columnas,
 				    language: espaniol

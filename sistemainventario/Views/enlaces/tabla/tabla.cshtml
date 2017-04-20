@@ -73,19 +73,17 @@
                 </table>
 
                 <!-- content ends here -->
-<!-- Modal -->
 
-@using (Html.BeginForm("GuardarEnlace", "enlaces", FormMethod.Post))
-{
-    <div class="modal fade" id="@("modalEnlace" + titulo)" role="dialog">
-        <input type="text" name="cod" value="" id="cod_linea" hidden> <!-- input oculto para el codigo de almacen-->
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <!-- Modal -->
+<div id="@("modalEnlace" + titulo)" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("GuardarEnlace", "enlaces", FormMethod.Post))
+            {
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title modalEnlaceNacionalTitulo"></h3>
+                    <h4 class="modal-title">@("Enlace " + titulo)</h4>
                 </div>
-                <!--MODAL BODY-->
                 <div class="modal-body form form-horizontal">
                     <fieldset>
                         <!-- Oficina-->
@@ -118,7 +116,7 @@
                             </div>
                         </div>
                         <!-- Tipo Enlace-->
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
                                 Tipo <span class="required"></span>
                             </label>
@@ -126,7 +124,7 @@
                                 <select name="enlaceTipoID" class="form-control col-md-7 col-xs-12">
                                     @foreach (var fila in enlacesTipo)
                                     {
-                                        <option value="@fila.enlaceTipoID">@fila.tipo</option>
+                                        <option value="@fila.enlaceTipoID" @(fila.tipo==titulo?"selected":"")>@fila.tipo</option>
                                     }
                                 </select>
                             </div>
@@ -172,29 +170,21 @@
                                 Mensualidad <span class="required"></span>
                             </label>
                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input type="text" id="first-name" required="required" name="mensualidad" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="first-name" required="required" name="mensualidad" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-                        <!-- Observaciones-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Observaciones <span class="required"></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                <input name="observaciones" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <input name="estado" value="1" class="hidden"/>
+                        
+                        <input name="estado" value="1" class="hidden" />
                         <!--ENLACES SERVICIO-->
                         <!--Servicio-->
-                        @if (titulo == "Servicios")
+                        @if (titulo == "Servicio")
                         {
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
                                     Servicio <span class="required"></span>
                                 </label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="first-name" name="_servicio" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <!--Direccion-->
@@ -203,7 +193,7 @@
                                     Direccion Servicio <span class="required"></span>
                                 </label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="first-name" name="_direccion"  class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                         }
@@ -217,22 +207,28 @@
                                     Plan Internet <span class="required"></span>
                                 </label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="first-name" name="_planinternet"  class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                         }
-
+                        <!-- Observaciones-->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Observaciones <span class="required"></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input name="observaciones" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
                     </fieldset>
-                    <div class="modal-footer">
-                        <button type="button" data-reset="true" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="" data-reset="true" data-ajax="true" class="btn btn-primary" id="bguardar_linea">Guardar</button>
-                    </div>
-                </div> <!-- /.<div class="modal-body form">-->
-            </div>
-        </div> <!-- /. modal -->
-    </div>
-}
-    
-    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" data-reset="true" data-ajax="true" class="btn btn-primary">Guardar</button>
+                </div>
+            }
+                </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 

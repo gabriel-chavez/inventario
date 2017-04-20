@@ -53,6 +53,14 @@ namespace sistemainventario.Models
 
         public virtual proveedores proveedores { get; set; }
 
+        /***************PARA GUARDAR**************/
+        [NotMapped] //para evitar traer de la base de datos
+        public string _servicio { get; set; }
+        [NotMapped]
+        public string _direccion { get; set; }
+        [NotMapped]
+        public string _planinternet { get; set; }
+        /*****************FIN*******************/
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enlacesInternet> enlacesInternet { get; set; }
 
@@ -119,14 +127,63 @@ namespace sistemainventario.Models
             }
             return enlace;
         }
+        public ResponseModel ObtenerAjax(int id)
+        {
+            enlaces enlace = new enlaces();
+            var rm = new ResponseModel();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {                 
+                    enlace = ctx.enlaces.Include("proveedores")
+                                       .Include("oficinas")
+                                       .Include("oficinas.ciudades")
+                                       .Include("oficinas.tipoOficina")
+                                       .Include("oficinas.ciudades.departamentos")
+                                       .Include("enlacesTipo")
+                                       .Include("enlacesTecnologia")
+                                       .Include("enlacesServicios")
+                                       .Include("enlacesInternet")
+                                       .Include(x => x.contratos)
+                                       .Where(x => x.enlaceID == id)
+                                       .SingleOrDefault();
+                    enlace.contratos = enlace.contratos.OrderByDescending(x => x.contratoID).ToList();
+                }
+                rm.response = true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            //return enlace;
+            return rm;
+        }
         public ResponseModel Guardar()
         {
             var rm = new ResponseModel();
+          
+            
             try
             {
                 using (var ctx = new inventarioContext())
                 {
                     ctx.Entry(this).State = EntityState.Added;
+                    
+                    if(this.enlaceTipoID==3)//servicios
+                    {
+                        var servicios = new enlacesServicios();
+                        servicios.enlaceID = this.enlaceID;
+                        servicios.servicio = this._servicio;
+                        servicios.direccion = this._direccion;
+                        ctx.Entry(servicios).State = EntityState.Added;                                    
+                    }
+                    if (this.enlaceTipoID == 4)//servicios
+                    {
+                        var internet = new enlacesInternet();
+                        internet.enlaceID = this.enlaceID;
+                        internet.planinternet = this._planinternet;
+                        ctx.Entry(internet).State = EntityState.Added;
+                    }
                     ctx.SaveChanges();
                     rm.SetResponse(true);
                 }

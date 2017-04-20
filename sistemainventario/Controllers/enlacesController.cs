@@ -59,8 +59,8 @@ namespace sistemainventario.Controllers
                 rm = model.Guardar();
                 if (rm.response)
                 {
-                    // rm.href = Url.Content("~/admin/experiencia?tipo=" + model.Tipo);
-                    rm.message = "se agrego correctamente";
+                    rm.href = Url.Content("self");//refresca pantalla
+                    rm.message = "Se agrego correctamente";
                 }
             }
             return Json(rm);

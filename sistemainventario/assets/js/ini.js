@@ -6,12 +6,12 @@
 
         // El metodo .data identifica la entrada y la castea al valor más correcto
         if ($(this).data('ajax') != true) return;
-
+        
         var form = $(this).closest("form");
         var buttons = $("button", form);
         var button = $(this);
         var url = form.attr('action');
-
+        
         if (button.data('confirm') != undefined) {
             if (button.data('confirm') == '') {
                 if (!confirm('¿Esta seguro de realizar esta acción?')) return false;
@@ -19,17 +19,22 @@
                 if (!confirm(button.data('confirm'))) return false;
             }
         }
-
+       
+        
         if (button.data('delete') != undefined) {
             if (button.data('delete') == true) {
                 url = button.data('url');
             }
         } else {
-            if (!form.valid()) {
-                return false;
-            }
+           
+            //if (!form.valid()) {
+               
+            //    return false;
+            //}
+           
         }
-
+        
+        
         // Creamos un div que bloqueara todo el formulario
         var block = $('<div class="block-loading" />');
         form.prepend(block);
@@ -39,12 +44,14 @@
 
         // Para los formularios que tengan CKupdate
         if (form.hasClass('CKupdate')) CKupdate();
-
+       
+        
         form.ajaxSubmit({
             dataType: 'JSON',
             type: 'POST',
             url: url,
             success: function (r) {
+               
                 block.remove();
                 if (r.response) {
                     if (!button.data('reset') != undefined) {
@@ -56,14 +63,14 @@
                 }
 
                 // Mostrar mensaje
-                alert(r.message)
+                
                 if (r.message != null) {
                     
                     if (r.message.length > 0) {
                         var css = "";
                         if (r.response) css = "alert-success";
                         else css = "alert-danger";
-
+                       
                         var message = '<div class="alert ' + css + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + r.message + '</div>';
                         form.prepend(message);
                     }
@@ -80,17 +87,19 @@
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                
                 block.remove();
                 form.prepend('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + errorThrown + ' | <b>' + textStatus + '</b></div>');
             }
         });
-
+        
         return false;
     })
 })
 
 jQuery.fn.reset = function () {
     $("input:password,input:file,input:text,textarea", $(this)).val('');
+    $("input[type=number]", $(this)).val("")
     $("input:checkbox:checked", $(this)).click();
     $("select").each(function () {
         $(this).val($("option:first", $(this)).val());
