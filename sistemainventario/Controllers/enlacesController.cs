@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using sistemainventario.Models;
 using Proyecto.Models;
 
+
 namespace sistemainventario.Controllers
 {
     public class enlacesController : Controller
@@ -40,10 +41,19 @@ namespace sistemainventario.Controllers
             return View(enlaces);
         }
         public ActionResult VerEnlace(int id)
-        {
-           
-
+        {           
             return View(enlaces.Obtener(id));
+        }
+        public JsonResult VerEnlaceAjax(int id)
+        {
+            var rm = new ResponseModel();
+            // if (Request.IsAjaxRequest())
+            //{
+             rm = enlaces.ObtenerAjax(id);
+            //rm.result = "nn";
+            //}
+
+            return Json(rm);
         }
         public List<oficinas> retornarOficinas()
         {

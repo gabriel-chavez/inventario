@@ -11,13 +11,13 @@ namespace sistemainventario.Models
 
     public partial class enlaces
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public enlaces()
-        {
-            contratos = new HashSet<contratos>();
-            enlacesInternet = new HashSet<enlacesInternet>();
-            enlacesServicios = new HashSet<enlacesServicios>();
-        }
+       // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        //public enlaces()
+        //{
+        //    contratos = new HashSet<contratos>();
+        //    enlacesInternet = new HashSet<enlacesInternet>();
+        //    enlacesServicios = new HashSet<enlacesServicios>();
+        //}
 
         [Key]
         public int enlaceID { get; set; }
@@ -61,10 +61,10 @@ namespace sistemainventario.Models
         [NotMapped]
         public string _planinternet { get; set; }
         /*****************FIN*******************/
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enlacesInternet> enlacesInternet { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+       // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enlacesServicios> enlacesServicios { get; set; }
         /*********************************/
         public List<enlaces> Listar(int tipo)
@@ -133,30 +133,40 @@ namespace sistemainventario.Models
             var rm = new ResponseModel();
             try
             {
+                
                 using (var ctx = new inventarioContext())
-                {                 
+                {
+                    // ctx.Configuration.LazyLoadingEnabled = false;
+                    //ctx.Configuration.ProxyCreationEnabled = false;// para retornar Json
+                    ctx.Configuration.ProxyCreationEnabled = false;
+
+
                     enlace = ctx.enlaces.Include("proveedores")
                                        .Include("oficinas")
                                        .Include("oficinas.ciudades")
                                        .Include("oficinas.tipoOficina")
                                        .Include("oficinas.ciudades.departamentos")
-                                       .Include("enlacesTipo")
+                                       .Include("enlacesTipo")//aqui esta el problema
                                        .Include("enlacesTecnologia")
                                        .Include("enlacesServicios")
                                        .Include("enlacesInternet")
                                        .Include(x => x.contratos)
                                        .Where(x => x.enlaceID == id)
+                                       
                                        .SingleOrDefault();
+                                       
                     enlace.contratos = enlace.contratos.OrderByDescending(x => x.contratoID).ToList();
                 }
                 rm.response = true;
+                rm.result = (enlace);
             }
             catch (Exception)
             {
                 throw;
             }
-            //return enlace;
-            return rm;
+            
+            return (rm);
+           // return this.Json
         }
         public ResponseModel Guardar()
         {
