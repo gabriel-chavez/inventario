@@ -118,7 +118,7 @@
 
                     block.remove();                   
                     // Mostrar mensaje
-
+                    console.log(JSON.parse(r.result))
                     if (r.message != null) {
 
                         if (r.message.length > 0) {

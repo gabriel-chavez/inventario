@@ -8,6 +8,7 @@ namespace sistemainventario.Models
     using System.Data.Entity;
     using System.Linq;
     using Proyecto.Models;
+    using Newtonsoft.Json;
 
     public partial class enlaces
     {
@@ -154,11 +155,20 @@ namespace sistemainventario.Models
                                        .Where(x => x.enlaceID == id)
                                        
                                        .SingleOrDefault();
-                                       
+                   
+
                     enlace.contratos = enlace.contratos.OrderByDescending(x => x.contratoID).ToList();
                 }
                 rm.response = true;
-                rm.result = (enlace);
+                rm.message = "";
+                /****SERIALIZAR A JSON CON JSON.NET*****/
+                rm.result = JsonConvert.SerializeObject(enlace,Formatting.Indented,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                        }
+                    );
+                /****FIN SERIALIZAR A JSON CON JSON.NET*****/
             }
             catch (Exception)
             {
