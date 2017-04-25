@@ -97,3 +97,33 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    function datosModal(x)
+    {
+        var result=JSON.parse(x.result)
+        console.log(result)
+        $("#nroOficina").html(result.oficinas.nroOficina);
+        $("#nombreOficina").html(result.oficinas.nombre_oficina);
+        $("#tipoOficina").html(result.oficinas.tipoOficina.tipo);
+        $("#departamento").html(result.oficinas.ciudades.departamentos.departamento);
+        $("#ciudad").html(result.oficinas.ciudades.ciudad);
+        $("#direccion").html(result.oficinas.direccion);
+
+        var enlace = (result.enlace == 1) ? "Primario" : "Secundario";
+        var contratos = "";
+        if (result.contratos > 0) {            
+            $.each(result.contratos, function (index, value) {
+                contratos += rvalue.contrato+",";
+            })
+        }
+            
+
+        $("#enlace").html(enlace)
+        $("#proveedor").html(result.proveedores.proveedor);
+        $("#contrato").html(contratos);
+        $("#tecnologia").html();
+
+
+        $("#modal_verEnlace").modal("show");
+    }
+</script>

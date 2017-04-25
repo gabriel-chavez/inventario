@@ -170,6 +170,8 @@ namespace sistemainventario.Models
                         }
                     );
                 /****FIN SERIALIZAR A JSON CON JSON.NET*****/
+                // rm.function = "datosModal(r)";
+                rm.function = "datosModal";
             }
             catch (Exception)
             {

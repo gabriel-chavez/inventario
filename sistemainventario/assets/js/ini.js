@@ -118,7 +118,8 @@
 
                     block.remove();                   
                     // Mostrar mensaje
-                    console.log(JSON.parse(r.result))
+                    //console.log(JSON.parse(r.result))
+                    //console.log(r);
                     if (r.message != null) {
 
                         if (r.message.length > 0) {
@@ -130,10 +131,14 @@
                             content.prepend(message);
                         }
                     }
-
+                   // datosModal(r)
                     // Ejecutar funciones
                     if (r.function != null) {
-                        setTimeout(r.function, 0);
+                      
+                      //  setTimeout(func, 0);
+                        var fname = r.function
+                        eval(fname + '(r)');
+
                     }
                     // Redireccionar
                     if (r.href != null) {
