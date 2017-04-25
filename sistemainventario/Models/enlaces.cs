@@ -8,7 +8,7 @@ namespace sistemainventario.Models
     using System.Data.Entity;
     using System.Linq;
     using Proyecto.Models;
-
+    [Serializable]
     public partial class enlaces
     {
        // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -42,7 +42,7 @@ namespace sistemainventario.Models
 
         public byte estado { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        
         public virtual ICollection<contratos> contratos { get; set; }
 
         public virtual enlacesTecnologia enlacesTecnologia { get; set; }
@@ -129,7 +129,7 @@ namespace sistemainventario.Models
         }
         public ResponseModel ObtenerAjax(int id)
         {
-            enlaces enlace = new enlaces();
+            enlaces enlaceAjax = new enlaces();
             var rm = new ResponseModel();
             try
             {
@@ -141,7 +141,7 @@ namespace sistemainventario.Models
                     ctx.Configuration.ProxyCreationEnabled = false;
 
 
-                    enlace = ctx.enlaces.Include("proveedores")
+                    enlaceAjax = ctx.enlaces.Include("proveedores")
                                        .Include("oficinas")
                                        .Include("oficinas.ciudades")
                                        .Include("oficinas.tipoOficina")
@@ -154,11 +154,11 @@ namespace sistemainventario.Models
                                        .Where(x => x.enlaceID == id)
                                        
                                        .SingleOrDefault();
-                                       
-                    enlace.contratos = enlace.contratos.OrderByDescending(x => x.contratoID).ToList();
+
+                    enlaceAjax.contratos = enlaceAjax.contratos.OrderByDescending(x => x.contratoID).ToList();
                 }
                 rm.response = true;
-                rm.result = (enlace);
+                rm.result =enlaceAjax;
             }
             catch (Exception)
             {
