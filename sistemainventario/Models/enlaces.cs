@@ -8,7 +8,8 @@ namespace sistemainventario.Models
     using System.Data.Entity;
     using System.Linq;
     using Proyecto.Models;
-    [Serializable]
+    using Newtonsoft.Json;
+
     public partial class enlaces
     {
        // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -42,7 +43,7 @@ namespace sistemainventario.Models
 
         public byte estado { get; set; }
 
-        
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contratos> contratos { get; set; }
 
         public virtual enlacesTecnologia enlacesTecnologia { get; set; }
@@ -129,7 +130,7 @@ namespace sistemainventario.Models
         }
         public ResponseModel ObtenerAjax(int id)
         {
-            enlaces enlaceAjax = new enlaces();
+            enlaces enlace = new enlaces();
             var rm = new ResponseModel();
             try
             {
@@ -141,7 +142,7 @@ namespace sistemainventario.Models
                     ctx.Configuration.ProxyCreationEnabled = false;
 
 
-                    enlaceAjax = ctx.enlaces.Include("proveedores")
+                    enlace = ctx.enlaces.Include("proveedores")
                                        .Include("oficinas")
                                        .Include("oficinas.ciudades")
                                        .Include("oficinas.tipoOficina")
@@ -154,11 +155,20 @@ namespace sistemainventario.Models
                                        .Where(x => x.enlaceID == id)
                                        
                                        .SingleOrDefault();
+                   
 
-                    enlaceAjax.contratos = enlaceAjax.contratos.OrderByDescending(x => x.contratoID).ToList();
+                    enlace.contratos = enlace.contratos.OrderByDescending(x => x.contratoID).ToList();
                 }
                 rm.response = true;
-                rm.result =enlaceAjax;
+                rm.message = "";
+                /****SERIALIZAR A JSON CON JSON.NET*****/
+                rm.result = JsonConvert.SerializeObject(enlace,Formatting.Indented,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                        }
+                    );
+                /****FIN SERIALIZAR A JSON CON JSON.NET*****/
             }
             catch (Exception)
             {
