@@ -43,7 +43,7 @@ namespace sistemainventario.Models
 
         public byte estado { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        
         public virtual ICollection<contratos> contratos { get; set; }
 
         public virtual enlacesTecnologia enlacesTecnologia { get; set; }
@@ -130,7 +130,7 @@ namespace sistemainventario.Models
         }
         public ResponseModel ObtenerAjax(int id)
         {
-            enlaces enlace = new enlaces();
+            enlaces enlaceAjax = new enlaces();
             var rm = new ResponseModel();
             try
             {
@@ -142,7 +142,7 @@ namespace sistemainventario.Models
                     ctx.Configuration.ProxyCreationEnabled = false;
 
 
-                    enlace = ctx.enlaces.Include("proveedores")
+                    enlaceAjax = ctx.enlaces.Include("proveedores")
                                        .Include("oficinas")
                                        .Include("oficinas.ciudades")
                                        .Include("oficinas.tipoOficina")
@@ -155,14 +155,15 @@ namespace sistemainventario.Models
                                        .Where(x => x.enlaceID == id)
                                        
                                        .SingleOrDefault();
-                   
 
-                    enlace.contratos = enlace.contratos.OrderByDescending(x => x.contratoID).ToList();
+
+                    enlaceAjax.contratos = enlaceAjax.contratos.OrderByDescending(x => x.contratoID).ToList();
+                    
                 }
                 rm.response = true;
                 rm.message = "";
                 /****SERIALIZAR A JSON CON JSON.NET*****/
-                rm.result = JsonConvert.SerializeObject(enlace,Formatting.Indented,
+                rm.result = JsonConvert.SerializeObject(enlaceAjax, Formatting.Indented,
                         new JsonSerializerSettings()
                         {
                             ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
