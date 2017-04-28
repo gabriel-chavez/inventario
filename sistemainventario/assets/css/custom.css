@@ -148,7 +148,7 @@ html , body{
 }
 .nav-sm .container.body .col-md-3.left_col {
     min-height: 100%;
-    width: 70px;
+    width: 85px;
     padding: 0;
     z-index: 9999;
     position: absolute
@@ -166,7 +166,7 @@ html , body{
 }
 .nav-sm .container.body .right_col {
     padding: 10px 20px;
-    margin-left: 70px;
+    margin-left: 85px;
     z-index: 2
 }
 .nav-sm .navbar.nav_title {
@@ -186,7 +186,7 @@ html , body{
 }
 .nav-sm .main_container .top_nav {
     display: block;
-    margin-left: 70px;
+    margin-left: 85px;
     z-index: 2
 }
 .nav-sm .nav.side-menu li a {
@@ -817,7 +817,7 @@ a:focus {
     display: block;
     height: 55px;
     margin: 0;
-    padding-left: 10px
+    padding-left: 20px
 }
 .site_title:hover,
 .site_title:focus {

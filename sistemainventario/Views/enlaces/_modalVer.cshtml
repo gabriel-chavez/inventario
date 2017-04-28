@@ -121,9 +121,13 @@
         $("#enlace").html(enlace)
         $("#proveedor").html(result.proveedores.proveedor);
         $("#contrato").html(contratos);
-        $("#tecnologia").html();
+        $("#tecnologia").html(result.enlacesTecnologia.tecnologia);
+        $("#velocidad").html(result.velocidad);
+        $("#mensualidad").html(result.mensualidad);
+        $("#observaciones").html(result.observaciones);
 
 
         $("#modal_verEnlace").modal("show");
+    
     }
 </script>
