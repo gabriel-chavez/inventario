@@ -46,13 +46,18 @@ namespace sistemainventario.Controllers
         }
         public JsonResult VerEnlaceAjax(int id)
         {
+            var rm = new ResponseModel();            
+             rm = enlaces.ObtenerAjax(id);                
+            rm.function = "datosModal";
+            return Json(rm);
+        }
+        public JsonResult EditarEnlacesAjax(int id)
+        {
             var rm = new ResponseModel();
-            // if (Request.IsAjaxRequest())
-            //{
-             rm = enlaces.ObtenerAjax(id);
-            //rm.result = "nn";
-            //}
-
+            
+            rm = enlaces.ObtenerAjax(id);
+            
+            rm.function = "editarDatosModal";
             return Json(rm);
         }
         public List<oficinas> retornarOficinas()

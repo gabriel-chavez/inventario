@@ -63,8 +63,8 @@
 
                                 <td class="text-center">
 
-                                    <button class="btn btn-md btn-primary" data-getAjax="true" data-action="enlaces/verenlaceAjax/@m.enlaceID"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                    <a class="btn btn-md btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <button class="btn btn-md btn-primary btn-modalEnlaces"  data-getAjax="true" data-action="enlaces/verenlaceAjax/@m.enlaceID">Detalles</button>
+                                    <button class="btn btn-md btn-primary" data-getAjax="true" data-action="enlaces/editarEnlacesAjax/@m.enlaceID">Editar</button>
 
                                 </td>
                             </tr>
@@ -231,3 +231,92 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!-- Modal2 -->
+<div id="@("modal_verEnlace" + titulo)" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Enlace</h4>
+            </div>
+            <div class="modal-body form form-horizontal" id="modalverenlaces">
+                <!--datos oficina-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="x_panel">
+
+                            <div class="x_content">
+                                <!-- Contenido -->
+                                <dl class="dl-horizontal">
+                                    <dt>Numero de Oficina</dt>
+                                    <dd id="nroOficina"></dd>
+                                    <dt>Oficina</dt>
+                                    <dd id="nombreOficina"></dd>
+                                    <dt>Tipo Oficina</dt>
+                                    <dd id="tipoOficina"></dd>
+                                    <dt>Departamento</dt>
+                                    <dd id="departamento"></dd>
+                                    <dt>Ciudad</dt>
+                                    <dd id="ciudad"></dd>
+                                    <dt>Direccion</dt>
+                                    <dd id="direccion"></dd>
+
+                                </dl>
+                                <!-- FIN Contenido -->
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--datos Enlace-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="x_panel">
+
+                            <div class="x_content">
+                                <!-- Contenido -->
+                                <dl class="dl-horizontal">
+                                    <dt>Enlace</dt>
+                                    <dd id="enlace"></dd>
+                                    <dt>Proveedor</dt>
+                                    <dd id="proveedor"></dd>
+                                    <dt>Contrato</dt>
+                                    <dd id="contrato"></dd>
+                                    <dt>Tecnologia</dt>
+                                    <dd id="tecnologia"></dd>
+                                    <dt>Velocidad</dt>
+                                    <dd id="velocidad"></dd>
+                                    <dt>Mensualidad</dt>
+                                    <dd id="mensualidad"></dd>
+                                    @if (titulo == "Servicio")
+                                    {
+                                        <dt>Servicio</dt>
+                                        <dd id="servicionombre"></dd>
+                                        <dt>Direccion de servicio</dt>
+                                        <dd id="dirservicio"></dd>
+                                    }
+                                    @if (titulo == "Internet")
+                                    {
+                                        <dt>Plan Internet</dt>
+                                        <dd id="planInternet"></dd>
+                                    }
+                                    <dt id="obsservicios">Observaciones</dt>
+                                    <dd id="observaciones"></dd>
+
+                                </dl>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

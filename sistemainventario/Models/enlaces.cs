@@ -170,8 +170,8 @@ namespace sistemainventario.Models
                         }
                     );
                 /****FIN SERIALIZAR A JSON CON JSON.NET*****/
-                // rm.function = "datosModal(r)";
-                rm.function = "datosModal";
+               
+                
             }
             catch (Exception)
             {
@@ -184,28 +184,28 @@ namespace sistemainventario.Models
         public ResponseModel Guardar()
         {
             var rm = new ResponseModel();
-          
-            
+                      
             try
             {
                 using (var ctx = new inventarioContext())
                 {
-                    ctx.Entry(this).State = EntityState.Added;
-                    
-                    if(this.enlaceTipoID==3)//servicios
+                    ctx.Entry(this).State = estadoAgregarEditar(this.enlaceID);
+
+                    if (this.enlaceTipoID==3)//servicios
                     {
                         var servicios = new enlacesServicios();
                         servicios.enlaceID = this.enlaceID;
                         servicios.servicio = this._servicio;
                         servicios.direccion = this._direccion;
-                        ctx.Entry(servicios).State = EntityState.Added;                                    
+
+                        ctx.Entry(servicios).State = estadoAgregarEditar(this.enlaceID);
                     }
                     if (this.enlaceTipoID == 4)//servicios
                     {
                         var internet = new enlacesInternet();
                         internet.enlaceID = this.enlaceID;
                         internet.planinternet = this._planinternet;
-                        ctx.Entry(internet).State = EntityState.Added;
+                        ctx.Entry(internet).State = estadoAgregarEditar(this.enlaceID);
                     }
                     ctx.SaveChanges();
                     rm.SetResponse(true);
@@ -217,6 +217,11 @@ namespace sistemainventario.Models
                 throw;
             }
             return rm;
+        }
+        private EntityState estadoAgregarEditar(int id)
+        {
+            if (id == 0) return EntityState.Added;
+            else return EntityState.Modified;
         }
     }
 }

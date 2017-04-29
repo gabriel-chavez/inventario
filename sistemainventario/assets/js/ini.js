@@ -23,22 +23,16 @@
                     if (!confirm(button.data('confirm'))) return false;
                 }
             }
-
-
             if (button.data('delete') != undefined) {
                 if (button.data('delete') == true) {
                     url = button.data('url');
                 }
             } else {
-
                 //if (!form.valid()) {
 
                 //    return false;
                 //}
-
             }
-
-
             // Creamos un div que bloqueara todo el formulario
             var block = $('<div class="block-loading" />');
             form.prepend(block);
@@ -118,8 +112,7 @@
 
                     block.remove();                   
                     // Mostrar mensaje
-                    //console.log(JSON.parse(r.result))
-                    //console.log(r);
+                
                     if (r.message != null) {
 
                         if (r.message.length > 0) {
@@ -131,7 +124,7 @@
                             content.prepend(message);
                         }
                     }
-                   // datosModal(r)
+                  
                     // Ejecutar funciones
                     if (r.function != null) {
                       
