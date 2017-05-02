@@ -727,6 +727,8 @@
     <Content Include="assets\pdfmake\bower.json" />
     <Content Include="assets\pdfmake\LICENSE" />
     <Content Include="Views\enlaces\_modalVer.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

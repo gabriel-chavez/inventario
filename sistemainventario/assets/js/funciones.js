@@ -9,8 +9,6 @@ if (hash) {
 $('.nav-tabs a').on('shown.bs.tab', function (e) {
     window.location.hash = e.target.hash.replace("#", "#" + prefix);
 });
-
-/***********************/
 function limpiarModalver(modal) {
     dd = $("#modalverenlaces", modal).find("dd").toArray();
     $.each(dd, function (index, value) {
@@ -21,9 +19,9 @@ function datosModal(x) {
    
     var result = JSON.parse(x.result)
     var modal = "#modal_verEnlace" + result.enlacesTipo.tipo
-    limpiarModalver(modal);
+    limpiarModalver(result);
     //console.log(modal)
-
+    console.log(result)
     $("#nroOficina",modal).html(result.oficinas.nroOficina);
     $("#nombreOficina", modal).html(result.oficinas.nombre_oficina);
     $("#tipoOficina", modal).html(result.oficinas.tipoOficina.tipo);
@@ -31,7 +29,7 @@ function datosModal(x) {
     $("#ciudad", modal).html(result.oficinas.ciudades.ciudad);
     $("#direccion", modal).html(result.oficinas.direccion);
 
-    var enlace = (result.enlace == 1) ? "Primario" : "Secundario";
+    var enlace = (result.enlace === 1) ? "Primario" : "Secundario";
     var contratos = "";
     if (result.contratos > 0) {
         $.each(result.contratos, function (index, value) {
@@ -51,10 +49,10 @@ function datosModal(x) {
         $("#dirservicio", modal).html(result.enlacesServicios[0].direccion);
     }
     /*INTERNET*/
-
+    
     if (result.enlacesInternet.length > 0) {
-        $("#planInternet", modal).val(result.enlacesInternet[0].planinternet);
-
+        $("#planInternet", modal).html(result.enlacesInternet[0].planinternet);
+        
     }
     $("#observaciones", modal).html(result.observaciones);
     $(modal).modal("show");
@@ -85,6 +83,7 @@ function editarDatosModal (x) {
 
     if (result.enlacesInternet.length > 0) {
         $("#_planinternet", modal).val(result.enlacesInternet[0].planinternet);
+        $("#enlacesInternetID", modal).val(result.enlacesInternet[0].enlacesInternetID);
         
     }
     $("#observaciones", modal).val(result.observaciones);
