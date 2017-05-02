@@ -11,7 +11,7 @@ $('.nav-tabs a').on('shown.bs.tab', function (e) {
 });
 
 /***********************/
-function limpiarModal(modal) {
+function limpiarModalver(modal) {
     dd = $("#modalverenlaces", modal).find("dd").toArray();
     $.each(dd, function (index, value) {
         $(value).html("");
@@ -21,8 +21,8 @@ function datosModal(x) {
    
     var result = JSON.parse(x.result)
     var modal = "#modal_verEnlace" + result.enlacesTipo.tipo
-    limpiarModal(modal);
-    console.log(modal)
+    limpiarModalver(modal);
+    //console.log(modal)
 
     $("#nroOficina",modal).html(result.oficinas.nroOficina);
     $("#nombreOficina", modal).html(result.oficinas.nombre_oficina);
@@ -50,7 +50,43 @@ function datosModal(x) {
         $("#servicionombre", modal).html(result.enlacesServicios[0].servicio);
         $("#dirservicio", modal).html(result.enlacesServicios[0].direccion);
     }
+    /*INTERNET*/
+
+    if (result.enlacesInternet.length > 0) {
+        $("#planInternet", modal).val(result.enlacesInternet[0].planinternet);
+
+    }
     $("#observaciones", modal).html(result.observaciones);
     $(modal).modal("show");
+}
+function editarDatosModal (x) {
 
+    var result = JSON.parse(x.result)
+    var modal = "#modalEnlace" + result.enlacesTipo.tipo
+    limpiarModalver(modal);
+    //console.log(modal)
+    console.log(result)
+    $("#enlaceID", modal).val(result.enlaceID);
+    $("#oficinaID", modal).val(result.oficinaID);
+    $("#proveedorID", modal).val(result.proveedorID);
+    $("#enlace", modal).val(result.enlace);
+    $("#enlaceTecnologiaID", modal).val(result.enlacesTecnologia.enlaceTecnologiaID);
+    $("#velocidad", modal).val(result.velocidad);
+    $("#mensualidad", modal).val(result.mensualidad);
+    
+    /*SERVICIO*/
+
+    if (result.enlacesServicios.length > 0) {
+        $("#_servicio", modal).val(result.enlacesServicios[0].servicio);
+        $("#_direccion", modal).val(result.enlacesServicios[0].direccion);
+        $("#enlaceServicioID", modal).val(result.enlacesServicios[0].enlaceServicioID);        
+    }
+    /*INTERNET*/
+
+    if (result.enlacesInternet.length > 0) {
+        $("#_planinternet", modal).val(result.enlacesInternet[0].planinternet);
+        
+    }
+    $("#observaciones", modal).val(result.observaciones);
+    $(modal).modal("show");
 }

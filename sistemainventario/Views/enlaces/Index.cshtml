@@ -37,18 +37,21 @@
                 </div>*@
                 <div class="x_content">
                     <!-- content starts here -->
-                    <div>
+                    @*<div>*@
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
+
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#nacional" aria-controls="home" role="tab" data-toggle="tab">Enlace Nacional</a></li>
                             <li role="presentation"><a href="#local" aria-controls="profile" role="tab" data-toggle="tab">Enlaces Local</a></li>
                             <li role="presentation"><a href="#servicio" aria-controls="messages" role="tab" data-toggle="tab">Enlaces Servicio</a></li>
                             <li role="presentation"><a href="#internet" aria-controls="settings" role="tab" data-toggle="tab">Enlaces Internet</a></li>
+
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="nacional">
+                            <div role="tabpanel" class="tab-pane active fade active in" id="nacional">
                                 <!--Nacional-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesNacional },
@@ -59,7 +62,7 @@
                         {"titulo","Nacional" }
                 })
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="local">
+                            <div role="tabpanel" class="tab-pane fade active in" id="local">
                                 <!--Local-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesLocal },
@@ -71,7 +74,7 @@
                 })
 
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="servicio">
+                            <div role="tabpanel" class="tab-pane fade active in" id="servicio">
                                 <!--Servicio-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesServicios },
@@ -82,7 +85,7 @@
                         {"titulo","Servicio" }
                 })
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="internet">
+                            <div role="tabpanel" class="tab-pane fade active in" id="internet" >
                                 <!--Internet-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesInternet },
@@ -100,6 +103,7 @@
                     <div class="clearfix"></div>
                     @{      /*Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath*/
                     }
+                    
                 </div>
             </div>
         </div>
@@ -108,8 +112,5 @@
 @*var oficinas = ViewBag.oficinas;
     var proveedores = ViewBag.proveedores;
     var enlacesTipo = ViewBag.enlacesTipo;*@
-
-<!-- Modal -->
-<button style="margin-right:0px" class="btn btn-default btn-md pull-right" data-toggle="modal" data-target="#modal_verEnlace">Agregar Nuevo enlace</button>
 
 

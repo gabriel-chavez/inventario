@@ -61,6 +61,10 @@ namespace sistemainventario.Models
         public string _direccion { get; set; }
         [NotMapped]
         public string _planinternet { get; set; }
+        [NotMapped]
+        public int enlaceServicioID { get; set; }
+        [NotMapped]
+        public int enlacesInternetID { get; set; }
         /*****************FIN*******************/
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enlacesInternet> enlacesInternet { get; set; }
@@ -189,7 +193,7 @@ namespace sistemainventario.Models
             {
                 using (var ctx = new inventarioContext())
                 {
-                    ctx.Entry(this).State = estadoAgregarEditar(this.enlaceID);
+                    ctx.Entry(this).State = EstadoAgregarEditar(this.enlaceID);
 
                     if (this.enlaceTipoID==3)//servicios
                     {
@@ -197,28 +201,29 @@ namespace sistemainventario.Models
                         servicios.enlaceID = this.enlaceID;
                         servicios.servicio = this._servicio;
                         servicios.direccion = this._direccion;
-
-                        ctx.Entry(servicios).State = estadoAgregarEditar(this.enlaceID);
+                        servicios.enlaceServicioID = this.enlaceServicioID;
+                        ctx.Entry(servicios).State = EstadoAgregarEditar(this.enlaceServicioID);
                     }
                     if (this.enlaceTipoID == 4)//servicios
                     {
                         var internet = new enlacesInternet();
                         internet.enlaceID = this.enlaceID;
                         internet.planinternet = this._planinternet;
-                        ctx.Entry(internet).State = estadoAgregarEditar(this.enlaceID);
+                        internet.enlacesInternetID = this.enlacesInternetID;
+                        ctx.Entry(internet).State = EstadoAgregarEditar(this.enlacesInternetID);
                     }
                     ctx.SaveChanges();
                     rm.SetResponse(true);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 throw;
             }
             return rm;
         }
-        private EntityState estadoAgregarEditar(int id)
+        private EntityState EstadoAgregarEditar(int id)
         {
             if (id == 0) return EntityState.Added;
             else return EntityState.Modified;
