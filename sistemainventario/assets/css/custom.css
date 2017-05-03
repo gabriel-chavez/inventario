@@ -2933,14 +2933,28 @@ ul.messages li .message_wrapper {
 ul.messages li .message_wrapper h4.heading {
     font-weight: 600;
     margin: 0;
-    cursor: pointer;
+    /*cursor: pointer;*/
     margin-bottom: 10px;
     line-height: 100%
+}
+ul.messages li .message_wrapper h4.heading span {
+    font-size: 12px;
+    font-weight: normal;
+    font-style: italic;
+    margin-left:5px;
 }
 ul.messages li .message_wrapper blockquote {
     padding: 0px 10px;
     margin: 0;
-    border-left: 5px solid #eee
+    border-left: 5px solid #eee;
+    font-size:14px;
+}
+ul.messages li .message_date h3, p.month {
+    margin-bottom: 1px;
+}
+
+ul.messages li .message_date p.year {
+    font-size:smaller;
 }
 ul.user_data li {
     margin-bottom: 6px
