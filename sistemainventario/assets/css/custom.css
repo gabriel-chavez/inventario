@@ -3019,6 +3019,9 @@ ul.project_files li a i {
     font-weight: bold;
     margin-bottom: 0
 }
+.project_detail p.texto{
+    margin-bottom:0px;
+}
 .avatar img {
     border-radius: 50%;
     max-width: 45px

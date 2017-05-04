@@ -20,9 +20,8 @@
                     <li>
                         <a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="#">Dashboard</a></li>
-                            <!--<li><a href="#">Dashboard2</a></li>
-                            <li><a href="#">Dashboard3</a></li>-->
+                            <li><a href="#">Principal</a></li>
+                            
                         </ul>
                     </li>                    
                 </ul>
@@ -32,6 +31,15 @@
                         <ul class="nav child_menu">
                             <li><a href="@(Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath)enlaces">Enlaces de comunicacion</a></li>
                             
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav side-menu">
+                    <li>
+                        <a><i class="fa fa-check-square-o"></i> Asignacion de Tareas <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="@(Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath)tareas">Tareas</a></li>
+
                         </ul>
                     </li>
                 </ul>
