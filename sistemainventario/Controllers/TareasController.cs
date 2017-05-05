@@ -13,5 +13,9 @@ namespace sistemainventario.Controllers
         {
             return View();
         }
+        public ActionResult Ver()
+        {
+            return View();
+        }
     }
 }

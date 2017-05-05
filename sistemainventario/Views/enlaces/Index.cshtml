@@ -51,7 +51,7 @@
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active fade active in" id="nacional">
+                            <div role="tabpanel" class="tab-pane active fade  in" id="nacional">
                                 <!--Nacional-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesNacional },
@@ -62,7 +62,7 @@
                         {"titulo","Nacional" }
                 })
                             </div>
-                            <div role="tabpanel" class="tab-pane fade active in" id="local">
+                            <div role="tabpanel" class="tab-pane fade  in" id="local">
                                 <!--Local-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesLocal },
@@ -74,7 +74,7 @@
                 })
 
                             </div>
-                            <div role="tabpanel" class="tab-pane fade active in" id="servicio">
+                            <div role="tabpanel" class="tab-pane fade  in" id="servicio">
                                 <!--Servicio-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesServicios },
@@ -85,7 +85,7 @@
                         {"titulo","Servicio" }
                 })
                             </div>
-                            <div role="tabpanel" class="tab-pane fade active in" id="internet" >
+                            <div role="tabpanel" class="tab-pane fade  in" id="internet" >
                                 <!--Internet-->
                                 @Html.Partial("tabla/tabla", new ViewDataDictionary {
                         { "datos", enlacesInternet },

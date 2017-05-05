@@ -2906,11 +2906,11 @@ ul.messages {
     padding: 0;
     list-style: none
 }
-ul.messages li,
-.tasks li {
-    border-bottom: 1px dotted #e6e6e6;
-    padding: 8px 0
-}
+    ul.messages li,
+    .tasks li {
+        border-bottom: 2px solid #e6e9ed;
+        padding: 8px 0
+    }
 ul.messages li img.avatar,
 img.avatar {
     height: 32px;

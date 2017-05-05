@@ -463,6 +463,20 @@
     <Content Include="assets\nprogress\nprogress.js" />
     <Content Include="assets\nprogress\support\extras.css" />
     <Content Include="assets\nprogress\support\style.css" />
+    <Content Include="assets\select\bootstrap-select.min.css" />
+    <Content Include="assets\select\bootstrap-select.min.js" />
+    <Content Include="assets\table-boot\css\bootstrap-table.css" />
+    <Content Include="assets\table-boot\css\bootstrap-table11.css" />
+    <Content Include="assets\table-boot\js\bootstrap-table-es-MX.js" />
+    <Content Include="assets\table-boot\js\bootstrap-table-export.js" />
+    <Content Include="assets\table-boot\js\bootstrap-table-filter-control.js" />
+    <Content Include="assets\table-boot\js\bootstrap-table-filter.js" />
+    <Content Include="assets\table-boot\js\bootstrap-table.js" />
+    <Content Include="assets\table-boot\js\tableExport.js" />
+    <Content Include="assets\table-boot\plugin\bootstrap-table-select2-filter.js" />
+    <Content Include="assets\table-boot\plugin\bootstrap-table-select2-filter.min.js" />
+    <Content Include="assets\table-boot\plugin\select2.min.css" />
+    <Content Include="assets\table-boot\plugin\select2.min.js" />
     <Content Include="assets\validate\jquery.validate.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -731,6 +745,7 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <Content Include="Views\Tareas\Index.cshtml" />
+    <Content Include="Views\Tareas\Ver.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
