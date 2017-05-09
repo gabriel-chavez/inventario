@@ -4265,3 +4265,8 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
     
     min-width:unset;
 }
+thead.vertical-align-head>tr>th
+{    
+    vertical-align:middle !important;
+    text-align:center
+}

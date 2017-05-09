@@ -458,6 +458,7 @@
     <Content Include="assets\js\custom.min.js" />
     <Content Include="assets\js\funciones.js" />
     <Content Include="assets\js\ini.js" />
+    <Content Include="assets\js\tareas.js" />
     <Content Include="assets\nprogress\index.html" />
     <Content Include="assets\nprogress\nprogress.css" />
     <Content Include="assets\nprogress\nprogress.js" />
@@ -479,7 +480,9 @@
     <Content Include="assets\table-boot\plugin\select2.min.js" />
     <Content Include="assets\validate\jquery.validate.min.js" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -488,6 +491,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\areas.cs" />
+    <Compile Include="Models\comentarios.cs" />
+    <Compile Include="Models\estadoTarea.cs" />
+    <Compile Include="Models\prioridades.cs" />
+    <Compile Include="Models\responsable.cs" />
+    <Compile Include="Models\tareaResponsable.cs" />
+    <Compile Include="Models\tareas.cs" />
+    <Compile Include="Models\tipoTareas.cs" />
+    <Compile Include="Models\usuariosSistema.cs" />
     <Compile Include="Models\ciudades.cs" />
     <Compile Include="Models\contratos.cs" />
     <Compile Include="Models\departamentos.cs" />
@@ -756,6 +768,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\funciones\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

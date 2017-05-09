@@ -89,3 +89,56 @@ function editarDatosModal (x) {
     $("#observaciones", modal).val(result.observaciones);
     $(modal).modal("show");
 }
+
+function retornarAjax(url)
+{
+    /*****RETORNAR AJAX****************/   
+    var content = $(this).closest("#contenido");        
+    // Creamos un div que bloqueara todo el contenedor
+    var block = $('<div class="block-loading" />');
+    content.prepend(block);
+    // En caso de que haya habido un mensaje de alerta
+    $(".alert", content).remove();
+
+    $.ajax({
+        dataType: 'JSON',
+        type: 'POST',
+        url: url,
+        success: function (r) {
+
+            block.remove();
+            // Mostrar mensaje
+            
+            if (r.message != null) {
+
+                if (r.message.length > 0) {
+                    var css = "";
+                    if (r.response) css = "alert-success";
+                    else css = "alert-danger";
+
+                    var message = '<div class="alert ' + css + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + r.message + '</div>';
+                    content.prepend(message);
+                }
+            }
+
+            // Ejecutar funciones
+            if (r.function != null) {
+
+                //  setTimeout(func, 0);
+                var fname = r.function
+                eval(fname + '(r)');
+
+            }
+            // Redireccionar
+            if (r.href != null) {
+                if (r.href == 'self') window.location.reload(true);
+                else window.location.href = r.href;
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            block.remove();
+            content.prepend('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + errorThrown + ' | <b>' + textStatus + '</b></div>');
+        }
+    });
+}
