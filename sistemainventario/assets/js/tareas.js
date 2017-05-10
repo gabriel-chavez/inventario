@@ -42,7 +42,7 @@ function mostrarTablaTareas(r)
                 field: 'TareaAsignada',
                 width: '30%',
                 title: "Tarea asignada",
-                align: 'right',
+                align: 'center',
                 
                 //align: 'center',
 
@@ -50,8 +50,9 @@ function mostrarTablaTareas(r)
             },
             {
                 field: 'Acciones',
-                title: "Acciones Previstas para su atencion",
+                title: "Acciones previstas <br> para su atencion",
                 width: '5%',
+                align: 'center',
                 //filter: {
                 //    type: "select",
                 //    data: datosselect[0]
@@ -61,8 +62,9 @@ function mostrarTablaTareas(r)
             },
             {
                 field: 'FechaAsignacion',
-                title: "Fecha de asignacion",
+                title: "<div>Fecha de</div><div> asignacion</div>",
                 width: '7%',
+                align: 'center',
                 sortable: true,
                 formatter: formato_fecha_corta,
                 //searchable:false,
@@ -72,9 +74,9 @@ function mostrarTablaTareas(r)
             },
             {
                 field: 'FechaComprometida',
-                title: "Fecha comprometida de cierre",
+                title: "Fecha <br>comprometida <br>de cierre",
                 width: '7%',
-                align: 'right',
+                align: 'center',
                 sortable: true,
                 formatter: formato_fecha_corta,
                 //formatter: operateFormatter3,
@@ -83,7 +85,7 @@ function mostrarTablaTareas(r)
             },
             {
                 field: "HorasDiariasAsignadas",
-                title: "Horas diarias asignadas",
+                title: "Horas <br>diarias <br>asignadas",
                 width: '7%',
                 sortable: true,
                 //filter: {
@@ -97,7 +99,7 @@ function mostrarTablaTareas(r)
             {
                 field: "tareaResponsable",
                 width: '10%',
-                title: "Responsable de la tarea",
+                title: "Responsable <br> de la tarea",
                 sortable: true,
                 //filter: {
                 //    type: "select",
@@ -120,10 +122,10 @@ function mostrarTablaTareas(r)
             {
                 field: "FechaCierre",
                 width: '10%',
-                title: "Fecha de cierre (real)",
+                title: "Fecha de <br>cierre (real)",
                 sortable: true,
                 formatter: formato_fecha_corta,
-             //   visible: false,
+                visible: false,
                 align: 'center',
 
             },
@@ -133,7 +135,7 @@ function mostrarTablaTareas(r)
                 title: "Eficiencia",
                 sortable: true,
                 //formatter: formato_fecha_corta,
-             //   visible: false,
+                visible: false,
                 align: 'center',
 
             },
