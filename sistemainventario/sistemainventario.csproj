@@ -459,6 +459,7 @@
     <Content Include="assets\js\funciones.js" />
     <Content Include="assets\js\ini.js" />
     <Content Include="assets\js\tareas.js" />
+    <Content Include="assets\moment\moment.min.js" />
     <Content Include="assets\nprogress\index.html" />
     <Content Include="assets\nprogress\nprogress.css" />
     <Content Include="assets\nprogress\nprogress.js" />

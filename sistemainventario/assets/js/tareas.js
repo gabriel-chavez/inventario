@@ -22,7 +22,7 @@ function mostrarTablaTareas(r)
         columns: [
             {
                 field: 'areas.Area',
-                width: '5%',
+                width: '50%',
                 title: 'Area',
                 align: 'center',
                 sortable: true,
@@ -35,18 +35,15 @@ function mostrarTablaTareas(r)
                 align: 'center',
                // visible: false,
                 sortable: true,
-
-                //filter: {
-                //    type: "select",
-                //    data: datosselect[1]
-                //}
+                formatter: labelprioridad,
+               
             },
             {
                 field: 'TareaAsignada',
-                width: '7%',
+                width: '30%',
                 title: "Tarea asignada",
                 align: 'right',
-                sortable: true,
+                
                 //align: 'center',
 
                // formatter: formato_fecha_corta,
@@ -54,7 +51,7 @@ function mostrarTablaTareas(r)
             {
                 field: 'Acciones',
                 title: "Acciones Previstas para su atencion",
-                width: '20%',
+                width: '5%',
                 //filter: {
                 //    type: "select",
                 //    data: datosselect[0]
@@ -67,6 +64,7 @@ function mostrarTablaTareas(r)
                 title: "Fecha de asignacion",
                 width: '7%',
                 sortable: true,
+                formatter: formato_fecha_corta,
                 //searchable:false,
                // filter: { type: "input" },
 
@@ -78,6 +76,7 @@ function mostrarTablaTareas(r)
                 width: '7%',
                 align: 'right',
                 sortable: true,
+                formatter: formato_fecha_corta,
                 //formatter: operateFormatter3,
                 //filter: { type: "input" },
 
@@ -105,6 +104,7 @@ function mostrarTablaTareas(r)
                 //    data: datosselect[2]
                 //},
              //   visible: false,
+                formatter: responsabletarea,
                 align: 'center',
 
             },
@@ -113,7 +113,7 @@ function mostrarTablaTareas(r)
                 width: '10%',
                 title: "Estado actual",
                 sortable: true,
-             //   formatter: formato_fecha_corta,
+                formatter: labelestado,
              //   visible: false,
                 align: 'center',
             },
@@ -122,7 +122,7 @@ function mostrarTablaTareas(r)
                 width: '10%',
                 title: "Fecha de cierre (real)",
                 sortable: true,
-                //formatter: formato_fecha_corta,
+                formatter: formato_fecha_corta,
              //   visible: false,
                 align: 'center',
 
@@ -142,8 +142,44 @@ function mostrarTablaTareas(r)
                 align: 'center',
                 width: '10%',
               //  events: operateEvents,
-               // formatter: operateFormatter
+                formatter: operateFormatter,
             }]
     });  
     $("#tareasAsignadas").bootstrapTable('resetView');
+}
+function operateFormatter(value, row, index) {
+    return [
+        '<button type="button" class="btn btn-default verIngreso" aria-label="Right Align">',
+        '<span class="fa fa-external-link" aria-hidden="true"></span></button>',
+        
+        
+    ].join('');
+}
+function labelprioridad(value, row, index) {
+    if (value == "Alta")
+        $ret = '<span class="label label-danger">ALTA</span>';
+    if (value == "Media")
+        $ret = '<span class="label label-warning">MEDIA</span>';
+    if (value == "Baja")
+        $ret = '<span class="label label-info">BAJA</span>';
+    return ($ret);
+}
+function labelestado(value, row, index) {
+    if (value == "Ejecución")
+        $ret = '<span class="label label-info text-uppercase">'+value+'</span>';
+    if (value == "Finalizado")
+        $ret = '<span class="label label-success text-uppercase">' + value +'</span>';
+    if (value == "Demorado")
+        $ret = '<span class="label label-warning text-uppercase">' + value +'</span>';
+    return ($ret);
+}
+function responsabletarea(value, row, index) {
+    var $ret = "";
+    $.each(value, function (index, val) {
+        console.log(val.responsable.usuariosSistema);
+        $ret += val.responsable.usuariosSistema.Nombre;
+        $ret += "<br>";
+    });
+    console.log(value)
+    return ($ret);
 }
