@@ -22,7 +22,7 @@ function mostrarTablaTareas(r)
         columns: [
             {
                 field: 'areas.Area',
-                width: '50%',
+                width: '5%',
                 title: 'Area',
                 align: 'center',
                 sortable: true,
@@ -127,7 +127,6 @@ function mostrarTablaTareas(r)
                 formatter: formato_fecha_corta,
                 visible: false,
                 align: 'center',
-
             },
             {
                 field: "Eficiencia",
