@@ -16,6 +16,7 @@
             </ul>
             <div class="clearfix"></div>
         </div>
+        <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#agregartarea">Agregar tarea</button>
         <div class="x_content">
             <div class="">
                 <table id="tareasAsignadas">
@@ -70,6 +71,45 @@
                 </tbody>
             </table>*@
 </div> <!--div class="table-responsive"-->
+        </div>
+    </div>
+</div>
+
+<!--Modal Agregar Tarea-->
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="agregartarea">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Agregar tarea</h4>
+            </div>
+            <form class="">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Horas diarias asignadas</label>
+                        <input type="number" id="" class="form-control" placeholder=" ">
+                    </div>
+                    <div class="form-group">
+                        <label>Responsable de la terea</label>
+                        <select class="selectpicker form-control" multiple>
+                            <option>Mustard</option>
+                            <option>Ketchup</option>
+                            <option>Relish</option>
+                        </select>
+
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
