@@ -16,7 +16,10 @@
             </ul>
             <div class="clearfix"></div>
         </div>
-        <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#agregartarea">Agregar tarea</button>
+        
+        <div class="text-right">
+            <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#agregartarea">Agregar tarea</button>
+        </div>   
         <div class="x_content">
             <div class="">
                 <table id="tareasAsignadas">
@@ -77,7 +80,7 @@
 
 <!--Modal Agregar Tarea-->
 <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="agregartarea">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
@@ -85,31 +88,52 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Agregar tarea</h4>
             </div>
-            <form class="">
                 <div class="modal-body">
+                    <form class=" form-label-left input_mask">
 
-                    <div class="form-group">
-                        <label>Horas diarias asignadas</label>
-                        <input type="number" id="" class="form-control" placeholder=" ">
-                    </div>
-                    <div class="form-group">
-                        <label>Responsable de la terea</label>
-                        <select class="selectpicker form-control" multiple>
-                            <option>Mustard</option>
-                            <option>Ketchup</option>
-                            <option>Relish</option>
-                        </select>
+                      <div class="form-horizontal">
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                              <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Area">
+                              <span class="fa fa-laptop form-control-feedback left" aria-hidden="true"></span>
+                          </div>
 
-                    </div>
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                              <input type="text" class="form-control" id="inputSuccess3" placeholder="Prioridad">
+                              <span class="fa fa-flag form-control-feedback right" aria-hidden="true"></span>
+                          </div>
+
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                              <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Tipo de Tarea">
+                              <span class="fa fa-tasks form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                              <input type="text" class="form-control" id="inputSuccess5" placeholder="Fecha comprometida (cierre)">
+                              <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                         
+                          </div>
+                          
+                          
+                      </div>
+                       <div>
+                           <div class="form-group">
+                               <label>Acciones realizadas</label>
+                               <textarea class="form-control"></textarea>
+                           </div>
+                           <div class="form-group">
+                               <label>Tarea</label>                               
+                               <textarea class="form-control"></textarea>
+                           </div>
+                       </div>
 
 
-
+                    </form> 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-primary">Guardar cambios</button>
                 </div>
-            </form>
+            
         </div>
     </div>
 </div>
