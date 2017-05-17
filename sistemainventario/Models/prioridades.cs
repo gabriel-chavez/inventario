@@ -5,6 +5,7 @@ namespace sistemainventario.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class prioridades
     {
@@ -23,5 +24,22 @@ namespace sistemainventario.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tareas> tareas { get; set; }
+        public List<prioridades> Listar()
+        {
+            var prioridades = new List<prioridades>();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    prioridades = ctx.prioridades.ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return prioridades;
+        }
     }
 }

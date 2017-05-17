@@ -1,4 +1,10 @@
-﻿<div class="">
+﻿@{ 
+    List<sistemainventario.Models.areas> areas = ViewBag.areas;
+    List<sistemainventario.Models.prioridades> prioridades = ViewBag.prioridades;
+    List<sistemainventario.Models.tipoTareas> tipoTarea = ViewBag.tipoTareas;
+    
+}
+<div class="">
     <div class="page-title">
         <div class="title_left">
             <h3>
@@ -24,55 +30,7 @@
             <div class="">
                 <table id="tareasAsignadas">
                  </table>
-                    @*<table data-toggle="table"
-                 data-search="true"
-                 data-show-toggle="true"
-                 data-show-columns="true"
-                 data-locale="es-MX"
-                 data-show-refresh="false"
-                 data-page-size="10"
-                 data-pagination="true"
-                 data-striped="true"
-                 id="tareasAsignadas">
-                <thead class="vertical-align-head">
-                    <tr >
-                        <th>Area</th>
-                        <th>Prioridad</th>
-                        <th>Tarea asignada</th>
-                        <th>Tipo de tarea</th>
-                        <th>Acciones Previstas para su atencion</th>
-                        <th>Fecha de asignacion</th>
-                        <th>Fecha comprometida de cierre</th>
-                        <th>Horas diarias asignadas</th>
-                        <th>Responsable de la tarea</th>
-                        <th>Estado actual</th>
-                        <th>Fecha de cierre (real)</th>
-                        <th>Eficiencia</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody id="tbodyarticulos">
-                    <tr>
-                        <td>Plataforma</td>
-                        <td class="text-center"><span class="label label-danger">Alta</span></td>
-                        <td>as dklash dasjdhaskj dhas daisudh aosuidh asiudha siuda ghsuida gsiagusiuagiuda gsdiuagdiausgdiausg daisu dgasuidg aisudg asiu dgasdukfhagsdkidaksjgs dghasd as daksj dgasjk gh </td>
-                        <td class="text-center"><label >Proyecto</label></td>
-                        <td>acciones previstas asdkj ahsdkja ghsdiuash gdiaush diaus dhaisu dhaisud hasiu dahisu dhasiud h</td>
-                        <td class="text-center">12/02/2017 12:00</td>
-                        <td class="text-center">21/02/2017 25:00</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">Ruben Cardenas<br /> Mike Rodriguez</td>
-                        <td class="text-center"><label class="label label-success">Finalizado</label></td>
-                        <td class="text-center">20/02/2017 15:16</td>
-                        <td class="text-center">0</td>
-                        <td>
-                            <div class="text-center">
-                                <button class="btn btn-default"><i class="fa fa-external-link">&nbsp;</i>Ver</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>*@
+                 
 </div> <!--div class="table-responsive"-->
         </div>
     </div>
@@ -92,23 +50,41 @@
                     <form class=" form-label-left input_mask">
 
                       <div class="form-horizontal">
-                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                              <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Area">
-                              <span class="fa fa-laptop form-control-feedback left" aria-hidden="true"></span>
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                              <select class="selectpicker form-control" title="Area">
+                                  <option data-hidden="true"></option>                                 
+                                  @foreach (var fila in areas)
+                                  {
+                                    <option value="@fila.IdArea">@fila.Area</option>
+                                  }
+                              </select>
+                              @*<span class="fa fa-laptop form-control-feedback left" aria-hidden="true"></span>*@
+                          </div>
+
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                              <select class="selectpicker form-control" title="Prioridad">
+                                  <option data-hidden="true"></option>
+                                  @foreach (var fila in prioridades)
+                                  {
+                                    <option value="@fila.idPrioridad">@fila.Prioridad</option>
+                                  }
+                              </select>
+                              @*<span class="fa fa-flag form-control-feedback right" aria-hidden="true"></span>*@
+                          </div>
+
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                              <select class="selectpicker form-control" title="Tipo de tarea">
+                                  <option data-hidden="true"></option>
+                                  @foreach (var fila in tipoTarea)
+                                  {
+                                      <option value="@fila.idTipoTarea">@fila.TipoTarea</option>
+                                  }
+                              </select>
+                              @*<span class="fa fa-tasks form-control-feedback left" aria-hidden="true"></span>*@
                           </div>
 
                           <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                              <input type="text" class="form-control" id="inputSuccess3" placeholder="Prioridad">
-                              <span class="fa fa-flag form-control-feedback right" aria-hidden="true"></span>
-                          </div>
-
-                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                              <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Tipo de Tarea">
-                              <span class="fa fa-tasks form-control-feedback left" aria-hidden="true"></span>
-                          </div>
-
-                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                              <input type="text" class="form-control" id="inputSuccess5" placeholder="Fecha comprometida (cierre)">
+                              <input type="text" class="form-control" id="inputSuccess5" placeholder="Fecha comprometida de cierre">
                               <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                          
                           </div>
@@ -118,11 +94,11 @@
                        <div>
                            <div class="form-group">
                                <label>Acciones realizadas</label>
-                               <textarea class="form-control"></textarea>
+                               <textarea class="form-control" rows="4"></textarea>
                            </div>
                            <div class="form-group">
                                <label>Tarea</label>                               
-                               <textarea class="form-control"></textarea>
+                               <textarea class="form-control" rows="8"></textarea>
                            </div>
                        </div>
 

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    retornarAjax("tareas/retornarTareas")
+    retornarAjax("retornarTareas")
 })
 function mostrarTablaTareas(r)
 {

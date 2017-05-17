@@ -13,7 +13,13 @@ namespace sistemainventario.Controllers
         private tareas tareas = new tareas();
         // GET: Tareas
         public ActionResult Index()
-        {            
+        {
+            var areas = new areas();
+            var prioridades = new prioridades();
+            var tipoTareas = new tipoTareas();
+            ViewBag.areas = areas.Listar();
+            ViewBag.prioridades = prioridades.Listar();
+            ViewBag.tipoTareas = tipoTareas.Listar();
             return View();
         }
         public ActionResult Ver()
