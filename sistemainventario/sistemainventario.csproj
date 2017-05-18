@@ -178,6 +178,9 @@
     <Content Include="assets\datatable\datatables.net\js\jquery.dataTables.js" />
     <Content Include="assets\datatable\datatables.net\js\jquery.dataTables.min.js" />
     <Content Include="assets\datatable\datatables.net\License.txt" />
+    <Content Include="assets\datepicker\bootstrap-datetimepicker.es.js" />
+    <Content Include="assets\datepicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="assets\datepicker\bootstrap-datetimepicker.min.js" />
     <Content Include="assets\fastclick\lib\fastclick.js" />
     <Content Include="assets\font-awesome\.gitignore" />
     <Content Include="assets\font-awesome\css\font-awesome.css" />
@@ -459,6 +462,7 @@
     <Content Include="assets\js\funciones.js" />
     <Content Include="assets\js\ini.js" />
     <Content Include="assets\js\tareas.js" />
+    <Content Include="assets\moment\es.js" />
     <Content Include="assets\moment\moment.min.js" />
     <Content Include="assets\nprogress\index.html" />
     <Content Include="assets\nprogress\nprogress.css" />

@@ -1,5 +1,11 @@
 ﻿$(document).ready(function () {
-    retornarAjax("retornarTareas")
+    retornarAjax("tareas/retornarTareas")
+    /**Iniciando datetime**/
+    moment.locale("es");
+    $('#fechacierre').datetimepicker({        
+        format: 'DD/MM/YYYY'
+    });
+    
 })
 function mostrarTablaTareas(r)
 {

@@ -4,6 +4,7 @@
     List<sistemainventario.Models.tipoTareas> tipoTarea = ViewBag.tipoTareas;
     
 }
+
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -83,9 +84,14 @@
                               @*<span class="fa fa-tasks form-control-feedback left" aria-hidden="true"></span>*@
                           </div>
 
-                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                              <input type="text" class="form-control" id="inputSuccess5" placeholder="Fecha comprometida de cierre">
-                              <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                              <div class='input-group date' id='fechacierre'>
+                                  <input type='text' class="form-control" />
+                                  <span class="input-group-addon">
+                                      <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                              
                          
                           </div>
                           
