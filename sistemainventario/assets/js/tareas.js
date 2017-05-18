@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+   
     retornarAjax("tareas/retornarTareas")
     /**Iniciando datetime**/
     moment.locale("es");
@@ -7,10 +8,13 @@
     });
     
 })
+
 function mostrarTablaTareas(r)
 {
-    console.log(JSON.parse(r.result))
-    var res=JSON.parse(r.result);
+    $('#agregartarea').modal('hide');
+   // console.log(JSON.parse(r.result))
+   // var res=JSON.parse(r.result);
+    res=r.result
     console.log(res)
 
     $("#tareasAsignadas").bootstrapTable('destroy');
@@ -19,7 +23,7 @@ function mostrarTablaTareas(r)
         data: res,
         striped: true,
         pagination: true,
-        pageSize: "100",      
+        pageSize: "10",      
         search: true,        
         searchOnEnterKey: true,
         filter: true,

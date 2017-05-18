@@ -22,7 +22,7 @@ namespace sistemainventario.Models
 
         [StringLength(100)]
         public string Area { get; set; }
-
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tareas> tareas { get; set; }
         public ResponseModel ListarAjax()
@@ -40,7 +40,7 @@ namespace sistemainventario.Models
                 rm.response = true;
                 rm.message = "";
                 /****SERIALIZAR A JSON CON JSON.NET*****/
-                rm.result = JsonConvert.SerializeObject(tareas, Formatting.Indented,
+                rm.result = JsonConvert.SerializeObject(areas, Formatting.Indented,
                         new JsonSerializerSettings()
                         {
                             ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

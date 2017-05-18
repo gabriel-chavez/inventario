@@ -1,8 +1,9 @@
-﻿@{ 
+﻿@model sistemainventario.Models.tareas
+@{ 
     List<sistemainventario.Models.areas> areas = ViewBag.areas;
     List<sistemainventario.Models.prioridades> prioridades = ViewBag.prioridades;
     List<sistemainventario.Models.tipoTareas> tipoTarea = ViewBag.tipoTareas;
-    
+
 }
 
 <div class="">
@@ -19,20 +20,18 @@
             <ul class="nav navbar-right panel_toolbox">
                 <li>
                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-
             </ul>
             <div class="clearfix"></div>
         </div>
         
         <div class="text-right">
-            <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#agregartarea">Agregar tarea</button>
+            <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#agregartarea">Agregar nueva tarea</button>
         </div>   
         <div class="x_content">
             <div class="">
                 <table id="tareasAsignadas">
-                 </table>
-                 
-</div> <!--div class="table-responsive"-->
+                </table>                 
+            </div> <!--div class="table-responsive"-->
         </div>
     </div>
 </div>
@@ -47,75 +46,67 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Agregar tarea</h4>
             </div>
+            @*<form class=" form-label-left input_mask">*@
+            @using (Html.BeginForm("Guardar", "tareas", FormMethod.Post))
+            {
                 <div class="modal-body">
-                    <form class=" form-label-left input_mask">
-
-                      <div class="form-horizontal">
-                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                              <select class="selectpicker form-control" title="Area">
-                                  <option data-hidden="true"></option>                                 
-                                  @foreach (var fila in areas)
-                                  {
+                    <div class="form-horizontal">
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <select class="selectpicker form-control" title="Area" name="IdArea" id="IdArea">
+                                <option data-hidden="true"></option>
+                                @foreach (var fila in areas)
+                                {
                                     <option value="@fila.IdArea">@fila.Area</option>
-                                  }
-                              </select>
-                              @*<span class="fa fa-laptop form-control-feedback left" aria-hidden="true"></span>*@
-                          </div>
-
-                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                              <select class="selectpicker form-control" title="Prioridad">
-                                  <option data-hidden="true"></option>
-                                  @foreach (var fila in prioridades)
-                                  {
+                                }
+                            </select>
+                            @*<span class="fa fa-laptop form-control-feedback left" aria-hidden="true"></span>*@
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <select class="selectpicker form-control" title="Prioridad" name="IdPrioridad" id="IdPrioridad">
+                                <option data-hidden="true"></option>
+                                @foreach (var fila in prioridades)
+                                {
                                     <option value="@fila.idPrioridad">@fila.Prioridad</option>
-                                  }
-                              </select>
-                              @*<span class="fa fa-flag form-control-feedback right" aria-hidden="true"></span>*@
-                          </div>
-
-                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                              <select class="selectpicker form-control" title="Tipo de tarea">
-                                  <option data-hidden="true"></option>
-                                  @foreach (var fila in tipoTarea)
-                                  {
-                                      <option value="@fila.idTipoTarea">@fila.TipoTarea</option>
-                                  }
-                              </select>
-                              @*<span class="fa fa-tasks form-control-feedback left" aria-hidden="true"></span>*@
-                          </div>
-
-                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                              <div class='input-group date' id='fechacierre'>
-                                  <input type='text' class="form-control" />
-                                  <span class="input-group-addon">
-                                      <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                              
-                         
-                          </div>
-                          
-                          
-                      </div>
-                       <div>
-                           <div class="form-group">
-                               <label>Acciones realizadas</label>
-                               <textarea class="form-control" rows="4"></textarea>
-                           </div>
-                           <div class="form-group">
-                               <label>Tarea</label>                               
-                               <textarea class="form-control" rows="8"></textarea>
-                           </div>
-                       </div>
-
-
-                    </form> 
+                                }
+                            </select>
+                            @*<span class="fa fa-flag form-control-feedback right" aria-hidden="true"></span>*@
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <select class="selectpicker form-control" title="Tipo de tarea" name="IdTipoTarea" id="IdTipoTarea">
+                                <option data-hidden="true"></option>
+                                @foreach (var fila in tipoTarea)
+                                {
+                                    <option value="@fila.idTipoTarea">@fila.TipoTarea</option>
+                                }
+                            </select>
+                            @*<span class="fa fa-tasks form-control-feedback left" aria-hidden="true"></span>*@
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <div class='input-group date' id='fechacierre' >
+                                <input type='text' class="form-control" name="FechaComprometida"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>Acciones realizadas</label>
+                            <textarea class="form-control" rows="4" name="Acciones"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Tarea</label>
+                            <textarea class="form-control" rows="8" name="TareaAsignada"></textarea>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                    <button type="submit" data-ajax="true" class="btn btn-primary">Guardar cambios</button>
                 </div>
-            
+            }
+            @*</form>*@
         </div>
     </div>
 </div>

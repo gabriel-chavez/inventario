@@ -1,5 +1,6 @@
 namespace sistemainventario.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -22,6 +23,7 @@ namespace sistemainventario.Models
         [StringLength(50)]
         public string Prioridad { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tareas> tareas { get; set; }
         public List<prioridades> Listar()

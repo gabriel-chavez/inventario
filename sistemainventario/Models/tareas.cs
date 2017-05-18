@@ -6,6 +6,7 @@ namespace sistemainventario.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
     using System.Data.Entity.Spatial;
     using System.Linq;
 
@@ -65,9 +66,10 @@ namespace sistemainventario.Models
             var rm = new ResponseModel();
             try
             {
+              
                 using (var ctx = new inventarioContext())
                 {
-                    
+                    ctx.Configuration.LazyLoadingEnabled = true;
                     ctx.Configuration.ProxyCreationEnabled = false;
                     tareas = ctx.tareas
                                         .Include("areas")
@@ -76,20 +78,46 @@ namespace sistemainventario.Models
                                         .Include("estadoTarea")
                                         .Include("tareaResponsable.responsable.usuariosSistema")
                                         .ToList();
+                 //   var records = from entity in ctx.E
+
                 }
                 rm.response = true;
                 rm.message = "";
                 /****SERIALIZAR A JSON CON JSON.NET*****/
-                rm.result = JsonConvert.SerializeObject(tareas, Formatting.Indented,
-                        new JsonSerializerSettings()
-                        {
-                            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                        }
-                    );
+
+                //rm.result = JsonConvert.SerializeObject(tareas, Formatting.Indented,
+                //        new JsonSerializerSettings()
+                //        {
+                //            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+
+                //        }
+                //    );
+                rm.result = tareas;
                 /****FIN SERIALIZAR A JSON CON JSON.NET*****/
+                //rm.result = JsonConvert.SerializeObject(tareas);
             }
             catch (Exception e)
             {
+                throw;
+            }
+            return rm;
+        }
+        public ResponseModel Guardar()
+        {
+            var rm = new ResponseModel();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    if (this.IdTarea > 0) ctx.Entry(this).State = EntityState.Modified;
+                    else ctx.Entry(this).State = EntityState.Added;
+                    ctx.SaveChanges();
+                    rm.SetResponse(true);
+                }                
+            }
+            catch (Exception e)
+            {
+
                 throw;
             }
             return rm;

@@ -1,4 +1,5 @@
-﻿using Proyecto.Models;
+﻿using Newtonsoft.Json;
+using Proyecto.Models;
 using sistemainventario.Models;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,40 @@ namespace sistemainventario.Controllers
         {
             return View();
         }
-        public JsonResult retornarTareas()
+        public string retornarTareas()
         {
             var rm = new ResponseModel();
             rm = tareas.Listar();
             rm.function = "mostrarTablaTareas";
+            string  resultado;
+            resultado = JsonConvert.SerializeObject(rm, Formatting.Indented,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+
+                        }
+                    );
+            // return Json(rm);
+            return resultado;
+        }
+        public JsonResult Guardar(tareas model)
+        {
+            DateTime hoy = DateTime.Today;
+            model.IdEstadoTarea = 1;
+            model.FechaAsignacion = hoy;
+            /******************/
+            var responsable = new responsable();
+            //responsable.
+            var rm = new ResponseModel();
+            if (ModelState.IsValid)
+            {
+                rm = model.Guardar();
+                if (rm.response)
+                {
+                    //rm.href = Url.Content("~/admin/experiencia?tipo=" + model.Tipo);
+                    rm.function = "retornarAjax('tareas/retornarTareas')";
+                }
+            }
             return Json(rm);
         }
     }
