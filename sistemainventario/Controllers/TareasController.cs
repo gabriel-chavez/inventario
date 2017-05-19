@@ -15,6 +15,7 @@ namespace sistemainventario.Controllers
         // GET: Tareas
         public ActionResult Index()
         {
+            
             var areas = new areas();
             var prioridades = new prioridades();
             var tipoTareas = new tipoTareas();
@@ -25,6 +26,7 @@ namespace sistemainventario.Controllers
         }
         public ActionResult Ver()
         {
+        
             return View();
         }
         public string retornarTareas()
@@ -47,19 +49,28 @@ namespace sistemainventario.Controllers
         {
             DateTime hoy = DateTime.Today;
             model.IdEstadoTarea = 1;
-            model.FechaAsignacion = hoy;
+            model.FechaAsignacion = hoy; //revisar que solo se guarde en
             /******************/
             var responsable = new responsable();
             //responsable.
+            var tarearesponsable = new tareaResponsable();
+            var editar = false;
+            editar = tarearesponsable.SeEditoArea(model.IdArea, model.IdTarea);
             var rm = new ResponseModel();
             if (ModelState.IsValid)
             {
                 rm = model.Guardar();
                 if (rm.response)
-                {
-                    //rm.href = Url.Content("~/admin/experiencia?tipo=" + model.Tipo);
+                {                    
                     rm.function = "retornarAjax('tareas/retornarTareas')";
+                    //agregar resposable de tarea
+                    tarearesponsable.IdTarea = model.IdTarea;
+                    tarearesponsable.FechaAsignacionResponsable = hoy;
+                    tarearesponsable.IdResponsable = responsable.ObtenerIdResponsable(model.IdArea);                    
+                    tarearesponsable.Guardar(editar);
+                    
                 }
+
             }
             return Json(rm);
         }

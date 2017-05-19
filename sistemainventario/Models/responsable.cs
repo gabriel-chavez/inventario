@@ -48,7 +48,7 @@ namespace sistemainventario.Models
                                         .Where(x => x.Encargado == 1)
                                         .SingleOrDefault();
                 }
-                IdResponsable = (int)modelResponsable.IdUsuario;
+                IdResponsable = (int)modelResponsable.IdResponsable;
             }
             catch (Exception)
             {

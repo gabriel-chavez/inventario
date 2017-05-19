@@ -45,18 +45,19 @@ function mostrarTablaTareas(r)
                 align: 'center',
                // visible: false,
                 sortable: true,
-                formatter: labelprioridad,
-               
+                formatter: labelprioridad,               
+            },
+            {
+                field: 'tipoTareas.TipoTarea',
+                width: '30%',
+                title: "Tipo de tarea",
+                align: 'center',                                
             },
             {
                 field: 'TareaAsignada',
                 width: '30%',
                 title: "Tarea asignada",
                 align: 'center',
-                
-                //align: 'center',
-
-               // formatter: formato_fecha_corta,
             },
             {
                 field: 'Acciones',
@@ -152,16 +153,28 @@ function mostrarTablaTareas(r)
                 title: 'Acciones',
                 align: 'center',
                 width: '10%',
-              //  events: operateEvents,
+                events: operateEvents,
                 formatter: operateFormatter,
             }]
     });  
     $("#tareasAsignadas").bootstrapTable('resetView');
 }
+window.operateEvents = {
+    'click .editarTarea': function (e, value, row, index) {
+        mostrarModalEditar(row);        
+        $("#tarticulo").bootstrapTable('hideLoading');
+    },
+    'click .verTarea': function (e, value, row, index) {
+        console.log(row.IdTarea);
+        window.location ="/ver";
+    }
+};
 function operateFormatter(value, row, index) {
     return [
-        '<button type="button" class="btn btn-default verIngreso" aria-label="Right Align">',
-        '<span class="fa fa-external-link" aria-hidden="true"></span></button>',
+        '<button type="button" class="btn btn-default verTarea" aria-label="Right Align">',
+        '<i class="fa fa-external-link" aria-hidden="true"></i></button>',
+        '<button type="button" class="btn btn-default editarTarea" aria-label="Right Align">',
+        '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>',
         
         
     ].join('');
@@ -193,4 +206,28 @@ function responsabletarea(value, row, index) {
     });
     console.log(value)
     return ($ret);
+}
+$(document).on("click", "#btnnuevatarea", function () {
+    borrardatosModal();
+})
+function borrardatosModal()
+{    
+    $('#IdArea').selectpicker('val', "");
+    $("#IdPrioridad").selectpicker('val', "");
+    $("#IdTipoTarea").selectpicker('val', "");
+    $("#FechaComprometida").val("");
+    $("#Acciones").val("");
+    $("#TareaAsignada").val("")
+    $("#IdTarea").val(0)
+}
+function mostrarModalEditar(row)
+{    
+    $("#agregartarea").modal("show");
+    $('#IdArea').selectpicker('val', row.IdArea);
+    $("#IdPrioridad").selectpicker('val',row.IdPrioridad);
+    $("#IdTipoTarea").selectpicker('val',row.IdTipoTarea);
+    $("#FechaComprometida").val(formato_fecha_corta(row.FechaComprometida, null, null));
+    $("#Acciones").val(row.Acciones);
+    $("#TareaAsignada").val(row.TareaAsignada)
+    $("#IdTarea").val(row.IdTarea)
 }
