@@ -5,6 +5,7 @@
     DateTime myDateTime;
     string[] meses = new string[] {"Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic" };
 }
+<input name="idtarea" id="idtarea" value="@tarea.IdTarea" class="hidden"/>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -49,7 +50,7 @@
                                       
                                     </div>
                                 </li>
-                                
+                               
                                 @foreach (var fila in comentarios)
                                 {
                                     if (fila.ComentarioSistema == 1) //comentario de usuario 1, comentario de sistema 2
@@ -71,7 +72,10 @@
                                                 </h4>
 
                                                 <blockquote class="message">
-                                                    @fila.Comentario;
+                                                  
+                                                        @Html.Raw(@fila.Comentario)
+                                            
+                                                    
                                                 </blockquote>
                                                 <br />
                                                 @*<p class="url">
@@ -97,6 +101,15 @@
                                     }
                                 }
                             </ul>
+                            <div>
+                                <div id="ingresocomentarios"></div>
+                                <div class="pull-right">
+                                    <button type="button" id="finalizartarea" class="btn btn-default">Finalizar tarea</button>
+                                    <button type="button" id="comentartarea" class="btn btn-primary">Comentar</button>
+                                </div>
+                            </div>
+                           
+                            
                                 @*<ul class="messages">
                                     <li>
                                         <img src="images/img.jpg" class="avatar" alt="Avatar">
@@ -178,8 +191,7 @@
                                                 break;
                                             case 3:
                                                 <label class="label label-info ">Prioridad Baja</label>
-                                                break;
-                                            
+                                                break;                                            
                                         }                                 
                                     </h4>
                                     <hr />
@@ -204,6 +216,9 @@
                                     <hr />
                                     <p class="title">Fecha de asignacion</p>
                                     <p>@tarea.FechaAsignacion</p>
+                                    <hr />
+                                    <p class="title">Area</p>
+                                    <p>@tarea.areas.Area</p>
                                 </div>
                                 <hr />
                                 <div class="project_detail">
@@ -223,8 +238,6 @@
                                     {
                                         <p class="">@fila.responsable.usuariosSistema.Nombre</p>
                                     }
-                                    
-                                    
                                     <div class="text-center">
                                         <button type="button" class="btn btn-sm btn-default btn-block" data-toggle="modal" data-target="#editarresponsable_horas">Editar</button>
                                     </div>
@@ -249,25 +262,19 @@
                                         </li>
                                     </ul>
                                     <br />
-
                                     <div class="text-center mtop20">
                                         <a href="#" class="btn btn-sm btn-primary">Add files</a>
                                         <a href="#" class="btn btn-sm btn-warning">Report contact</a>
                                     </div>*@
                             </div>
-
                         </section>
-
                     </div>
                     <!-- end project-detail sidebar -->
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="editarresponsable_horas">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -293,8 +300,6 @@
                         </select>
 
                     </div>
-
-
 
                 </div>
                 <div class="modal-footer">

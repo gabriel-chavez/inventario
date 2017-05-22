@@ -4270,3 +4270,15 @@ thead.vertical-align-head>tr>th
     vertical-align:middle !important;
     text-align:center
 }
+
+.message ul.messages li, .tasks li {
+   
+}
+.message li {
+    border-bottom: none !important;
+    padding: 0 !important;
+}
+.note-editing-area li {
+    border-bottom: none !important;
+    padding: 0 !important;
+}

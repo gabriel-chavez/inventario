@@ -1,11 +1,14 @@
 namespace sistemainventario.Models
 {
+    using Proyecto.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
     using System.Data.Entity.Spatial;
     using System.Linq;
+    using System.Web.Mvc;
 
     public partial class comentarios
     {
@@ -14,7 +17,7 @@ namespace sistemainventario.Models
 
         public int IdTarea { get; set; }
 
-        [StringLength(700)]
+        [StringLength(1000), AllowHtml]
         public string Comentario { get; set; }
 
         public byte? Visible { get; set; }
@@ -51,6 +54,26 @@ namespace sistemainventario.Models
                 throw;
             }
             return modelcomentarios;
+        }
+        public ResponseModel Guardar()
+        {
+            var rm = new ResponseModel();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+        
+                    ctx.Entry(this).State = EntityState.Added;
+                    ctx.SaveChanges();
+                    rm.SetResponse(true);
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            return rm;
         }
     }
 }

@@ -76,5 +76,26 @@ namespace sistemainventario.Controllers
             }
             return Json(rm);
         }
+        [HttpPost]
+        public JsonResult agregarComentario(comentarios com)
+        {
+            DateTime hoy = DateTime.Today;
+            /******************/
+            // var comentario = new comentarios();
+            com.FechaHora = hoy;
+            com.IdUsuario = 1;
+            com.Visible = 1;
+            com.ComentarioSistema = 1;
+            var rm = new ResponseModel();
+            if (ModelState.IsValid)
+            {
+                rm = com.Guardar();
+                if (rm.response)
+                {
+                    rm.function = "refrescarTareas()";                                 
+                }
+            }
+            return Json(rm);
+        }
     }
 }

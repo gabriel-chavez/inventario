@@ -471,6 +471,9 @@
     <Content Include="assets\nprogress\support\style.css" />
     <Content Include="assets\select\bootstrap-select.min.css" />
     <Content Include="assets\select\bootstrap-select.min.js" />
+    <Content Include="assets\summernote\summernote-es-ES.js" />
+    <Content Include="assets\summernote\summernote.css" />
+    <Content Include="assets\summernote\summernote.min.js" />
     <Content Include="assets\table-boot\css\bootstrap-table.css" />
     <Content Include="assets\table-boot\css\bootstrap-table11.css" />
     <Content Include="assets\table-boot\js\bootstrap-table-es-MX.js" />
@@ -759,6 +762,9 @@
     <Content Include="assets\pdfmake\bower.json" />
     <Content Include="assets\pdfmake\LICENSE" />
     <Content Include="Views\enlaces\_modalVer.cshtml" />
+    <Content Include="assets\summernote\font\summernote.eot" />
+    <Content Include="assets\summernote\font\summernote.ttf" />
+    <Content Include="assets\summernote\font\summernote.woff" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <Content Include="Views\Tareas\Index.cshtml" />

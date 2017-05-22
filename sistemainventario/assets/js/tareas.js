@@ -1,14 +1,39 @@
 ﻿$(document).ready(function () {
    
-    retornarAjax("tareas/retornarTareas")
+    
     /**Iniciando datetime**/
     moment.locale("es");
     $('#fechacierre').datetimepicker({        
         format: 'DD/MM/YYYY'
     });
+   // $('#ingresocomentario').summernote();
+    $('#ingresocomentario').summernote({
+        height: 200,
+        lang: 'es-ES',
+        toolbar: [        
+            ['style', ['bold', 'italic', 'underline']],
+            ['font', ['strikethrough']],            
+            ['color', ['color']],
+            ['para', ['ul', 'ol']],
+            
+        ]
+    });
     
 })
+function comentarTarea()
+{    
+    var com = $('#ingresocomentario').summernote('code');
 
+    var dataJson = {
+        idTarea: $("#idtarea").val(),
+        comentario: com,
+    };
+
+    retornarAjaxParametros(base_url("/tareas/agregarComentario"), dataJson);    
+}
+$(document).on("click", "#comentartarea", function () {
+    comentarTarea()
+})
 function mostrarTablaTareas(r)
 {
     $('#agregartarea').modal('hide');
@@ -43,7 +68,6 @@ function mostrarTablaTareas(r)
                 width: '5%',
                 title: 'Prioridad',
                 align: 'center',
-               // visible: false,
                 sortable: true,
                 formatter: labelprioridad,               
             },
@@ -78,7 +102,6 @@ function mostrarTablaTareas(r)
                 align: 'center',
                 sortable: true,
                 formatter: formato_fecha_corta,
-                //searchable:false,
                // filter: { type: "input" },
 
 
@@ -90,7 +113,6 @@ function mostrarTablaTareas(r)
                 align: 'center',
                 sortable: true,
                 formatter: formato_fecha_corta,
-                //formatter: operateFormatter3,
                 //filter: { type: "input" },
 
             },
