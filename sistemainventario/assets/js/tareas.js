@@ -165,8 +165,8 @@ window.operateEvents = {
         $("#tarticulo").bootstrapTable('hideLoading');
     },
     'click .verTarea': function (e, value, row, index) {
-        console.log(row.IdTarea);
-        window.location ="/ver";
+        
+        window.location = base_url("/tareas/ver/" + row.IdTarea);
     }
 };
 function operateFormatter(value, row, index) {

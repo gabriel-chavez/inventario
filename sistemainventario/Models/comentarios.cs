@@ -5,6 +5,7 @@ namespace sistemainventario.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class comentarios
     {
@@ -24,11 +25,32 @@ namespace sistemainventario.Models
 
         public DateTime? FechaRegistro { get; set; }
 
-        [StringLength(200)]
-        public string ComentarioSistema { get; set; }
+    
+        public int? ComentarioSistema { get; set; }
 
         public virtual tareas tareas { get; set; }
 
         public virtual usuariosSistema usuariosSistema { get; set; }
+        public List<comentarios> Listar(int id)
+        {
+            List<comentarios> modelcomentarios = new List<comentarios>();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    //enlaces = ctx.enlaces.ToList();
+                    modelcomentarios = ctx.comentarios
+                                        .Include("usuariosSistema")                                       
+                                        .Where(x => x.IdTarea == id)
+                                        .ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return modelcomentarios;
+        }
     }
 }

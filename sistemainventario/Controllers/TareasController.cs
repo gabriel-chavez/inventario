@@ -24,9 +24,11 @@ namespace sistemainventario.Controllers
             ViewBag.tipoTareas = tipoTareas.Listar();
             return View();
         }
-        public ActionResult Ver()
+        public ActionResult Ver(int id)
         {
-        
+            var comentarios = new comentarios();
+            ViewBag.comentarios = comentarios.Listar(id);
+            ViewBag.tarea = tareas.Obtener(id);
             return View();
         }
         public string retornarTareas()

@@ -151,3 +151,8 @@ function formato_fecha_corta(value, row, index) {
         fecha = moment(value, "YYYY/MM/DD HH:mm:ss").format("DD/MM/YYYY")
     return [fecha]
 }
+function base_url(complemento) {
+    complemento = (complemento) ? complemento : '';
+    var baseurl = $('#baseurl').val();
+    return baseurl + complemento;
+}

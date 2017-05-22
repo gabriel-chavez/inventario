@@ -77,6 +77,7 @@ namespace sistemainventario.Models
                                         .Include("tipoTareas")
                                         .Include("estadoTarea")
                                         .Include("tareaResponsable.responsable.usuariosSistema")
+                                        .Include(x => x.comentarios)
                                         .ToList();
                  //   var records = from entity in ctx.E
 
@@ -121,6 +122,30 @@ namespace sistemainventario.Models
                 throw;
             }
             return rm;
+        }
+        public tareas Obtener(int id)
+        {
+            tareas tarea = new tareas();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {           
+
+                    tarea = ctx.tareas.Include(x=>x.areas)
+                                       .Include(x => x.prioridades)
+                                       .Include(x => x.tipoTareas)
+                                       .Include(x => x.estadoTarea)
+                                       .Include("tareaResponsable.responsable.usuariosSistema")                                       
+                                       .Where(x => x.IdTarea == id)
+                                       .SingleOrDefault();                    
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            return tarea;
         }
     }
 }

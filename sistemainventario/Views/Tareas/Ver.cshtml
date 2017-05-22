@@ -1,8 +1,14 @@
-﻿
+﻿@model sistemainventario.Models.tareas
+@{
+    sistemainventario.Models.tareas tarea = ViewBag.tarea;
+    List<sistemainventario.Models.comentarios> comentarios = ViewBag.comentarios;
+    DateTime myDateTime;
+    string[] meses = new string[] {"Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic" };
+}
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>Tarea Asignada <small> 254</small></h3>
+            <h3>Tarea Asignada <small> @tarea.IdTarea</small></h3>
         </div>
 
 
@@ -14,7 +20,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Ejemplo de tarea asignada al usuario xxx</h2>
+                    <h2>@tarea.TareaAsignada</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
                             <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -26,61 +32,125 @@
                 <div class="x_content">
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <div>
-                            <h4>Historial de actividades</h4>
-
-                            <!-- end of user messages -->
+                        
                             <ul class="messages">
                                 <li>
-                                    <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                    <div class="message_date">
-                                        <h3 class="date text-info">24</h3>
-                                        <p class="month">May</p>
-                                        <p class="year">2017</p>
-
-                                    </div>
-                                    <div class="message_wrapper">
+                                    
+                                   
+                                    <div class="message_wrapper" style="margin-left:0px">
                                         <h4 class="heading">
-                                            Ruben Cardenas
-                                            <span> 12:30:02</span>
+                                            Acciones previstas para su atencion                                        
                                         </h4>
 
-                                        <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                        <blockquote class="message">
+                                            @tarea.Acciones
+                                        </blockquote>
                                         <br />
-                                        @*<p class="url">
-                                            <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-                                            <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
-                                        </p>*@
+                                      
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="timeline">
-                                        <div class="block block_content">
-                                            <h2 class="title"></h2>
-                                            <span>asdadasas asdasdas dasd</span>
-                                            <div class="byline">
-                                                <a>Ruben Cardenas </a><span>02/02/2017</span>
+                                
+                                @foreach (var fila in comentarios)
+                                {
+                                    if (fila.ComentarioSistema == 1) //comentario de usuario 1, comentario de sistema 2
+                                    {
+                                        myDateTime =DateTime.Parse(fila.FechaHora.ToString());
+                                        <li>
+                                            <img src="~/assets/images/img.png" class="avatar" alt="Avatar"/>
+                                            
+                                            <div class="message_date">
+                                                <h3 class="date text-info">@myDateTime.ToString("dd")</h3>
+                                                <p class="month">@meses[(Int32.Parse(myDateTime.ToString("MM")))-1]</p>
+                                                <p class="year">@myDateTime.ToString("yyyy")</p>
+
+                                            </div>
+                                            <div class="message_wrapper">
+                                                <h4 class="heading">
+                                                    @fila.usuariosSistema.Nombre
+                                                    <span> @myDateTime.ToString("H:mm:ss")</span>
+                                                </h4>
+
+                                                <blockquote class="message">
+                                                    @fila.Comentario;
+                                                </blockquote>
+                                                <br />
+                                                @*<p class="url">
+                                                        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                                                    </p>*@
+                                            </div>
+                                        </li>
+                                    }
+                                    if (fila.ComentarioSistema == 2) //comentario de sistema 2
+                                    {
+                                        <li>
+                                            <div class="timeline">
+                                                <div class="block block_content">
+                                                    <h2 class="title"></h2>
+                                                    <span>asdadasas asdasdas dasd</span>
+                                                    <div class="byline">
+                                                        <a>Ruben Cardenas </a><span>02/02/2017</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                                @*<ul class="messages">
+                                    <li>
+                                        <img src="images/img.jpg" class="avatar" alt="Avatar">
+                                        <div class="message_date">
+                                            <h3 class="date text-info">24</h3>
+                                            <p class="month">May</p>
+                                            <p class="year">2017</p>
+
+                                        </div>
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">
+                                                Ruben Cardenas
+                                                <span> 12:30:02</span>
+                                            </h4>
+
+                                            <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                            <br />
+                                            <p class="url">
+                            <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                            <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                        </p>
+                                        </div>
+                                    </li>
+                                    Para comentarios de sistema
+                                    <li>
+                                        <div class="timeline">
+                                            <div class="block block_content">
+                                                <h2 class="title"></h2>
+                                                <span>asdadasas asdasdas dasd</span>
+                                                <div class="byline">
+                                                    <a>Ruben Cardenas </a><span>02/02/2017</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                    <div class="message_date">
-                                        <h3 class="date text-info">21</h3>
-                                        <p class="month">May</p>
-                                    </div>
-                                    <div class="message_wrapper">
-                                        <h4 class="heading">Ruben Cardenas</h4>
-                                        <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                        <br />
-                                        @*<p class="url">
-                                            <span class="fs1" aria-hidden="true" data-icon=""></span>
-                                            <a href="#" data-original-title="">Download</a>
-                                        </p>*@
-                                    </div>                   
-                            </ul>
-                            <!-- end of user messages -->
-                        </div>
+                                    </li>
+                                    <li>
+                   <img src="images/img.jpg" class="avatar" alt="Avatar">
+                   <div class="message_date">
+                       <h3 class="date text-info">21</h3>
+                       <p class="month">May</p>
+                   </div>
+                   <div class="message_wrapper">
+                       <h4 class="heading">Ruben Cardenas</h4>
+                       <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                       <br />
+                      <p class="url">
+                           <span class="fs1" aria-hidden="true" data-icon=""></span>
+                           <a href="#" data-original-title="">Download</a>
+                       </p>
+                   </div>
+                </li>
+                                </ul>*@
+                                <!-- end of user messages -->
+</div>
                     </div>
                     <!-- start project-detail sidebar -->
                     <div class="col-md-3 col-sm-3 col-xs-12">
@@ -90,32 +160,71 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
-                                @*<h3 class="green"><i class="fa fa-paint-brush"></i> Acciones previstas</h3>
+                               @*<h3 class="green"><i class="fa fa-paint-brush"></i> Acciones previstas</h3>
 
                                     <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
                                     <br />*@
 
                                 <div class="project_detail">
                                     <p class="title">Prioridad</p>
-                                    <h4><label class="label label-danger ">Prioridad Alta</label></h4>
+                                    <h4>
+                                        @switch (tarea.IdPrioridad)
+                                        {
+                                            case 1:
+                                                <label class="label label-danger ">Prioridad Alta</label>
+                                                break;
+                                            case 2:
+                                                <label class="label label-warning ">Prioridad Media</label>
+                                                break;
+                                            case 3:
+                                                <label class="label label-info ">Prioridad Baja</label>
+                                                break;
+                                            
+                                        }                                 
+                                    </h4>
                                     <hr />
                                     <p class="title">Estado actual</p>
-                                    <h4><label class="label label-primary">Ejecucion</label></h4>
-                                    <hr />
+                                    <h4>
+                                        @switch (tarea.IdEstadoTarea)
+                                        {
+                                            case 1:
+                                                <label class="label label-info ">Ejecucíon</label>
+                                                break;
+                                            case 2:
+                                                <label class="label label-success ">Finalizado</label>
+                                                break;
+                                            case 3:
+                                                <label class="label label-warning ">Demorado</label>
+                                                break;
+                                        }                                                                                
+                                    </h4>
+                                    <hr />                                 
                                     <p class="title">Tipo de tarea</p>
-                                    <p>Requerimiento</p>
+                                    <p>@tarea.tipoTareas.TipoTarea</p>
                                     <hr />
                                     <p class="title">Fecha de asignacion</p>
-                                    <p>02/02/2017 12:02</p>
+                                    <p>@tarea.FechaAsignacion</p>
                                 </div>
                                 <hr />
                                 <div class="project_detail">
                                     <p class="title">Horas diarias asignadas</p>
-                                    <p>1 Hora</p>
+                                    <p>
+                                        @if (tarea.HorasDiariasAsignadas!=null)
+                                        {
+                                            @tarea.HorasDiariasAsignadas;
+                                        }
+                                        else
+                                        {
+                                           <span>No asinado</span>
+                                        }
+                                    </p>
                                     <p class="title">Responsable de la tarea</p>
-                                    <p class="">Franklin Arraya</p>
-                                    <p class="">Ruben Cardenas</p>
-                                    <p class="">Mike Rodriguez</p>
+                                    @foreach (var fila in tarea.tareaResponsable)
+                                    {
+                                        <p class="">@fila.responsable.usuariosSistema.Nombre</p>
+                                    }
+                                    
+                                    
                                     <div class="text-center">
                                         <button type="button" class="btn btn-sm btn-default btn-block" data-toggle="modal" data-target="#editarresponsable_horas">Editar</button>
                                     </div>

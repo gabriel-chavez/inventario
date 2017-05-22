@@ -179,8 +179,8 @@ namespace sistemainventario.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<comentarios>()
-                .Property(e => e.ComentarioSistema)
-                .IsUnicode(false);
+                .Property(e => e.ComentarioSistema);
+               // .IsUnicode(false);
 
             modelBuilder.Entity<estadoTarea>()
                 .Property(e => e.EstadoTarea1)
