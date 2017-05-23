@@ -1,5 +1,6 @@
 namespace sistemainventario.Models
 {
+    using Newtonsoft.Json;
     using Proyecto.Models;
     using System;
     using System.Collections.Generic;
@@ -8,6 +9,8 @@ namespace sistemainventario.Models
     using System.Data.Entity;
     using System.Data.Entity.Spatial;
     using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Web;
     using System.Web.Mvc;
 
     public partial class comentarios
@@ -17,7 +20,7 @@ namespace sistemainventario.Models
 
         public int IdTarea { get; set; }
 
-        [StringLength(1000), AllowHtml]
+        [StringLength(1000)]
         public string Comentario { get; set; }
 
         public byte? Visible { get; set; }
@@ -30,9 +33,9 @@ namespace sistemainventario.Models
 
     
         public int? ComentarioSistema { get; set; }
-
+        [JsonIgnore]
         public virtual tareas tareas { get; set; }
-
+        [JsonIgnore]
         public virtual usuariosSistema usuariosSistema { get; set; }
         public List<comentarios> Listar(int id)
         {
@@ -75,5 +78,6 @@ namespace sistemainventario.Models
             }
             return rm;
         }
+        
     }
 }

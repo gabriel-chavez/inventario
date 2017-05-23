@@ -34,7 +34,7 @@
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <div>
                         
-                            <ul class="messages">
+                            <ul class="messages" id="mensajesusuario">
                                 <li>
                                     
                                    
@@ -73,7 +73,7 @@
 
                                                 <blockquote class="message">
                                                   
-                                                        @Html.Raw(@fila.Comentario)
+                                                        @fila.Comentario
                                             
                                                     
                                                 </blockquote>
@@ -102,7 +102,8 @@
                                 }
                             </ul>
                             <div>
-                                <div id="ingresocomentarios"></div>
+                                <textarea class="form-control vresize" rows="4" maxlength='1000' id="comentariotxt"></textarea>
+                                <br />
                                 <div class="pull-right">
                                     <button type="button" id="finalizartarea" class="btn btn-default">Finalizar tarea</button>
                                     <button type="button" id="comentartarea" class="btn btn-primary">Comentar</button>

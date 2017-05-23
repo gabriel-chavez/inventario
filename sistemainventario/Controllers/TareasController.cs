@@ -3,6 +3,7 @@ using Proyecto.Models;
 using sistemainventario.Models;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -79,7 +80,7 @@ namespace sistemainventario.Controllers
         [HttpPost]
         public JsonResult agregarComentario(comentarios com)
         {
-            DateTime hoy = DateTime.Today;
+            DateTime hoy = DateTime.Now;
             /******************/
             // var comentario = new comentarios();
             com.FechaHora = hoy;
@@ -92,9 +93,13 @@ namespace sistemainventario.Controllers
                 rm = com.Guardar();
                 if (rm.response)
                 {
-                    rm.function = "refrescarTareas()";                                 
+                    rm.function = "agregarcom";
+                    rm.result = com;
                 }
             }
+            var usr = "xxx";
+            var coment = new { comentario=com.Comentario, horafecha=hoy.ToString("yyyy-MM-dd HH:mm:ss"),usuario=usr};
+            rm.result = coment;
             return Json(rm);
         }
     }

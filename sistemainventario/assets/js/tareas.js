@@ -22,16 +22,15 @@
 })
 function comentarTarea()
 {    
-    var com = $('#ingresocomentario').summernote('code');
-
     var dataJson = {
         idTarea: $("#idtarea").val(),
-        comentario: com,
+        comentario: $("#comentariotxt").val(),
     };
-
+    $("#comentartarea").attr("disabled", true);
     retornarAjaxParametros(base_url("/tareas/agregarComentario"), dataJson);    
 }
 $(document).on("click", "#comentartarea", function () {
+    $("#comentartarea").attr("disabled", true);        
     comentarTarea()
 })
 function mostrarTablaTareas(r)
@@ -252,4 +251,39 @@ function mostrarModalEditar(row)
     $("#Acciones").val(row.Acciones);
     $("#TareaAsignada").val(row.TareaAsignada)
     $("#IdTarea").val(row.IdTarea)
+}
+function agregarcom(e)
+{
+    var res = e.result;
+    var fechahora = moment(res.horafecha, "YYYY-MM-DD HH:mm:ss");
+    var dia = fechahora.format("DD");
+    var mes = fechahora.month();
+    var anio = fechahora.year();
+    var meses = Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+    var com ='<li style="display:none" class="newelem">'+
+        '<img src="' + base_url("/assets/images/img.png")+'" class="avatar" alt="Avatar"/>'+ 
+            '<div class="message_date">'+
+                '<h3 class="date text-info">'+dia+'</h3>'+
+                '<p class="month">'+meses[mes]+'</p>'+
+                '<p class="year">'+anio+'</p>'+
+            '</div>'+
+            '<div class="message_wrapper">'+
+                '<h4 class="heading">'
+                    + res.usuario+
+                    '<span> '+fechahora.format("HH:mm:ss") +'</span>'+
+                '</h4>'+
+                '<blockquote class="message">'+                                                 
+                        res.comentario+
+                '</blockquote>'+
+                '<br />'+                
+            '</div>'+
+        '</li>';
+    $("#mensajesusuario").append(com)
+    $(".newelem").show("slow");
+    $("#comentariotxt").val("");
+    setTimeout(function () {
+        $("#comentartarea").attr("disabled", false);  
+    }, 2000);
+    
+    
 }

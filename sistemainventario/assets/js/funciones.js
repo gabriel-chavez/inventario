@@ -175,10 +175,8 @@ function retornarAjaxParametros(url,dataJson) {
 
             // Ejecutar funciones
             if (r.function != null) {
-
-                //  setTimeout(func, 0);
                 var fname = r.function
-                eval(fname + '(r)');
+                eval(fname + '(r)'); //ejecutar funciones con parametros
 
             }
             // Redireccionar
@@ -208,3 +206,12 @@ function base_url(complemento) {
     var baseurl = $('#baseurl').val();
     return baseurl + complemento;
 }
+ $('textarea[maxlength]').keyup(function(){          
+        var limit = parseInt($(this).attr('maxlength'));  
+        var text = $(this).val();  
+        var chars = text.length;  
+        if(chars > limit){  
+            var new_text = text.substr(0, limit);  
+            $(this).val(new_text);  
+        }  
+    }); 
