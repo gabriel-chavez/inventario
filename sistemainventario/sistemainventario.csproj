@@ -59,6 +59,7 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -102,6 +103,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\animate.css\animate.css" />
+    <Content Include="assets\animate.css\animate.min.css" />
+    <Content Include="assets\animate.css\gulpfile.js" />
     <Content Include="assets\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="assets\bootstrap\dist\css\bootstrap-theme.min.css" />
     <Content Include="assets\bootstrap\dist\css\bootstrap.css" />
@@ -495,13 +499,17 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\enlacesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TareasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\SessionHelper.cs" />
     <Compile Include="Models\areas.cs" />
     <Compile Include="Models\comentarios.cs" />
     <Compile Include="Models\estadoTarea.cs" />
+    <Compile Include="Models\LdapAutenticar.cs" />
+    <Compile Include="Models\login.cs" />
     <Compile Include="Models\prioridades.cs" />
     <Compile Include="Models\responsable.cs" />
     <Compile Include="Models\tareaResponsable.cs" />
@@ -765,10 +773,15 @@
     <Content Include="assets\summernote\font\summernote.eot" />
     <Content Include="assets\summernote\font\summernote.ttf" />
     <Content Include="assets\summernote\font\summernote.woff" />
+    <Content Include="assets\animate.css\.bower.json" />
+    <Content Include="assets\animate.css\animate-config.json" />
+    <Content Include="assets\animate.css\bower.json" />
+    <Content Include="assets\animate.css\package.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <Content Include="Views\Tareas\Index.cshtml" />
     <Content Include="Views\Tareas\Ver.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
