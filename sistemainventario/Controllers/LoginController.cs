@@ -22,7 +22,8 @@ namespace sistemainventario.Controllers
             var rm = login.Acceder(Usuario, Password);
             if (rm.response)
             {
-                SessionHelper.AddUserToSession(Json(rm.result));
+                var aux = Json(rm.result);
+                SessionHelper.AddUserToSession(aux);
                 rm.href = Url.Content("~/tareas");
             }
             return Json(rm);

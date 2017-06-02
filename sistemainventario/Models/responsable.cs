@@ -58,6 +58,32 @@ namespace sistemainventario.Models
             
             return IdResponsable;
         }
+        public List<responsable> listarResponsable(int IdArea)
+        {
+
+
+            //var modelResponsable = new List<responsable>();
+            List<responsable> modelResponsable = new List<responsable>();
+            //List<enlaces> enlaces = new List<enlaces>();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    //enlaces = ctx.enlaces.ToList();
+                    modelResponsable = ctx.responsable
+                                        .Include("usuariosSistema")
+                                        .Where(x => x.IdArea == IdArea)
+                                        .ToList();
+                }                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return modelResponsable;
+        }
         public ResponseModel Guardar()
         {
             var rm = new ResponseModel();

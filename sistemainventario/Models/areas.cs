@@ -64,7 +64,7 @@ namespace sistemainventario.Models
                     areas = ctx.areas.ToList();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 throw;

@@ -1,7 +1,8 @@
 ﻿$(document).ready(function () {
     $("body").on('click', 'button', function () {
-       
+      
         // Si el boton no tiene el atributo ajax no hacemos nada
+       var btn = $(this);
         if ($(this).data('ajax') == undefined)
         {
             if ($(this).data('getajax') == undefined) return
@@ -69,8 +70,14 @@
                             if (r.response) css = "alert-success";
                             else css = "alert-danger";
 
-                            var message = '<div class="alert ' + css + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + r.message + '</div>';
-                            form.prepend(message);
+                            var message = '<div class="alert ' + css + ' alert-dismissable fade in"><button type="button" class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>' + r.message + '</div>';
+                          
+                            if (btn.data('mensaje') == undefined) {
+                                form.prepend(message);
+                            } else {                                
+                                $(btn.data('mensaje')).html(message)
+                            }
+                            
                         }
                     }
 
@@ -121,7 +128,12 @@
                             else css = "alert-danger";
 
                             var message = '<div class="alert ' + css + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + r.message + '</div>';
-                            content.prepend(message);
+                            if ($(this).data('mensajediv') == undefined) {
+                                content.prepend(message);
+                            } else {
+                                console.log($(this).data('mensajediv'))
+                            }
+                            
                         }
                     }
                   

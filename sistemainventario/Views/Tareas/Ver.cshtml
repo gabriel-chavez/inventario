@@ -2,6 +2,10 @@
 @{
     sistemainventario.Models.tareas tarea = ViewBag.tarea;
     List<sistemainventario.Models.comentarios> comentarios = ViewBag.comentarios;
+    List<sistemainventario.Models.responsable> usuariosArea = ViewBag.usuariosArea;
+    List<int> arrayresponsables = new List<int>();
+    bool existe = false;
+    int x = 0;
     DateTime myDateTime;
     string[] meses = new string[] {"Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic" };
 }
@@ -234,9 +238,14 @@
                                            <span>No asinado</span>
                                         }
                                     </p>
-                                    <p class="title">Responsable de la tarea</p>
+                                    <p class="title">Responsable de la tarea</p>                                    
                                     @foreach (var fila in tarea.tareaResponsable)
                                     {
+                                       
+                                            x = fila.responsable.usuariosSistema.idUsuario;
+                                            arrayresponsables.Add(x);
+                                          
+                                       // fila.responsable.usuariosSistema.idUsuario
                                         <p class="">@fila.responsable.usuariosSistema.Nombre</p>
                                     }
                                     <div class="text-center">
@@ -285,29 +294,29 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Editar datos</h4>
             </div>
-            <form class="">
+           @using (Html.BeginForm("GuardarResHoras", "tareas", FormMethod.Post))
+           {
                 <div class="modal-body">
-
                     <div class="form-group">
                         <label>Horas diarias asignadas</label>
-                        <input type="number" id="" class="form-control" placeholder=" ">
+                        <input type="number" id="" name="horas" class="form-control" placeholder=" ">
                     </div>
                     <div class="form-group">
                         <label>Responsable de la terea</label>
-                        <select class="selectpicker form-control" multiple>
-                            <option>Mustard</option>
-                            <option>Ketchup</option>
-                            <option>Relish</option>
+                        <select class="selectpicker form-control" multiple id="responsableTarea" name="responsables">
+                            @foreach (var fila in usuariosArea)
+                            {
+                                existe = Array.Exists(arrayresponsables.ToArray(), elem => elem == fila.IdUsuario);
+                                <option value="@((fila.Encargado == 1) ? "" : fila.IdUsuario.ToString())" @((fila.Encargado == 1) ? "Disabled" : "") @(existe == true ? "selected" : "")>@fila.usuariosSistema.Nombre</option>                                
+                            }
                         </select>
-
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                    <button type="submit" data-ajax="true" class="btn btn-primary">Guardar cambios</button>
                 </div>
-            </form>
+           }
         </div>
     </div>
 </div>

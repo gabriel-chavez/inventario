@@ -512,6 +512,7 @@
     <Compile Include="Models\login.cs" />
     <Compile Include="Models\prioridades.cs" />
     <Compile Include="Models\responsable.cs" />
+    <Compile Include="Models\responsableHora.cs" />
     <Compile Include="Models\tareaResponsable.cs" />
     <Compile Include="Models\tareas.cs" />
     <Compile Include="Models\tipoTareas.cs" />

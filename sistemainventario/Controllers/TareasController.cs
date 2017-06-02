@@ -27,9 +27,13 @@ namespace sistemainventario.Controllers
         }
         public ActionResult Ver(int id)
         {
+            var responsables = new responsable();
             var comentarios = new comentarios();
             ViewBag.comentarios = comentarios.Listar(id);
             ViewBag.tarea = tareas.Obtener(id);
+            TempData["idarea"] = ViewBag.tarea.IdArea;
+            TempData["idtarea"] = id;
+            ViewBag.usuariosArea = responsables.listarResponsable(ViewBag.tarea.IdArea);
             return View();
         }
         public string retornarTareas()
@@ -101,6 +105,15 @@ namespace sistemainventario.Controllers
             var coment = new { comentario=com.Comentario, horafecha=hoy.ToString("yyyy-MM-dd HH:mm:ss"),usuario=usr};
             rm.result = coment;
             return Json(rm);
+        }
+        [HttpPost]
+        public ResponseModel GuardarResHoras(responsableHora rh)
+        {
+            rh.idarea=Convert.ToInt32(TempData["idarea"]);
+            rh.idtarea= Convert.ToInt32(TempData["idtarea"]);
+            rh.guardar();
+            var rm = new ResponseModel();
+            return rm;
         }
     }
 }
