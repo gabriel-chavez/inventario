@@ -1,43 +1,53 @@
-﻿$(document).ready(function () {
-   
-    
+﻿$(document).ready(function () {      
     /**Iniciando datetime**/
     moment.locale("es");
     $('#fechacierre').datetimepicker({        
         format: 'DD/MM/YYYY'
-    });
-   // $('#ingresocomentario').summernote();
-    $('#ingresocomentario').summernote({
-        height: 200,
-        lang: 'es-ES',
-        toolbar: [        
-            ['style', ['bold', 'italic', 'underline']],
-            ['font', ['strikethrough']],            
-            ['color', ['color']],
-            ['para', ['ul', 'ol']],
-            
-        ]
-    });
-    
+    });    
 })
 function comentarTarea()
-{    
-    var dataJson = {
-        idTarea: $("#idtarea").val(),
-        comentario: $("#comentariotxt").val(),
-    };
-    $("#comentartarea").attr("disabled", true);
-    retornarAjaxParametros(base_url("/tareas/agregarComentario"), dataJson);    
+{
+    if ($("#comentariotxt").val() != "")
+    {
+        var dataJson = {
+            idTarea: $("#idtarea").val(),
+            comentario: $("#comentariotxt").val(),
+        };
+        $("#comentartarea").attr("disabled", true);
+        retornarAjaxParametros(base_url("/tareas/agregarComentario"), dataJson);
+    }
+    else
+    {
+        swal("Atencion!", "No ingreso ningun comentario!", "warning")
+    }
 }
-$(document).on("click", "#comentartarea", function () {
-    $("#comentartarea").attr("disabled", true);        
+function finalizarTarea()
+{
+    swal({
+        title: "Finalizar tarea",
+        text: "Esta finalizando la tarea, desea continuar?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+        closeOnConfirm: true
+    },
+    function () {
+        retornarAjax(base_url("/tareas/FinalizarTarea"))
+        retrasarBoton("#finalizartarea")
+    });
+}
+$(document).on("click", "#finalizartarea", function () {
+    finalizarTarea()
+})
+$(document).on("click", "#comentartarea", function () {        
     comentarTarea()
 })
 function mostrarTablaTareas(r)
 {
     $('#agregartarea').modal('hide');
-   // console.log(JSON.parse(r.result))
-   // var res=JSON.parse(r.result);
+   
     res=r.result
     console.log(res)
 
@@ -281,9 +291,11 @@ function agregarcom(e)
     $("#mensajesusuario").append(com)
     $(".newelem").show("slow");
     $("#comentariotxt").val("");
+    retrasarBoton("#comentartarea")        
+}
+function retrasarBoton(id)
+{
     setTimeout(function () {
-        $("#comentartarea").attr("disabled", false);  
+        $(id).attr("disabled", false);
     }, 2000);
-    
-    
 }

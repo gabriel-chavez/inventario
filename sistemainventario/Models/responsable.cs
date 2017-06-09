@@ -34,15 +34,11 @@ namespace sistemainventario.Models
         public int ObtenerIdResponsable(int IdArea)
         {
             int IdResponsable;
-
-            //var modelResponsable = new List<responsable>();
             var modelResponsable = new responsable();
-            //List<enlaces> enlaces = new List<enlaces>();
             try
             {
                 using (var ctx = new inventarioContext())
                 {
-                    //enlaces = ctx.enlaces.ToList();
                     modelResponsable = ctx.responsable
                                         .Where(x => x.IdArea == IdArea)
                                         .Where(x => x.Encargado == 1)
@@ -52,7 +48,6 @@ namespace sistemainventario.Models
             }
             catch (Exception)
             {
-
                 throw;
             }
             

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Proyecto.Models;
+using sistemainventario.App_Start;
 using sistemainventario.Models;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,14 @@ namespace sistemainventario.Controllers
         // GET: Tareas
         public ActionResult Index()
         {
-            
+            tareas.retornarFechaComprometida();
             var areas = new areas();
             var prioridades = new prioridades();
             var tipoTareas = new tipoTareas();
             ViewBag.areas = areas.Listar();
             ViewBag.prioridades = prioridades.Listar();
             ViewBag.tipoTareas = tipoTareas.Listar();
+
             return View();
         }
         public ActionResult Ver(int id)
@@ -53,13 +55,11 @@ namespace sistemainventario.Controllers
             return resultado;
         }
         public JsonResult Guardar(tareas model)
-        {
-            DateTime hoy = DateTime.Today;
-            model.IdEstadoTarea = 1;
-            model.FechaAsignacion = hoy; //revisar que solo se guarde en
-            /******************/
+        {            
+            DateTime hoy = DateTime.Now;
+            model.IdEstadoTarea = 1;//el estado siempre inicia en  ejecutando = 1
+            model.FechaAsignacion = hoy;             
             var responsable = new responsable();
-            //responsable.
             var tarearesponsable = new tareaResponsable();
             var editar = false;
             editar = tarearesponsable.SeEditoArea(model.IdArea, model.IdTarea);
@@ -73,20 +73,16 @@ namespace sistemainventario.Controllers
                     //agregar resposable de tarea
                     tarearesponsable.IdTarea = model.IdTarea;
                     tarearesponsable.FechaAsignacionResponsable = hoy;
-                    tarearesponsable.IdResponsable = responsable.ObtenerIdResponsable(model.IdArea);                    
-                    tarearesponsable.Guardar(editar);
-                    
+                    tarearesponsable.IdResponsable = responsable.ObtenerIdResponsable(model.IdArea);
+                    tarearesponsable.Guardar(editar);                    
                 }
-
             }
             return Json(rm);
         }
         [HttpPost]
         public JsonResult agregarComentario(comentarios com)
         {
-            DateTime hoy = DateTime.Now;
-            /******************/
-            // var comentario = new comentarios();
+            DateTime hoy = DateTime.Now;          
             com.FechaHora = hoy;
             com.IdUsuario = 1;
             com.Visible = 1;
@@ -107,13 +103,36 @@ namespace sistemainventario.Controllers
             return Json(rm);
         }
         [HttpPost]
-        public ResponseModel GuardarResHoras(responsableHora rh)
+        public JsonResult GuardarResHoras(responsableHora rh)
         {
+            
+            var rm = new ResponseModel();
+            
             rh.idarea=Convert.ToInt32(TempData["idarea"]);
             rh.idtarea= Convert.ToInt32(TempData["idtarea"]);
-            rh.guardar();
-            var rm = new ResponseModel();
-            return rm;
+            rm=rh.guardar();
+            if(rm.response)
+            {
+                var comSis = new comentarios();
+                comSis.comentarioSistema(rh.idtarea,"Se modificaron algunos datos de la descripcion de la tarea ");
+                rm.href = Url.Content("self");
+
+            }            
+            return Json(rm);
+        }
+        public JsonResult FinalizarTarea()
+        {
+            var rm = new ResponseModel(); 
+            tareas.IdTarea= Funciones.TareaVisualizada();
+            rm =tareas.finalizarTarea();
+            if(rm.response)
+            {
+                var comSis = new comentarios();
+                comSis.comentarioSistema(tareas.IdTarea, "Tarea finalizada por el usuario");
+                rm.href = Url.Content("self");
+            }       
+                
+            return Json(rm);
         }
     }
 }

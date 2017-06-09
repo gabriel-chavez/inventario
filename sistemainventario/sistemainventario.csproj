@@ -478,6 +478,8 @@
     <Content Include="assets\summernote\summernote-es-ES.js" />
     <Content Include="assets\summernote\summernote.css" />
     <Content Include="assets\summernote\summernote.min.js" />
+    <Content Include="assets\sweetalert\sweetalert.css" />
+    <Content Include="assets\sweetalert\sweetalert.min.js" />
     <Content Include="assets\table-boot\css\bootstrap-table.css" />
     <Content Include="assets\table-boot\css\bootstrap-table11.css" />
     <Content Include="assets\table-boot\js\bootstrap-table-es-MX.js" />
@@ -497,6 +499,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Funciones.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\enlacesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

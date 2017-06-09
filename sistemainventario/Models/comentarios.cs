@@ -78,6 +78,18 @@ namespace sistemainventario.Models
             }
             return rm;
         }
+        public void comentarioSistema(int idtarea, string comentario)
+        {
+            DateTime hoy = DateTime.Now;
+            int usuario = 1;
+            this.IdTarea = idtarea;
+            this.Comentario = comentario;
+            this.Visible = 1;
+            this.FechaHora = hoy;
+            this.IdUsuario = usuario;
+            this.ComentarioSistema = 2; //2 comentario sistema
+            this.Guardar();
+        }
         
     }
 }

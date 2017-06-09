@@ -22,6 +22,7 @@ namespace sistemainventario.Models
             {
                 using (var ctx = new inventarioContext())
                 {
+                    this.EliminarResponsablesArea();
                     foreach (var fila in this.responsables)
                     {
                         if (fila != 0)
@@ -29,9 +30,14 @@ namespace sistemainventario.Models
                             sql = "INSERT INTO dbo.TareaResponsable (IdTarea,FechaAsignacionResponsable,IdResponsable) values(" + this.idtarea + ",'" + hoy + "'," + fila + ")";
                             ctx.Database.ExecuteSqlCommand(sql);
                         }                        
-                    }                                                          
-                    rm.SetResponse(true);
-                   
+                    }
+                    if(this.horas!=null && this.IsNumeric(this.horas.ToString()))
+                    {
+                        sql = "UPDATE dbo.tareas SET HorasDiariasAsignadas=" + this.horas + " Where idTarea=" + this.idtarea;
+                        ctx.Database.ExecuteSqlCommand(sql);
+                    }
+                    
+                    rm.SetResponse(true);                   
                 }
             }
             catch (Exception e)
@@ -40,19 +46,22 @@ namespace sistemainventario.Models
             }
             return rm;
         }
-        public void EliminarResponsablesArea(int idArea) //eliminar reponsables de area excepto el encargado 
+        public Boolean IsNumeric(string valor)
         {
-            
-                var rm = new ResponseModel();
+            int result;
+            return int.TryParse(valor, out result);
+        }
+        public void EliminarResponsablesArea() //eliminar reponsables de area excepto el encargado 
+        {
+            var responsable = new responsable();
+            int idResponsable = responsable.ObtenerIdResponsable(this.idarea);
+            string sql;
                 try
                 {
                     using (var ctx = new inventarioContext())
-                    {
-                        //this.IdTarea = id;
-                        ctx.Database.ExecuteSqlCommand("DELETE FROM dbo.TareaResponsable WHERE idTarea = " + id);
-                        //    ctx.SaveChanges();
-
-                        rm.SetResponse(true);
+                    {                    
+                       sql = "DELETE FROM dbo.TareaResponsable WHERE idTarea = " + this.idtarea+ " and idResponsable<> "+idResponsable;
+                       ctx.Database.ExecuteSqlCommand(sql);       
                     }
                 }
                 catch (Exception e)
@@ -65,4 +74,3 @@ namespace sistemainventario.Models
         }
          
     }
-}

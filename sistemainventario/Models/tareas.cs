@@ -2,6 +2,7 @@ namespace sistemainventario.Models
 {
     using Newtonsoft.Json;
     using Proyecto.Models;
+    using App_Start;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ namespace sistemainventario.Models
     using System.Data.Entity;
     using System.Data.Entity.Spatial;
     using System.Linq;
+    using System.Data.SqlClient;
 
     public partial class tareas
     {
@@ -62,11 +64,11 @@ namespace sistemainventario.Models
         public ResponseModel Listar()
         {
             List<tareas> tareas = new List<tareas>();
-          
+
             var rm = new ResponseModel();
             try
             {
-              
+
                 using (var ctx = new inventarioContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = true;
@@ -79,7 +81,7 @@ namespace sistemainventario.Models
                                         .Include("tareaResponsable.responsable.usuariosSistema")
                                         .Include(x => x.comentarios)
                                         .ToList();
-                 //   var records = from entity in ctx.E
+                    //   var records = from entity in ctx.E
 
                 }
                 rm.response = true;
@@ -114,7 +116,7 @@ namespace sistemainventario.Models
                     else ctx.Entry(this).State = EntityState.Added;
                     ctx.SaveChanges();
                     rm.SetResponse(true);
-                }                
+                }
             }
             catch (Exception e)
             {
@@ -129,23 +131,69 @@ namespace sistemainventario.Models
             try
             {
                 using (var ctx = new inventarioContext())
-                {           
+                {
 
-                    tarea = ctx.tareas.Include(x=>x.areas)
+                    tarea = ctx.tareas.Include(x => x.areas)
                                        .Include(x => x.prioridades)
                                        .Include(x => x.tipoTareas)
                                        .Include(x => x.estadoTarea)
-                                       .Include("tareaResponsable.responsable.usuariosSistema")                                       
+                                       .Include("tareaResponsable.responsable.usuariosSistema")
                                        .Where(x => x.IdTarea == id)
-                                       .SingleOrDefault();                    
+                                       .SingleOrDefault();
                 }
             }
             catch (Exception e)
             {
-
                 throw;
             }
             return tarea;
+        }
+        public ResponseModel finalizarTarea()
+        {
+            DateTime hoy = DateTime.Now;
+            var rm = new ResponseModel();
+            DateTime comprometida = retornarFechaComprometida(this.IdTarea);
+            int eficiencia;
+            string sql;
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    sql = "UPDATE dbo.tareas SET IdEstadoTarea=2 Where idTarea=" + this.IdTarea;
+                    ctx.Database.ExecuteSqlCommand(sql);
+                    rm.SetResponse(true);
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return rm;
+        }
+        public DateTime retornarFechaComprometida(int idTarea)
+        {
+            DateTime comprometida=new DateTime();
+            string sql;
+            
+            try
+            {
+               /* using (var ctx = new inventarioContext())
+                {
+                    
+                    sql = "Select FechaComprometida From dbo.tareas Where idTarea=" + this.IdTarea;
+                    var xxx=ctx.Database.ExecuteSqlCommand(sql);                  
+                }*/
+                using (var ctx = new inventarioContext())
+                {
+                    sql = "Select FechaComprometida From dbo.tareas Where idTarea=" + idTarea;
+                    comprometida = ctx.Database.SqlQuery<DateTime>(sql).FirstOrDefault<DateTime>();
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return comprometida;
         }
     }
 }

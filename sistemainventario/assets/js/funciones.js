@@ -93,7 +93,7 @@ function editarDatosModal (x) {
 function retornarAjax(url)
 {
     /*****RETORNAR AJAX****************/   
-    var content = $(this).closest("#contenido");        
+    var content = $(this).closest("#contenido");  //#contenido es el contenedor de la pagina      
     // Creamos un div que bloqueara todo el contenedor
     var block = $('<div class="block-loading" />');
     content.prepend(block);

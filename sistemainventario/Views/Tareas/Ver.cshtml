@@ -74,12 +74,8 @@
                                                     @fila.usuariosSistema.Nombre
                                                     <span> @myDateTime.ToString("H:mm:ss")</span>
                                                 </h4>
-
                                                 <blockquote class="message">
-                                                  
                                                         @fila.Comentario
-                                            
-                                                    
                                                 </blockquote>
                                                 <br />
                                                 @*<p class="url">
@@ -91,13 +87,14 @@
                                     }
                                     if (fila.ComentarioSistema == 2) //comentario de sistema 2
                                     {
+                                        var myDateTime1 = DateTime.Parse(fila.FechaHora.ToString());
                                         <li>
                                             <div class="timeline">
                                                 <div class="block block_content">
                                                     <h2 class="title"></h2>
-                                                    <span>asdadasas asdasdas dasd</span>
+                                                    <span>@fila.Comentario</span>
                                                     <div class="byline">
-                                                        <a>Ruben Cardenas </a><span>02/02/2017</span>
+                                                        <a>@fila.usuariosSistema.Nombre </a><span>@myDateTime1.ToString("H:mm:ss")</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,16 +102,20 @@
                                     }
                                 }
                             </ul>
-                            <div>
-                                <textarea class="form-control vresize" rows="4" maxlength='1000' id="comentariotxt"></textarea>
-                                <br />
-                                <div class="pull-right">
-                                    <button type="button" id="finalizartarea" class="btn btn-default">Finalizar tarea</button>
-                                    <button type="button" id="comentartarea" class="btn btn-primary">Comentar</button>
+                            @if (tarea.IdEstadoTarea != 2)
+                            {
+                                <div id="bloqueAgregarCom">
+                                    <textarea class="form-control vresize" rows="4" maxlength='1000' id="comentariotxt"></textarea>
+                                    <br />
+                                    <div class="pull-right">
+                                        <button type="button" id="finalizartarea" class="btn btn-default">Finalizar tarea</button>
+                                        <button type="button" id="comentartarea" class="btn btn-primary">Comentar</button>
+                                    </div>
                                 </div>
-                            </div>
-                           
-                            
+                            }
+
+
+
                                 @*<ul class="messages">
                                     <li>
                                         <img src="images/img.jpg" class="avatar" alt="Avatar">
@@ -248,9 +249,12 @@
                                        // fila.responsable.usuariosSistema.idUsuario
                                         <p class="">@fila.responsable.usuariosSistema.Nombre</p>
                                     }
+                                    @if (tarea.IdEstadoTarea != 2)
+                                    {
                                     <div class="text-center">
                                         <button type="button" class="btn btn-sm btn-default btn-block" data-toggle="modal" data-target="#editarresponsable_horas">Editar</button>
                                     </div>
+                                    }
                                 </div>
                                 <hr />
                                 @*<h5>Project files</h5>
@@ -299,7 +303,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Horas diarias asignadas</label>
-                        <input type="number" id="" name="horas" class="form-control" placeholder=" ">
+                        <input type="number" id="" name="horas" class="form-control" placeholder=" " value="@tarea.HorasDiariasAsignadas">
                     </div>
                     <div class="form-group">
                         <label>Responsable de la terea</label>
