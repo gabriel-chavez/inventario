@@ -17,7 +17,7 @@ namespace sistemainventario.Controllers
         // GET: Tareas
         public ActionResult Index()
         {
-            tareas.retornarFechaComprometida();
+           // tareas.retornarFechaComprometida();
             var areas = new areas();
             var prioridades = new prioridades();
             var tipoTareas = new tipoTareas();

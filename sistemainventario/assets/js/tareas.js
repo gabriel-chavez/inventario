@@ -14,7 +14,8 @@ function comentarTarea()
             comentario: $("#comentariotxt").val(),
         };
         $("#comentartarea").attr("disabled", true);
-        retornarAjaxParametros(base_url("/tareas/agregarComentario"), dataJson);
+        retornarAjaxParametros(base_url("tareas/agregarComentario"), dataJson);
+        
     }
     else
     {
@@ -44,17 +45,58 @@ $(document).on("click", "#finalizartarea", function () {
 $(document).on("click", "#comentartarea", function () {        
     comentarTarea()
 })
+function flatTareas(r)
+{
+    $.each(r, function (index, value) {
+       // console.log(value)
+        r[index].areaArea = value.areas.Area;
+        r[index].prioridadesPrioridad = value.prioridades.Prioridad;
+        r[index].tipoTareasTipoTarea = value.tipoTareas.TipoTarea;
+        r[index].estadoTareaEstadoTarea1 = value.estadoTarea.EstadoTarea1;        
+    })
+   return r;
+}
+function restornardatosSelect(res) {
+    var area = new Array()
+    var prioridad = new Array()
+    var tipotarea = new Array()
+    var estadoactual = new Array()
+    var datos = new Array()
+    $.each(res, function (index, value) {
+        area.push(value.areaArea.trim())
+        prioridad.push(value.prioridadesPrioridad.trim())
+        tipotarea.push(value.tipoTareasTipoTarea.trim())
+        estadoactual.push(value.estadoTareaEstadoTarea1.trim())
+    })
+    area.sort();
+    prioridad.sort();
+    tipotarea.sort();
+    estadoactual.sort();
+    datos.push(area.unique());
+    datos.push(prioridad.unique());
+    datos.push(tipotarea.unique());
+    datos.push(estadoactual.unique());
+    return (datos);
+}
+Array.prototype.unique = function (a) {
+    return function () { return this.filter(a) }
+}(function (a, b, c) {
+    return c.indexOf(a, b + 1) < 0
+});
 function mostrarTablaTareas(r)
 {
     $('#agregartarea').modal('hide');
-   
-    res=r.result
-    console.log(res)
-
+    
+    res = r.result
+    res=flatTareas(res);
+    //console.log(res)
+    datosselect = restornardatosSelect(res)
+    console.log(datosselect);
     $("#tareasAsignadas").bootstrapTable('destroy');
     $("#tareasAsignadas").bootstrapTable({
 
         data: res,
+       // flat:true,
         striped: true,
         pagination: true,
         pageSize: "10",      
@@ -65,26 +107,37 @@ function mostrarTablaTareas(r)
 
         columns: [
             {
-                field: 'areas.Area',
-                width: '5%',
+                field: 'areaArea',
+                width: '10%',
                 title: 'Area',
                 align: 'center',
                 sortable: true,
-                //filter: { type: "input" }
+                filter: {
+                    type: "select",
+                    data: datosselect[0],
+                },
             },
             {
-                field: 'prioridades.Prioridad',
+                field: 'prioridadesPrioridad',
                 width: '5%',
                 title: 'Prioridad',
                 align: 'center',
                 sortable: true,
+                filter: {
+                    type: "select",
+                    data: datosselect[1],
+                },
                 formatter: labelprioridad,               
             },
             {
-                field: 'tipoTareas.TipoTarea',
+                field: 'tipoTareasTipoTarea',
                 width: '30%',
-                title: "Tipo de tarea",
-                align: 'center',                                
+                title: "Tipo de tarea",                
+                filter: {
+                    type: "select",
+                    data: datosselect[2],
+                },
+               
             },
             {
                 field: 'TareaAsignada',
@@ -129,13 +182,11 @@ function mostrarTablaTareas(r)
                 field: "HorasDiariasAsignadas",
                 title: "Horas <br>diarias <br>asignadas",
                 width: '7%',
-                sortable: true,
-                //filter: {
-                //    type: "select",
-                //    data: ["APROBADO", "PENDIENTE", "ANULADO"]
-                //},
-                //formatter: operateFormatter2,
+                sortable: true,               
                 align: 'center',
+                filter: {
+                    type: "input",                    
+                },
 
             },
             {
@@ -143,6 +194,7 @@ function mostrarTablaTareas(r)
                 width: '10%',
                 title: "Responsable <br> de la tarea",
                 sortable: true,
+                filter: { type: "input" },
                 //filter: {
                 //    type: "select",
                 //    data: datosselect[2]
@@ -153,12 +205,15 @@ function mostrarTablaTareas(r)
 
             },
             {
-                field: "estadoTarea.EstadoTarea1",
+                field: "estadoTareaEstadoTarea1",
                 width: '10%',
                 title: "Estado actual",
                 sortable: true,
                 formatter: labelestado,
-             //   visible: false,
+                filter: {
+                    type: "select",
+                    data: datosselect[3],
+                },
                 align: 'center',
             },
             {
@@ -192,12 +247,21 @@ function mostrarTablaTareas(r)
 }
 window.operateEvents = {
     'click .editarTarea': function (e, value, row, index) {
-        mostrarModalEditar(row);        
-        $("#tarticulo").bootstrapTable('hideLoading');
+        console.log(row)
+        if (row.IdEstadoTarea!=2)
+        {
+            mostrarModalEditar(row);
+            $("#tarticulo").bootstrapTable('hideLoading');
+        }
+        else
+        {
+            swal("Atencion!", "Este registro no puede ser editado", "warning")
+        }
+        
     },
     'click .verTarea': function (e, value, row, index) {
         
-        window.location = base_url("/tareas/ver/" + row.IdTarea);
+        window.location = base_url("tareas/ver/" + row.IdTarea);
     }
 };
 function operateFormatter(value, row, index) {
@@ -210,33 +274,34 @@ function operateFormatter(value, row, index) {
         
     ].join('');
 }
+
 function labelprioridad(value, row, index) {
     if (value == "Alta")
-        $ret = '<span class="label label-danger">ALTA</span>';
+        ret = '<span class="label label-danger">ALTA</span>';
     if (value == "Media")
-        $ret = '<span class="label label-warning">MEDIA</span>';
+        ret = '<span class="label label-warning">MEDIA</span>';
     if (value == "Baja")
-        $ret = '<span class="label label-info">BAJA</span>';
-    return ($ret);
+        ret = '<span class="label label-info">BAJA</span>';
+    return (ret);
 }
 function labelestado(value, row, index) {
     if (value == "Ejecución")
-        $ret = '<span class="label label-info text-uppercase">'+value+'</span>';
+        ret = '<span class="label label-info text-uppercase">'+value+'</span>';
     if (value == "Finalizado")
-        $ret = '<span class="label label-success text-uppercase">' + value +'</span>';
+        ret = '<span class="label label-success text-uppercase">' + value +'</span>';
     if (value == "Demorado")
-        $ret = '<span class="label label-warning text-uppercase">' + value +'</span>';
-    return ($ret);
+        ret = '<span class="label label-warning text-uppercase">' + value +'</span>';
+    return (ret);
 }
 function responsabletarea(value, row, index) {
-    var $ret = "";
+    var ret = "";
     $.each(value, function (index, val) {
-        console.log(val.responsable.usuariosSistema);
-        $ret += val.responsable.usuariosSistema.Nombre;
-        $ret += "<br>";
+       // console.log(val.responsable.usuariosSistema);
+        ret += val.responsable.usuariosSistema.Nombre;
+        ret += "<br>";
     });
-    console.log(value)
-    return ($ret);
+    //console.log(value)
+    return (ret);
 }
 $(document).on("click", "#btnnuevatarea", function () {
     borrardatosModal();

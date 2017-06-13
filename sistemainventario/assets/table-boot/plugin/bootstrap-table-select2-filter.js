@@ -74,10 +74,8 @@
 
       $.each(header.children().children(), function (i, tr) {
         tr = $(tr);
-
         if (tr.data('field') === column.field) {
-          //console.log(tr)
-          tr.find('.fht-cell').prepend(html.join(''));
+          tr.find('.fht-cell').append(html.join(''));
           return false;
         }
       });

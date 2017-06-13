@@ -114,8 +114,17 @@ namespace sistemainventario.Models
                 {
                     if (this.IdTarea > 0) ctx.Entry(this).State = EntityState.Modified;
                     else ctx.Entry(this).State = EntityState.Added;
-                    ctx.SaveChanges();
-                    rm.SetResponse(true);
+
+                    if(this.editardatos(this.IdTarea))//se puede editar?
+                    {
+                        ctx.SaveChanges();
+                        rm.SetResponse(true);
+                    }
+                    else
+                    {
+                        rm.message = "No se puede editar esta tarea finalizada";
+                    }
+                    
                 }
             }
             catch (Exception e)
@@ -153,13 +162,21 @@ namespace sistemainventario.Models
             DateTime hoy = DateTime.Now;
             var rm = new ResponseModel();
             DateTime comprometida = retornarFechaComprometida(this.IdTarea);
-            int eficiencia;
+            int eficiencia = 0;
+            
+            TimeSpan ts;
+            if (hoy >= comprometida)
+            {
+                ts = hoy - comprometida;
+                // Diferencia dias.
+                eficiencia = ts.Days;
+            }
             string sql;
             try
             {
                 using (var ctx = new inventarioContext())
                 {
-                    sql = "UPDATE dbo.tareas SET IdEstadoTarea=2 Where idTarea=" + this.IdTarea;
+                    sql = "UPDATE dbo.tareas SET IdEstadoTarea=2,Eficiencia="+eficiencia+" Where idTarea=" + this.IdTarea;
                     ctx.Database.ExecuteSqlCommand(sql);
                     rm.SetResponse(true);
                 }
@@ -194,6 +211,35 @@ namespace sistemainventario.Models
                 throw;
             }
             return comprometida;
+        }
+        public bool editardatos(int idTarea)//se puede editar los datos???
+        {
+            bool editar = false;
+            string sql;
+            int estadoTarea;
+            try
+            {
+                /* using (var ctx = new inventarioContext())
+                 {
+
+                     sql = "Select FechaComprometida From dbo.tareas Where idTarea=" + this.IdTarea;
+                     var xxx=ctx.Database.ExecuteSqlCommand(sql);                  
+                 }*/
+                using (var ctx = new inventarioContext())
+                {
+                    sql = "Select IdEstadoTarea From dbo.tareas Where idTarea=" + idTarea;
+                    estadoTarea = ctx.Database.SqlQuery<int>(sql).FirstOrDefault<int>();
+                    if (estadoTarea == 2) //2 finalizado
+                        editar = false;
+                    else
+                        editar = true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return editar;
         }
     }
 }

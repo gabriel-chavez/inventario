@@ -206,6 +206,7 @@ function base_url(complemento) {
     var baseurl = $('#baseurl').val();
     return baseurl + complemento;
 }
+
  $('textarea[maxlength]').keyup(function(){          
         var limit = parseInt($(this).attr('maxlength'));  
         var text = $(this).val();  

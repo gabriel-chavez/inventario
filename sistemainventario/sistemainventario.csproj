@@ -488,6 +488,7 @@
     <Content Include="assets\table-boot\js\bootstrap-table-filter.js" />
     <Content Include="assets\table-boot\js\bootstrap-table.js" />
     <Content Include="assets\table-boot\js\tableExport.js" />
+    <Content Include="assets\table-boot\plugin\bootstrap-table-flat-json.js" />
     <Content Include="assets\table-boot\plugin\bootstrap-table-select2-filter.js" />
     <Content Include="assets\table-boot\plugin\bootstrap-table-select2-filter.min.js" />
     <Content Include="assets\table-boot\plugin\select2.min.css" />
