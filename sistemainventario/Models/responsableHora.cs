@@ -27,7 +27,7 @@ namespace sistemainventario.Models
                     {
                         if (fila != 0)
                         {
-                            sql = "INSERT INTO dbo.TareaResponsable (IdTarea,FechaAsignacionResponsable,IdResponsable) values(" + this.idtarea + ",'" + hoy + "'," + fila + ")";
+                            sql = "INSERT INTO dbo.TareaResponsable (IdTarea,FechaAsignacionResponsable,IdResponsable) values(" + this.idtarea + ",'" + hoy.ToString("s") + "'," + fila + ")";
                             ctx.Database.ExecuteSqlCommand(sql);
                         }                        
                     }

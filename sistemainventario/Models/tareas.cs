@@ -159,14 +159,13 @@ namespace sistemainventario.Models
         }
         public ResponseModel finalizarTarea()
         {
-            DateTime hoy = DateTime.Now;
+            DateTime hoy = DateTime.Now;            
             var rm = new ResponseModel();
             DateTime comprometida = retornarFechaComprometida(this.IdTarea);
-            int eficiencia = 0;
-            
+            int eficiencia = 0;            
             TimeSpan ts;
             if (hoy >= comprometida)
-            {
+            { 
                 ts = hoy - comprometida;
                 // Diferencia dias.
                 eficiencia = ts.Days;
@@ -176,7 +175,7 @@ namespace sistemainventario.Models
             {
                 using (var ctx = new inventarioContext())
                 {
-                    sql = "UPDATE dbo.tareas SET IdEstadoTarea=2,Eficiencia="+eficiencia+" Where idTarea=" + this.IdTarea;
+                    sql = "UPDATE dbo.tareas SET IdEstadoTarea=2,Eficiencia="+eficiencia+ ", FechaCierre='"+hoy.ToString("s") + "' Where idTarea=" + this.IdTarea;
                     ctx.Database.ExecuteSqlCommand(sql);
                     rm.SetResponse(true);
                 }

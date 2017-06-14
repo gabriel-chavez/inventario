@@ -184,10 +184,7 @@ function mostrarTablaTareas(r)
                 width: '7%',
                 sortable: true,               
                 align: 'center',
-                filter: {
-                    type: "input",                    
-                },
-
+                
             },
             {
                 field: "tareaResponsable",
