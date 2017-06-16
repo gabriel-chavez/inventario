@@ -64,12 +64,14 @@ namespace sistemainventario.Controllers
             var editar = false;
             editar = tarearesponsable.SeEditoArea(model.IdArea, model.IdTarea);
             var rm = new ResponseModel();
+            var correlativo = 0 ;
             if (ModelState.IsValid)
             {
                 rm = model.Guardar();
+                correlativo = model.ObtenerCorrelativo();
                 if (rm.response)
                 {                    
-                    rm.function = "retornarAjax('tareas/retornarTareas')";
+                    rm.function = "retornarAjax(base_url('tareas/retornarTareas'))";
                     //agregar resposable de tarea
                     tarearesponsable.IdTarea = model.IdTarea;
                     tarearesponsable.FechaAsignacionResponsable = hoy;

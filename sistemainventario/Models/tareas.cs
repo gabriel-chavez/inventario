@@ -47,6 +47,7 @@ namespace sistemainventario.Models
         public DateTime? FechaCierre { get; set; }
 
         public int? Eficiencia { get; set; }
+        public int? Nro { get; set; }
 
         public virtual areas areas { get; set; }
 
@@ -80,6 +81,8 @@ namespace sistemainventario.Models
                                         .Include("estadoTarea")
                                         .Include("tareaResponsable.responsable.usuariosSistema")
                                         .Include(x => x.comentarios)
+                                        .OrderByDescending(x => x.Nro)
+                                        .OrderByDescending(x => x.FechaAsignacion)
                                         .ToList();
                     //   var records = from entity in ctx.E
 
@@ -123,8 +126,7 @@ namespace sistemainventario.Models
                     else
                     {
                         rm.message = "No se puede editar esta tarea finalizada";
-                    }
-                    
+                    }                    
                 }
             }
             catch (Exception e)
@@ -239,6 +241,34 @@ namespace sistemainventario.Models
                 throw;
             }
             return editar;
+        }
+        public int ObtenerCorrelativo() //obtiene numero correlativo de acuerdo al año
+        {
+            tareas tareas = new tareas();
+            DateTime hoy = DateTime.Now;
+            int correlativo=0;
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    //para retornar solo de la tabla alumno
+                    // alumno = ctx.Alumno.Where(x => x.id == id)
+                    //                   .SingleOrDefault();
+                    //para retornar la relacion
+                    tareas = ctx.tareas.Where(x => x.FechaAsignacion == hoy)
+                                       .OrderByDescending(x => x.Nro)
+                                       .SingleOrDefault();                   
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            if (tareas == null)
+                correlativo = 1;
+            else
+                correlativo = (int)tareas.Nro;           
+            return correlativo;
         }
     }
 }
