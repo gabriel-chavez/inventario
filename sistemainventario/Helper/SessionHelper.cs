@@ -6,6 +6,10 @@ using System.Web;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Web.Security;
+using System.Web.Helpers;
+using Proyecto.Models;
+using Newtonsoft.Json;
+using System.Web.Mvc;
 
 namespace Helper
 {
@@ -34,8 +38,10 @@ namespace Helper
             }
             return id;
         }
-        public static void AddUserToSession(string id)
+        public static void AddUserToSession(JsonResult datos)
         {
+            //JsonResult datos1 = Json(datos.Data);
+            string json = JsonConvert.SerializeObject(datos);
             bool persist = true;
             var cookie = FormsAuthentication.GetAuthCookie("usuario", persist);
 
@@ -43,7 +49,7 @@ namespace Helper
             cookie.Expires = DateTime.Now.AddMonths(3);
 
             var ticket = FormsAuthentication.Decrypt(cookie.Value);
-            var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, id);
+            var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, json);
 
             cookie.Value = FormsAuthentication.Encrypt(newTicket);
             HttpContext.Current.Response.Cookies.Add(cookie);

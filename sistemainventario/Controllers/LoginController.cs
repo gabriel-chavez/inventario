@@ -25,6 +25,7 @@ namespace sistemainventario.Controllers
                 var aux = Json(rm.result);
                 SessionHelper.AddUserToSession(aux);
                 rm.href = Url.Content("~/tareas");
+                rm.result = null;
             }
             return Json(rm);
         }

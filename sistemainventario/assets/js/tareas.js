@@ -89,7 +89,7 @@ function mostrarTablaTareas(r)
     
     res = r.result
     res=flatTareas(res);
-    //console.log(res)
+    console.log(res)
     datosselect = restornardatosSelect(res)
     console.log(datosselect);
     $("#tareasAsignadas").bootstrapTable('destroy');
@@ -106,6 +106,14 @@ function mostrarTablaTareas(r)
         showColumns: true,
 
         columns: [
+             {
+                 field: 'Nro',
+                 width: '5%',
+                 title: 'Nro',
+                 align: 'center',
+                 sortable: true,
+                
+             },
             {
                 field: 'areaArea',
                 width: '10%',
@@ -312,6 +320,7 @@ function borrardatosModal()
     $("#Acciones").val("");
     $("#TareaAsignada").val("")
     $("#IdTarea").val(0)
+    $("#Nro").val(0)
 }
 function mostrarModalEditar(row)
 {    
@@ -323,6 +332,7 @@ function mostrarModalEditar(row)
     $("#Acciones").val(row.Acciones);
     $("#TareaAsignada").val(row.TareaAsignada)
     $("#IdTarea").val(row.IdTarea)
+    $("#Nro").val(row.Nro)
 }
 function agregarcom(e)
 {

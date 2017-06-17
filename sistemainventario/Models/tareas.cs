@@ -279,7 +279,7 @@ namespace sistemainventario.Models
             {
                 throw;
             }
-            if (tareas1 == null)
+            if (tareas1.Nro == null)
                 correlativo = 0;
             else               
                 correlativo = (int)tareas1.Nro;           

@@ -1,5 +1,6 @@
 namespace sistemainventario.Models
 {
+    using Newtonsoft.Json;
     using Proyecto.Models;
     using System;
     using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace sistemainventario.Models
     [Table("usuariosSistema")]
     public partial class usuariosSistema
     {
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuariosSistema()
         {
@@ -26,8 +28,10 @@ namespace sistemainventario.Models
         [StringLength(50)]
         public string Usuario { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]       
         public virtual ICollection<comentarios> comentarios { get; set; }
+
         public usuariosSistema Obtener(string usuario)
         {
             var usuariosSistema = new usuariosSistema();
