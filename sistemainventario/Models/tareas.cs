@@ -11,6 +11,7 @@ namespace sistemainventario.Models
     using System.Data.Entity.Spatial;
     using System.Linq;
     using System.Data.SqlClient;
+    using System.Data.Entity.SqlServer;
 
     public partial class tareas
     {
@@ -115,8 +116,16 @@ namespace sistemainventario.Models
             {
                 using (var ctx = new inventarioContext())
                 {
-                    if (this.IdTarea > 0) ctx.Entry(this).State = EntityState.Modified;
-                    else ctx.Entry(this).State = EntityState.Added;
+                    if (this.IdTarea > 0)
+                    {
+                        
+                        ctx.Entry(this).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        this.Nro = this.ObtenerCorrelativo();
+                        ctx.Entry(this).State = EntityState.Added;
+                    }
 
                     if(this.editardatos(this.IdTarea))//se puede editar?
                     {
@@ -244,7 +253,8 @@ namespace sistemainventario.Models
         }
         public int ObtenerCorrelativo() //obtiene numero correlativo de acuerdo al año
         {
-            tareas tareas = new tareas();
+           // List<tareas> tareas = new List<tareas>();
+            tareas tareas1 = new tareas();
             DateTime hoy = DateTime.Now;
             int correlativo=0;
             try
@@ -255,20 +265,25 @@ namespace sistemainventario.Models
                     // alumno = ctx.Alumno.Where(x => x.id == id)
                     //                   .SingleOrDefault();
                     //para retornar la relacion
-                    tareas = ctx.tareas.Where(x => x.FechaAsignacion == hoy)
+                    //tareas = ctx.tareas.Where(x => x.FechaAsignacion.Value.Year == hoy.Year)
+                    //                   .OrderByDescending(x => x.Nro)
+                    //                   .ToList();
+                    tareas1 = ctx.tareas.Where(x => x.FechaAsignacion.Value.Year == hoy.Year)
                                        .OrderByDescending(x => x.Nro)
-                                       .SingleOrDefault();                   
+                                       .FirstOrDefault();
+
+                    correlativo = 0;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
-            if (tareas == null)
-                correlativo = 1;
-            else
-                correlativo = (int)tareas.Nro;           
-            return correlativo;
+            if (tareas1 == null)
+                correlativo = 0;
+            else               
+                correlativo = (int)tareas1.Nro;           
+            return correlativo+1;
         }
     }
 }

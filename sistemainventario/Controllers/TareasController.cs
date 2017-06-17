@@ -68,7 +68,7 @@ namespace sistemainventario.Controllers
             if (ModelState.IsValid)
             {
                 rm = model.Guardar();
-                correlativo = model.ObtenerCorrelativo();
+                //correlativo = model.ObtenerCorrelativo();
                 if (rm.response)
                 {                    
                     rm.function = "retornarAjax(base_url('tareas/retornarTareas'))";
