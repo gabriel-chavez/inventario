@@ -37,7 +37,7 @@ function finalizarTarea()
         closeOnConfirm: true
     },
     function () {
-        retornarAjax(base_url("/tareas/FinalizarTarea"))
+        retornarAjax(base_url("Tareas/FinalizarTarea"))
         retrasarBoton("#finalizartarea")
     });
 }

@@ -69,7 +69,7 @@ namespace sistemainventario.Controllers
             var editar = false;
             editar = tarearesponsable.SeEditoArea(model.IdArea, model.IdTarea);
             var rm = new ResponseModel();
-            var correlativo = 0 ;
+            //var correlativo = 0 ;
             if (ModelState.IsValid)
             {
                 rm = model.Guardar();

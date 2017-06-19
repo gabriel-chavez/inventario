@@ -13,7 +13,9 @@ namespace sistemainventario.App_Start
             int tarea = 0;
             try
             {
-                tarea = Convert.ToInt32(HttpContext.Current.Request.UrlReferrer.Segments[3]);
+                int c = HttpContext.Current.Request.UrlReferrer.Segments.Count();
+                tarea = Convert.ToInt32(HttpContext.Current.Request.UrlReferrer.Segments[c-1]); //para sistema                
+                //tarea = Convert.ToInt32(HttpContext.Current.Request.UrlReferrer.Segments[4]); //para publicar
             }
             catch(Exception e)
             {

@@ -18,20 +18,46 @@ namespace sistemainventario.Models
         {
             comentarios = new HashSet<comentarios>();
         }
-
         [Key]
         public int idUsuario { get; set; }
-
         [StringLength(50)]
         public string Nombre { get; set; }
-
         [StringLength(50)]
         public string Usuario { get; set; }
-
+        [StringLength(100)]
+        public string Email { get; set; }
+        public int? Tipo { get; set; }
+        [StringLength(100)]
+        public string Roles { get; set; }
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]       
         public virtual ICollection<comentarios> comentarios { get; set; }
+        public ResponseModel Listar()
+        {
+            List<usuariosSistema> usuarios = new List<usuariosSistema>();
 
+            var rm = new ResponseModel();
+            try
+            {
+
+                using (var ctx = new inventarioContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = true;
+                    ctx.Configuration.ProxyCreationEnabled = false;
+                    usuarios = ctx.usuariosSistema.ToList();                    
+                }
+                rm.response = true;
+                rm.message = "";
+                rm.function = "mostrarTablaUsuarios";
+                rm.result = usuarios;
+                
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return rm;
+        }
         public usuariosSistema Obtener(string usuario)
         {
             var usuariosSistema = new usuariosSistema();
