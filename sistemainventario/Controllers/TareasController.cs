@@ -38,10 +38,15 @@ namespace sistemainventario.Controllers
             ViewBag.usuariosArea = responsables.listarResponsable(ViewBag.tarea.IdArea);
             return View();
         }
-        public string retornarTareas()
+        public string retornarTareas(string fechaIni, string fechaFin, string area)
         {
+            DateTime ini = Convert.ToDateTime(fechaIni);
+            DateTime fin = Convert.ToDateTime(fechaFin+" 23:59:59");
+        
+            int a = Convert.ToInt32(area);
+
             var rm = new ResponseModel();
-            rm = tareas.Listar();
+            rm = tareas.Listar(ini,fin,a);
             rm.function = "mostrarTablaTareas";
             string  resultado;
             resultado = JsonConvert.SerializeObject(rm, Formatting.Indented,

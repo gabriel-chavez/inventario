@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {      
+﻿var iniciofecha = moment().subtract(0, 'year').startOf('year')
+var finfecha = moment().subtract(0, 'year').endOf('year')
+$(document).ready(function () {      
     /**Iniciando datetime**/
     moment.locale("es");
     $('#fechacierre').datetimepicker({        
@@ -108,7 +110,7 @@ function mostrarTablaTareas(r)
         columns: [
              {
                  field: 'Nro',
-                 width: '5%',
+                 width: '3%',
                  title: 'Nro',
                  align: 'center',
                  sortable: true,
@@ -371,3 +373,20 @@ function retrasarBoton(id)
         $(id).attr("disabled", false);
     }, 2000);
 }
+
+function retornarTablaTareas()
+{
+    ini = iniciofecha.format('YYYY-MM-DD');
+    fin = finfecha.format('YYYY-MM-DD');
+    are = $("#area").val();
+    var dataJson = {
+        fechaIni:ini,
+        fechaFin: fin,
+        area:are
+    };
+    $("#comentartarea").attr("disabled", true);
+    retornarAjaxParametros(base_url("tareas/retornarTareas"), dataJson);
+}
+$(document).on("change", "#area", function () {
+    retornarTablaTareas()
+})

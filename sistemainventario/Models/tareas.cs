@@ -63,7 +63,7 @@ namespace sistemainventario.Models
         public virtual ICollection<tareaResponsable> tareaResponsable { get; set; }
 
         public virtual tipoTareas tipoTareas { get; set; }
-        public ResponseModel Listar()
+        public ResponseModel Listar(DateTime ini,DateTime fin, int area)
         {
             List<tareas> tareas = new List<tareas>();
 
@@ -75,17 +75,39 @@ namespace sistemainventario.Models
                 {
                     ctx.Configuration.LazyLoadingEnabled = true;
                     ctx.Configuration.ProxyCreationEnabled = false;
-                    tareas = ctx.tareas
+                    if(area==0)
+                    {
+                        tareas = ctx.tareas
                                         .Include("areas")
                                         .Include("prioridades")
                                         .Include("tipoTareas")
                                         .Include("estadoTarea")
                                         .Include("tareaResponsable.responsable.usuariosSistema")
                                         .Include(x => x.comentarios)
+                                        .Where(x => x.FechaAsignacion >= ini)
+                                        .Where(x => x.FechaAsignacion <= fin)
                                         .OrderByDescending(x => x.Nro)
                                         .OrderByDescending(x => x.FechaAsignacion)
                                         .ToList();
-                    //   var records = from entity in ctx.E
+                    }
+                    else
+                    {
+                        tareas = ctx.tareas
+                                        .Include("areas")
+                                        .Include("prioridades")
+                                        .Include("tipoTareas")
+                                        .Include("estadoTarea")
+                                        .Include("tareaResponsable.responsable.usuariosSistema")
+                                        .Include(x => x.comentarios)
+                                        .Where(x=>x.IdArea==area)
+                                        .Where(x => x.FechaAsignacion >= ini)
+                                        .Where(x => x.FechaAsignacion <= fin)
+                                        .OrderByDescending(x => x.Nro)
+                                        .OrderByDescending(x => x.FechaAsignacion)
+                                        .ToList();
+                    }
+                    
+                  
 
                 }
                 rm.response = true;

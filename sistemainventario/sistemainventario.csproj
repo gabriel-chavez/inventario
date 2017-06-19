@@ -185,6 +185,11 @@
     <Content Include="assets\datepicker\bootstrap-datetimepicker.es.js" />
     <Content Include="assets\datepicker\bootstrap-datetimepicker.min.css" />
     <Content Include="assets\datepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="assets\daterangepicker\daterangepicker.css" />
+    <Content Include="assets\daterangepicker\daterangepicker.js" />
+    <Content Include="assets\daterangepicker\locale\es.js" />
+    <Content Include="assets\daterangepicker\moment.js" />
+    <Content Include="assets\daterangepicker\moment.min.js" />
     <Content Include="assets\fastclick\lib\fastclick.js" />
     <Content Include="assets\font-awesome\.gitignore" />
     <Content Include="assets\font-awesome\css\font-awesome.css" />

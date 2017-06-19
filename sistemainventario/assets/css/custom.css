@@ -2,7 +2,6 @@
 html , body{
 	
  height:100%;
- 
 }
  
 .full-width {
@@ -492,7 +491,8 @@ body {
     font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 13px;
     font-weight: 400;
-    line-height: 1.471
+    line-height: 1.471;
+    overflow-x:hidden;
 }
 .main_container .top_nav {
     display: block;
@@ -4281,4 +4281,10 @@ thead.vertical-align-head>tr>th
     border-radius:4px;
     border: 1px solid #aaa;
     padding-left:8px;
+}
+.btnfecha {
+    margin-bottom: unset !important;
+    margin-right: unset !important;
+    padding-bottom: 7px;
+    padding-top: 7px;
 }
