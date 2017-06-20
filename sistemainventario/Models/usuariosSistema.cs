@@ -29,6 +29,11 @@ namespace sistemainventario.Models
         public int? Tipo { get; set; }
         [StringLength(100)]
         public string Roles { get; set; }
+        [StringLength(100)]
+        public string Cargo { get; set; }
+        [StringLength(100)]
+        public string Imagen { get; set; }
+        public int? Estado { get; set; }
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]       
         public virtual ICollection<comentarios> comentarios { get; set; }

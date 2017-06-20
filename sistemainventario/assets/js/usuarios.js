@@ -37,6 +37,13 @@ function mostrarTablaUsuarios(r) {
                 sortable: true,
             },
             {
+                field: 'Cargo',
+                width: '10%',
+                title: 'Cargo',
+                align: 'left',
+                sortable: true,
+            },
+            {
                 field: 'Tipo',
                 width: '10%',
                 title: 'Tipo',
@@ -94,3 +101,50 @@ function formatoTipo(value, row, index) {
             return "Usuario";
     }   
 }
+$("#usuariobuscar").autocomplete({
+    minLength: 2,
+    source: function (request, response) {
+
+       // $(".cargandosol").css({ "display": "block" });
+        $(".usuariobuscarid").val("");
+        encuentrausuario(0);
+        $.ajax({
+            url: base_url("Usuarios/autocompletar"),
+            dataType: "json",
+            data: {
+                b: request.term
+            },
+            success: function (data) {
+                response(data);
+              //  $(".cargandosol").css({ "display": "none" });
+            }
+        });
+    },
+    select: function (event, ui) {
+        encuentrausuario(1);
+        datos = ui.item;
+
+        $("#usuariobuscar").val(ui.item[0]);
+        $("#usuariobuscarid").val(ui.item[2]);
+        return false;
+    }
+})
+    .autocomplete("instance")._renderItem = function (ul, item) {
+
+        return $("<li>")
+          .append("<a><div>" + item[0] + " </div><div class='mailage'>" + item[2] + " - " + item[1] + "</div></a>")
+          .appendTo(ul);
+    };function encuentrausuario(encuentra) {
+    if (encuentra == 0) {
+        $('#icono-busqueda').removeClass("glyphicon-ok");
+        $('#icono-busqueda').addClass("glyphicon-user");
+        $('#icono-busqueda-color').removeClass("coloriconook");
+
+    }
+    if (encuentra == 1) {
+        $('#icono-busqueda').removeClass("glyphicon-user");
+        $('#icono-busqueda').addClass("glyphicon-ok");
+        $('#icono-busqueda-color').addClass("coloriconook");
+    }
+}
+

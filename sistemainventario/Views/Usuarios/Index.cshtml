@@ -42,43 +42,80 @@
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Agregar tarea</h4>
+                <h4 class="modal-title" id="myModalLabel">Agregar Usuario</h4>
             </div>
             
-            @using (Html.BeginForm("Guardar", "Usuario", FormMethod.Post))
-            {
+            @*@using (Html.BeginForm("Guardar", "Usuario", FormMethod.Post))
+            {*@
 
-                <input name="IdTarea" id="IdTarea" class="hidden" value="0" />
-                <input name="Nro" id="Nro" class="hidden" value="0" />
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                       
-                      
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                            <div class='input-group date' id='fechacierre'>
-                                <input type='text' class="form-control" name="FechaComprometida" id="FechaComprometida" placeholder="Fecha comprometida de cierre" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-group">
-                            <label>Acciones realizadas</label>
-                            <textarea class="form-control" rows="4" name="Acciones" id="Acciones"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Tarea</label>
-                            <textarea class="form-control" rows="8" name="TareaAsignada" id="TareaAsignada"></textarea>
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">
+                        Nombre<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="input-group">
+                            <input type="text" id="usuariobuscar" required="required" class="form-control col-md-7 col-xs-12">
+                            <span class="input-group-addon coloriconook" id="icono-busqueda-color">
+                                <span id="icono-busqueda" class="glyphicon glyphicon-ok"></span>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" data-ajax="true" class="btn btn-primary">Guardar cambios</button>
+                <div class="form-group">
+                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="last-name">
+                        Usuario <span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" name="last-name" required="required" readonly class="form-control col-md-7 col-xs-12">
+                    </div>
                 </div>
-            }            
+                <div class="form-group">
+                    <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Correo</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="middle-name" class="form-control col-md-7 col-xs-12" readonly type="text" name="middle-name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Cargo</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="middle-name" class="form-control col-md-7 col-xs-12" readonly type="text" name="middle-name">
+                    </div>
+                </div>  
+                <div class="form-group">
+                    <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Tipo de usuario</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="selectpicker form-control">
+                            <option value="2">Usuario</option>
+                            <option value="1">Administrador</option>                                                        
+                        </select>
+
+                    </div>
+                </div>                
+                <div class="form-group">
+                    <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Opciones</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="selectpicker form-control" multiple title="Seleccione las opciones del menu">
+                            <optgroup label="Comunicaciones">
+                                <option>Enlaces de comunicacion</option>                                
+                            </optgroup>
+                            <optgroup label="Asignacion de tareas">
+                                <option>Tareas</option>                         
+                            </optgroup>
+                        </select>
+
+                    </div>
+                </div>  
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">Cancelar</button>                       
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+            </form>
+            @*}*@            
         </div>
     </div>
 </div>
