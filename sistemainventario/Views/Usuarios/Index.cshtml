@@ -56,7 +56,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="input-group">
-                            <input type="text" id="usuariobuscar" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="text" id="usuariobuscar" name="Nombre" required="required" class="form-control col-md-7 col-xs-12">
                             <span class="input-group-addon coloriconook" id="icono-busqueda-color">
                                 <span id="icono-busqueda" class="glyphicon glyphicon-ok"></span>
                             </span>
@@ -68,25 +68,25 @@
                         Usuario <span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="last-name" required="required" readonly class="form-control col-md-7 col-xs-12">
+                        <input type="text" name="Usuario" id="Usuario" required="required" readonly class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Correo</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="middle-name" class="form-control col-md-7 col-xs-12" readonly type="text" name="middle-name">
+                        <input id="Email" name="Email" class="form-control col-md-7 col-xs-12" readonly type="text" >
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Cargo</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="middle-name" class="form-control col-md-7 col-xs-12" readonly type="text" name="middle-name">
+                        <input id="Cargo" class="form-control col-md-7 col-xs-12" readonly type="text" name="Cargo">
                     </div>
                 </div>  
                 <div class="form-group">
                     <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Tipo de usuario</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="selectpicker form-control">
+                        <select class="selectpicker form-control" name="Tipo">
                             <option value="2">Usuario</option>
                             <option value="1">Administrador</option>                                                        
                         </select>
@@ -96,7 +96,7 @@
                 <div class="form-group">
                     <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Opciones</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="selectpicker form-control" multiple title="Seleccione las opciones del menu">
+                        <select class="selectpicker form-control" multiple title="Seleccione las opciones del menu" name="Roles">
                             <optgroup label="Comunicaciones">
                                 <option>Enlaces de comunicacion</option>                                
                             </optgroup>

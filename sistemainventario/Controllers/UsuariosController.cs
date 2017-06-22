@@ -1,7 +1,8 @@
-﻿using Codeplex.Data;
+﻿
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Proyecto.Models;
+using sistemainventario.Helper;
 using sistemainventario.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace sistemainventario.Controllers
         // GET: Usuarios
         
         private usuariosSistema usuarios = new usuariosSistema();
+       
+
         public ActionResult Index()
         {
             return View();
@@ -29,7 +32,7 @@ namespace sistemainventario.Controllers
             var rm = new ResponseModel();
             rm = usuarios.Listar();
            // rm.function = "mostrarTablaTareas";
-            string resultado;
+            //string resultado;
             //resultado = JsonConvert.SerializeObject(rm, Formatting.Indented,
             //            new JsonSerializerSettings()
             //            {
@@ -40,43 +43,70 @@ namespace sistemainventario.Controllers
             return Json(rm);
             //return resultado;            
         }
+        private bool buscarArray(string st, string[] array)
+        {
+            bool existe = false;
+            foreach (var nombre in array)
+            {
+                if (contains2(st,nombre, StringComparison.OrdinalIgnoreCase))
+                    existe= true;
+                else
+                    return false;
+            }
+            return existe;
+        }
+        //sobrecarga a funcion contains
+        private bool contains2(string fuente, string achecar, StringComparison comp)
+        {
+            return fuente.IndexOf(achecar, comp) >= 0;
+        }
+        [HttpGet]
         public JsonResult Autocompletar(string b)
         {
             using (StreamReader sr = new StreamReader(Server.MapPath("~/assets/usuarios.json")))
             {
-                string json1 = sr.ReadToEnd();
+             
+                List<string[]> matriz = new List<string[]>();
                 
-                var myObj = DynamicJson.Parse(json1);
-                foreach (var status in myObj)
+
+                bool buscardearray=false;
+                string json1 = sr.ReadToEnd();
+                var serializer = new JavaScriptSerializer();
+                serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
+                dynamic obj = serializer.Deserialize(json1, typeof(object));
+                if (b.Contains(" "))                
+			        buscardearray = true;                    			        
+                else
+                    buscardearray = false;
+
+                string[] abuscar = b.Split(' ');
+                
+                for (int i = 1; i < obj.count-1; i++)
                 {
-                    Console.WriteLine(status.user.screen_name);
-                    Console.WriteLine(status.text);
+                                       
+                    if((obj[i].samaccountname!=null)&&(obj[i].description!=null)&&(obj[i].mailnickname != null))
+                    {
+                        if (buscardearray)
+                        {
+                            if (buscarArray(obj[i].cn[0], abuscar))
+                            {
+                                matriz.Add(new string[4] { obj[i].cn[0], obj[i].description[0], obj[i].samaccountname[0], obj[i].mailnickname[0] });
+                            }
+                        }
+                        else
+                        {
+                            if (contains2(obj[i].cn[0],b, StringComparison.OrdinalIgnoreCase) || contains2(obj[i].samaccountname[0],b, StringComparison.OrdinalIgnoreCase))
+                            {
+                                matriz.Add(new string[4] { obj[i].cn[0], obj[i].description[0], obj[i].samaccountname[0], obj[i].mailnickname[0] });
+                            }
+                        }
+                    }
+                    
                 }
-                JObject o = JObject.Parse(json1);
-
-
-                var json = DynamicJson.Parse(@"{""foo"":""json"", ""bar"":100, ""nest"":{ ""foobar"":true } }");
-
-                var r1 = json.foo; // "json" - dynamic(string)
-                var r2 = json.bar; // 100 - dynamic(double)
-                var r3 = json.nest.foobar; // true - dynamic(bool)
-                var r4 = json["nest"]["foobar"]; // can access indexer
-                return Json(o);
-            }
-           
-          
+                return Json(matriz, JsonRequestBehavior.AllowGet);
+            }                     
         }
-        public T Deserialize<T>(string json)
-        {
-            T concreteObject = Activator.CreateInstance<T>();
-            var memoryStream = new MemoryStream(Encoding.Unicode.GetBytes(json));
-            var serializer = new DataContractJsonSerializer(concreteObject.GetType());
-            concreteObject = (T)serializer.ReadObject(memoryStream);
-            memoryStream.Close();
-            memoryStream.Dispose();
-            return concreteObject;
-        }
-      
+       
     }
     
 }

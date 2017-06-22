@@ -125,21 +125,29 @@ $("#usuariobuscar").autocomplete({
         datos = ui.item;
 
         $("#usuariobuscar").val(ui.item[0]);
-        $("#usuariobuscarid").val(ui.item[2]);
+        $("#Usuario").val(ui.item[2]);
+        $("#Email").val(ui.item[3]+"@bancosol.com.bo");
+        $("#Cargo").val(ui.item[1]);
+        //$("#usuariobuscarid").val(ui.item[2]);
         return false;
     }
-})
-    .autocomplete("instance")._renderItem = function (ul, item) {
+}).autocomplete("instance")._renderItem = function (ul, item) {
 
         return $("<li>")
           .append("<a><div>" + item[0] + " </div><div class='mailage'>" + item[2] + " - " + item[1] + "</div></a>")
           .appendTo(ul);
-    };function encuentrausuario(encuentra) {
+};
+
+
+function encuentrausuario(encuentra) {
     if (encuentra == 0) {
         $('#icono-busqueda').removeClass("glyphicon-ok");
         $('#icono-busqueda').addClass("glyphicon-user");
         $('#icono-busqueda-color').removeClass("coloriconook");
-
+        
+        $("#Usuario").val("");
+        $("#Email").val("");
+        $("#Cargo").val("");
     }
     if (encuentra == 1) {
         $('#icono-busqueda').removeClass("glyphicon-user");
@@ -147,4 +155,4 @@ $("#usuariobuscar").autocomplete({
         $('#icono-busqueda-color').addClass("coloriconook");
     }
 }
-
+

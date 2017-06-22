@@ -4288,3 +4288,7 @@ thead.vertical-align-head>tr>th
     padding-bottom: 7px;
     padding-top: 7px;
 }
+.ui-autocomplete
+{
+    z-index:10000 !important;
+}

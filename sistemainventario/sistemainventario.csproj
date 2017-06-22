@@ -514,10 +514,10 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TareasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
-    <Compile Include="Helper\DynamicJson.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\DynamicJsonConverter .cs" />
     <Compile Include="Helper\SessionHelper.cs" />
     <Compile Include="Models\areas.cs" />
     <Compile Include="Models\comentarios.cs" />
