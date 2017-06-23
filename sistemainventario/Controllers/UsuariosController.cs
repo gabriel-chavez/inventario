@@ -25,23 +25,25 @@ namespace sistemainventario.Controllers
 
         public ActionResult Index()
         {
+            var Areas = new areas();
+            ViewBag.areas = Areas.Listar();
             return View();
         }
-        public JsonResult retornarUsuarios()
+        public string retornarUsuarios()
         {           
             var rm = new ResponseModel();
             rm = usuarios.Listar();
            // rm.function = "mostrarTablaTareas";
-            //string resultado;
-            //resultado = JsonConvert.SerializeObject(rm, Formatting.Indented,
-            //            new JsonSerializerSettings()
-            //            {
-            //                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+            string resultado;
+            resultado = JsonConvert.SerializeObject(rm, Formatting.Indented,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
 
-            //            }
-            //        );
-            return Json(rm);
-            //return resultado;            
+                        }
+                    );
+           // return Json(rm);
+            return resultado;            
         }
         private bool buscarArray(string st, string[] array)
         {
@@ -106,7 +108,22 @@ namespace sistemainventario.Controllers
                 return Json(matriz, JsonRequestBehavior.AllowGet);
             }                     
         }
-       
+        public JsonResult Guardar(usuariosSistema model, string[] menus)
+        {
+            model.Estado = 1;            
+            model.Roles=JsonConvert.SerializeObject(menus);
+            var rm = new ResponseModel();            
+            if (ModelState.IsValid)
+            {
+                rm = model.Guardar();            
+                if (rm.response)
+                {
+                    rm.function = "retornarTablaUsuarios()";                                    
+                }
+            }
+            return Json(rm);
+        }
+
     }
     
 }

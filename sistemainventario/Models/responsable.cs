@@ -1,5 +1,6 @@
 namespace sistemainventario.Models
 {
+    using Newtonsoft.Json;
     using Proyecto.Models;
     using System;
     using System.Collections.Generic;
@@ -29,8 +30,12 @@ namespace sistemainventario.Models
         public short? Encargado { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+       // [JsonIgnore]
         public virtual ICollection<tareaResponsable> tareaResponsable { get; set; }
+       // [JsonIgnore]
         public virtual usuariosSistema usuariosSistema { get; set; }
+        public virtual areas areas { get; set; }
+
         public int ObtenerIdResponsable(int IdArea)
         {
             int IdResponsable;
@@ -49,8 +54,7 @@ namespace sistemainventario.Models
             catch (Exception)
             {
                 throw;
-            }
-            
+            }            
             return IdResponsable;
         }
         public List<responsable> listarResponsable(int IdArea)

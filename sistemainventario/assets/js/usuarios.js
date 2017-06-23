@@ -4,7 +4,8 @@
 }
 function mostrarTablaUsuarios(r) {
     $('#agregarUsuario').modal('hide');
-    res = r.result   
+    res = r.result
+   
     $("#listausuarios").bootstrapTable('destroy');
     $("#listausuarios").bootstrapTable({
         data: res,        
@@ -54,37 +55,43 @@ function mostrarTablaUsuarios(r) {
             {
                 field: 'Roles',
                 width: '20%',
-                title: "Opciones",               
-            },                                  
+                title: "Opciones",
+                formatter: formatoOpciones,
+            },
+            {
+                field: 'row.responsable[0].Encargado',
+                width: '20%',
+                title: "Encargado",
+                
+                formatter: formatoEncargado,
+            },
+            {
+                field: '',
+                width: '20%',
+                title: "Area",
+                
+                formatter: formatoArea,
+            },
             {
                 title: 'Acciones',
                 align: 'center',
                 width: '20%',
-                events: operateEvents,
-                formatter: operateFormatter,
+                events: operateEventsUsuario,
+                formatter: operateFormatterUsuario,
             }]
     });
     $("#listausuarios").bootstrapTable('resetView');
 }
-window.operateEvents = {
-    'click .editarTarea': function (e, value, row, index) {
+window.operateEventsUsuario = {
+    'click .editarUsuario': function (e, value, row, index) {
         console.log(row)
-        if (row.IdEstadoTarea != 2) {
-            mostrarModalEditar(row);
-            $("#tarticulo").bootstrapTable('hideLoading');
-        }
-        else {
-            swal("Atencion!", "Este registro no puede ser editado", "warning")
-        }
-
+        mostrarModalEditarUsuario(row);
     },
-    'click .verTarea': function (e, value, row, index) {
-
-        window.location = base_url("tareas/ver/" + row.IdTarea);
+    'click .eliminarUsuario': function (e, value, row, index) {        
     }
 };
 
-function operateFormatter(value, row, index) {
+function operateFormatterUsuario(value, row, index) {
     return [        
         '<button type="button" class="btn btn-default editarUsuario" aria-label="Right Align">',
         '<i class="fa fa-pencil" aria-hidden="true"></i></button>',
@@ -92,6 +99,47 @@ function operateFormatter(value, row, index) {
         '<i class="fa fa-trash" aria-hidden="true"></i></button>',
 
     ].join('');
+}
+function formatoOpciones(value, row, index) {
+    var menu = JSON.parse(value);
+    var opcion = "";    
+    if (menu != null)
+    {
+        var tam = Object.keys(menu).length;      
+        $.each(menu, function (index, value) {
+            opcion += " " + opciones(value);
+            if(index<tam-1)
+                opcion += ", ";
+        })
+    }
+    return opcion;
+}
+function formatoArea(value, row, index) {
+    
+    if (row.responsable.length > 0)
+        return (row.responsable[0].areas.Area);
+    else
+        return "-";    
+}
+function formatoEncargado(value, row, index) {
+
+    if (row.responsable.length > 0)
+        return ((row.responsable[0].Encargado==1)?"Encargado":"");
+    else
+        return "-";
+}
+function opciones(op)
+{
+    
+    switch(op)
+    {
+        case "11":
+            return "Enlaces de comunicacion";
+            break;
+        case "21":
+            return "Tareas";
+            break;
+    }
 }
 function formatoTipo(value, row, index) {
     switch (value) {
@@ -137,8 +185,6 @@ $("#usuariobuscar").autocomplete({
           .append("<a><div>" + item[0] + " </div><div class='mailage'>" + item[2] + " - " + item[1] + "</div></a>")
           .appendTo(ul);
 };
-
-
 function encuentrausuario(encuentra) {
     if (encuentra == 0) {
         $('#icono-busqueda').removeClass("glyphicon-ok");
@@ -155,4 +201,38 @@ function encuentrausuario(encuentra) {
         $('#icono-busqueda-color').addClass("coloriconook");
     }
 }
-
+function mostrarModalEditarUsuario(row) {
+    $("#agregarUsuario").modal("show");
+    $('#idUsuario').val(row.idUsuario);
+    $("#usuariobuscar").val(row.Nombre);
+    $("#Usuario").val(row.Usuario);
+    $("#Email").val(row.Email);
+    $("#Cargo").val(row.Cargo);    
+    $('#Tipo').selectpicker('val', row.Tipo);        
+    $('#menus').selectpicker('val', JSON.parse(row.Roles));
+    /***********************************/
+    var area = "0";
+    var encargado = "10";
+    if (row.responsable.length > 0)
+    {
+        area = (row.responsable[0].IdArea);
+        encargado = (row.responsable[0].Encargado)
+    }       
+    $('#Area').selectpicker('val', area);
+    $('#Encargado').selectpicker('val',encargado);
+}
+function borrardatosModalUsuario() {    
+    $('#idUsuario').val("0");
+    $("#usuariobuscar").val("");
+    $("#Usuario").val("");
+    $("#Email").val("");
+    $("#Cargo").val("");
+   // $('#Tipo').selectpicker('val', "");
+    $('#menus').selectpicker('val', null);
+    $('#Area').selectpicker('val', "0");
+    $('#Encargado').selectpicker('val', "10");
+}
+$(document).on("click", "#btnnuevousuario", function () {
+    
+    borrardatosModalUsuario();
+})

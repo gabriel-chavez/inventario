@@ -6,6 +6,7 @@ namespace sistemainventario.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
     using System.Data.Entity.Spatial;
     using System.Linq;
 
@@ -37,6 +38,8 @@ namespace sistemainventario.Models
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]       
         public virtual ICollection<comentarios> comentarios { get; set; }
+       
+        public virtual ICollection<responsable> responsable { get; set; }
         public ResponseModel Listar()
         {
             List<usuariosSistema> usuarios = new List<usuariosSistema>();
@@ -44,12 +47,13 @@ namespace sistemainventario.Models
             var rm = new ResponseModel();
             try
             {
-
                 using (var ctx = new inventarioContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = true;
                     ctx.Configuration.ProxyCreationEnabled = false;
-                    usuarios = ctx.usuariosSistema.ToList();                    
+                    usuarios = ctx.usuariosSistema.Include(x => x.responsable)
+                                                  .Include("responsable.areas")
+                                                  .ToList();                    
                 }
                 rm.response = true;
                 rm.message = "";
@@ -77,7 +81,7 @@ namespace sistemainventario.Models
 
                     usuariosSistema =  ctx.usuariosSistema
                                        .Where(x => x.Usuario == usuario)
-                                       .SingleOrDefault();
+                                       .FirstOrDefault();
                     
                 }
             }
@@ -88,5 +92,44 @@ namespace sistemainventario.Models
             }
             return usuariosSistema;
         }
+        public ResponseModel Guardar()
+        {
+            var rm = new ResponseModel();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    var usu = Obtener(this.Usuario);
+                    if (this.idUsuario > 0)
+                    {
+                        ctx.Entry(this).State = EntityState.Modified;
+                        ctx.SaveChanges();
+                        rm.SetResponse(true);
+                    }
+                    else
+                    {
+                        if(usu==null)
+                        {
+                            ctx.Entry(this).State = EntityState.Added;
+                            ctx.SaveChanges();
+                            rm.SetResponse(true);
+                        }
+                        else
+                        {
+                            rm.SetResponse(false);
+                            rm.message = "El Usuario ya se encuentra registrado en la Base de Datos";
+                        }
+                        
+                    }                                        
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return rm;
+        }
+        
+       
     }
 }

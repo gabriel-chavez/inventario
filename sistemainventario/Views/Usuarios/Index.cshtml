@@ -1,5 +1,8 @@
 ﻿
 @model sistemainventario.Models.usuariosSistema
+    @{ 
+        List <sistemainventario.Models.areas> Areas = ViewBag.areas;
+    }
 
 <div class="">
     <div class="page-title">
@@ -48,8 +51,10 @@
             @*@using (Html.BeginForm("Guardar", "Usuario", FormMethod.Post))
             {*@
 
-            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="~/Usuarios/Guardar">
                 <br />
+                <input name="idUsuario" id="idUsuario" value="0" class="hidden"/>
+                <input name="IdResponsable" id="IdResponsable" value="0" class="hidden" />
                 <div class="form-group">
                     <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">
                         Nombre<span class="required"></span>
@@ -86,7 +91,7 @@
                 <div class="form-group">
                     <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Tipo de usuario</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="selectpicker form-control" name="Tipo">
+                        <select class="selectpicker form-control" name="Tipo" id="Tipo" title="Seleccione una opcion">
                             <option value="2">Usuario</option>
                             <option value="1">Administrador</option>                                                        
                         </select>
@@ -96,24 +101,50 @@
                 <div class="form-group">
                     <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Opciones</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="selectpicker form-control" multiple title="Seleccione las opciones del menu" name="Roles">
+                        <select class="selectpicker form-control" multiple title="Seleccione las opciones del menu" id="menus" name="menus[]">
                             <optgroup label="Comunicaciones">
-                                <option>Enlaces de comunicacion</option>                                
+                                <option value="11">Enlaces de comunicacion</option>                                
                             </optgroup>
                             <optgroup label="Asignacion de tareas">
-                                <option>Tareas</option>                         
+                                <option value="21">Tareas</option>                         
                             </optgroup>
                         </select>
 
                     </div>
                 </div>  
-                <div class="ln_solid"></div>
+                <hr />
+                <div class="form-group">
+                    <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Area</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="selectpicker form-control" name="Area" id="Area" title="Seleccione una opcion">
+                            <option value="" selected>Sin Asignar</option>
+                            @foreach (var item in Areas)
+                            {
+                                <option value="@item.IdArea">@item.Area</option>
+                            }
+                           
+                        </select>
+
+                    </div>
+                </div>    
+                <div class="form-group">
+                    <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Encargado</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="selectpicker form-control" name="Encargado" id="Encargado" title="Seleccione una opcion">
+                            <option value="" selected>Sin Asignar</option>                           
+                            <option value="1" >Si</option>
+                            <option value="0" >No</option>
+                        </select>
+                    </div>
+                </div>    
+                
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
                         <button class="btn btn-primary" type="button" data-dismiss="modal">Cancelar</button>                       
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button data-ajax="true" type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </div>
+                <div class="ln_solid"></div>
             </form>
             @*}*@            
         </div>
