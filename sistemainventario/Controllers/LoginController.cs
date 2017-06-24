@@ -1,4 +1,5 @@
 ﻿using Helper;
+using sistemainventario.Helper;
 using sistemainventario.Models;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,12 @@ using System.Web.Mvc;
 
 namespace sistemainventario.Controllers
 {
-
+    
     public class LoginController : Controller
     {
         private login login = new login();
         // GET: Login
+        [NoLogin]
         public ActionResult Index()
         {
             return View();
@@ -22,7 +24,8 @@ namespace sistemainventario.Controllers
             var rm = login.Acceder(Usuario, Password);
             if (rm.response)
             {
-                var aux = Json(rm.result);
+                
+                var aux = Json(rm.result);               
                 SessionHelper.AddUserToSession(aux);
                 rm.href = Url.Content("~/tareas");
                 rm.result = null;

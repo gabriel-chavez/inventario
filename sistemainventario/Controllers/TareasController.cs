@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Helper;
+using Newtonsoft.Json;
 using Proyecto.Models;
 using sistemainventario.App_Start;
+using sistemainventario.Helper;
 using sistemainventario.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Web.Mvc;
 
 namespace sistemainventario.Controllers
 {
+    [Autenticado]
     public class TareasController : Controller
     {
         private tareas tareas = new tareas();
@@ -92,6 +95,7 @@ namespace sistemainventario.Controllers
             DateTime hoy = DateTime.Now;          
             com.FechaHora = hoy;
             com.IdUsuario = 1;
+            com.IdUsuario = SessionHelper.GetIdUser();
             com.Visible = 1;
             com.ComentarioSistema = 1;
             var rm = new ResponseModel();

@@ -518,6 +518,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\DynamicJsonConverter .cs" />
+    <Compile Include="Helper\filtros.cs" />
     <Compile Include="Helper\SessionHelper.cs" />
     <Compile Include="Models\areas.cs" />
     <Compile Include="Models\comentarios.cs" />

@@ -73,7 +73,10 @@ namespace sistemainventario.Models
             try
             {
                 using (var ctx = new inventarioContext())
-                {
+                {                  
+                    ctx.Configuration.LazyLoadingEnabled = false;                    
+                    ctx.Configuration.ProxyCreationEnabled = false;
+
                     //para retornar solo de la tabla alumno
                     // alumno = ctx.Alumno.Where(x => x.id == id)
                     //                   .SingleOrDefault();
@@ -81,8 +84,7 @@ namespace sistemainventario.Models
 
                     usuariosSistema =  ctx.usuariosSistema
                                        .Where(x => x.Usuario == usuario)
-                                       .FirstOrDefault();
-                    
+                                       .FirstOrDefault();                    
                 }
             }
             catch (Exception)
@@ -128,8 +130,6 @@ namespace sistemainventario.Models
                 throw;
             }
             return rm;
-        }
-        
-       
+        }               
     }
 }

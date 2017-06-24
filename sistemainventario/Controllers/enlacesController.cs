@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using sistemainventario.Models;
 using Proyecto.Models;
-
+using sistemainventario.Helper;
 
 namespace sistemainventario.Controllers
 {
+    [Autenticado]
     public class enlacesController : Controller
     {
         // GET: enlaces

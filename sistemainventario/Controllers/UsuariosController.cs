@@ -1,4 +1,5 @@
 ﻿
+using Helper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Proyecto.Models;
@@ -16,6 +17,7 @@ using System.Web.Script.Serialization;
 
 namespace sistemainventario.Controllers
 {
+    [Autenticado]
     public class UsuariosController : Controller
     {
         // GET: Usuarios
@@ -27,6 +29,7 @@ namespace sistemainventario.Controllers
         {
             var Areas = new areas();
             ViewBag.areas = Areas.Listar();
+            var x=SessionHelper.GetUser();
             return View();
         }
         public string retornarUsuarios()
