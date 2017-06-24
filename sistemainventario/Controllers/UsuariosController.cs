@@ -108,22 +108,47 @@ namespace sistemainventario.Controllers
                 return Json(matriz, JsonRequestBehavior.AllowGet);
             }                     
         }
-        public JsonResult Guardar(usuariosSistema model, string[] menus)
+        public JsonResult Guardar(usuariosSistema model, string[] menus,string Area,string Encargado,string IdResponsable)
         {
+              
+
             model.Estado = 1;            
             model.Roles=JsonConvert.SerializeObject(menus);
-            var rm = new ResponseModel();            
-            if (ModelState.IsValid)
+            
+            var rm = new ResponseModel();
+            if(model.Nombre!=null || model.Usuario!=null || model.Email!=null || model.Cargo!=null)
             {
-                rm = model.Guardar();            
-                if (rm.response)
+                if (ModelState.IsValid)
                 {
-                    rm.function = "retornarTablaUsuarios()";                                    
+                    rm = model.Guardar();
+                    if (rm.response)
+                    {
+                        //guardar responsable
+                        this.GuardarResponsable(Area, Encargado, IdResponsable,model.idUsuario);
+                        rm.function = "retornarTablaUsuarios()";
+                    }
                 }
             }
+            else
+            {
+                rm.SetResponse(false);
+                rm.message = "Complete los datos para continuar";               
+            }
+            
             return Json(rm);
         }
-
+        public void GuardarResponsable(string Area, string Encargado, string IdResponsable, int IdUsuario)
+        {
+            if ((Area != null && Encargado != null) && (Area != "" && Encargado != ""))
+            {
+                var responsable = new responsable();
+                responsable.IdResponsable = Convert.ToInt32(IdResponsable);
+                responsable.IdArea = Convert.ToInt32(Area);
+                responsable.Encargado = Convert.ToInt16(Encargado);
+                responsable.IdUsuario = IdUsuario;
+                responsable.Guardar();
+            }
+        }
     }
     
 }

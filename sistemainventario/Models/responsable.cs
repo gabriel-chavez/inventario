@@ -19,8 +19,7 @@ namespace sistemainventario.Models
             tareaResponsable = new HashSet<tareaResponsable>();
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]        
         public int IdResponsable { get; set; }
 
         public int? IdUsuario { get; set; }

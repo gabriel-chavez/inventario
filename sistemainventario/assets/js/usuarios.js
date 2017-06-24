@@ -59,7 +59,7 @@ function mostrarTablaUsuarios(r) {
                 formatter: formatoOpciones,
             },
             {
-                field: 'row.responsable[0].Encargado',
+                field: '',
                 width: '20%',
                 title: "Encargado",
                 
@@ -213,26 +213,28 @@ function mostrarModalEditarUsuario(row) {
     /***********************************/
     var area = "0";
     var encargado = "10";
+    var idResponsable = "0";
     if (row.responsable.length > 0)
     {
         area = (row.responsable[0].IdArea);
         encargado = (row.responsable[0].Encargado)
+        idResponsable = (row.responsable[0].IdResponsable)
     }       
     $('#Area').selectpicker('val', area);
-    $('#Encargado').selectpicker('val',encargado);
+    $('#Encargado').selectpicker('val', encargado);
+    $('#IdResponsable').val(idResponsable);
 }
 function borrardatosModalUsuario() {    
     $('#idUsuario').val("0");
     $("#usuariobuscar").val("");
     $("#Usuario").val("");
     $("#Email").val("");
-    $("#Cargo").val("");
-   // $('#Tipo').selectpicker('val', "");
+    $("#Cargo").val("");   
     $('#menus').selectpicker('val', null);
     $('#Area').selectpicker('val', "0");
     $('#Encargado').selectpicker('val', "10");
+    $('#IdResponsable').val("0");
 }
-$(document).on("click", "#btnnuevousuario", function () {
-    
+$(document).on("click", "#btnnuevousuario", function () {    
     borrardatosModalUsuario();
 })
