@@ -1,4 +1,4 @@
-﻿using Helper;
+﻿
 using Newtonsoft.Json;
 using Proyecto.Models;
 using sistemainventario.App_Start;
@@ -27,7 +27,7 @@ namespace sistemainventario.Controllers
             ViewBag.areas = areas.Listar();
             ViewBag.prioridades = prioridades.Listar();
             ViewBag.tipoTareas = tipoTareas.Listar();
-
+//            var x= SessionHelper.GetIdUser();            
             return View();
         }
         public ActionResult Ver(int id)
@@ -93,8 +93,7 @@ namespace sistemainventario.Controllers
         public JsonResult agregarComentario(comentarios com)
         {
             DateTime hoy = DateTime.Now;          
-            com.FechaHora = hoy;
-            com.IdUsuario = 1;
+            com.FechaHora = hoy;            
             com.IdUsuario = SessionHelper.GetIdUser();
             com.Visible = 1;
             com.ComentarioSistema = 1;
@@ -108,7 +107,7 @@ namespace sistemainventario.Controllers
                     rm.result = com;
                 }
             }
-            var usr = "xxx";
+            var usr = SessionHelper.GetNameUser(); ;
             var coment = new { comentario=com.Comentario, horafecha=hoy.ToString("yyyy-MM-dd HH:mm:ss"),usuario=usr};
             rm.result = coment;
             return Json(rm);

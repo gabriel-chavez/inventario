@@ -141,7 +141,7 @@ function mostrarTablaTareas(r)
             },
             {
                 field: 'tipoTareasTipoTarea',
-                width: '30%',
+                width: '5%',
                 title: "Tipo de tarea",                
                 filter: {
                     type: "select",
@@ -272,14 +272,12 @@ window.operateEvents = {
     }
 };
 function operateFormatter(value, row, index) {
-    return [
-        '<button type="button" class="btn btn-default verTarea" aria-label="Right Align">',
-        '<i class="fa fa-external-link" aria-hidden="true"></i></button>',
-        '<button type="button" class="btn btn-default editarTarea" aria-label="Right Align">',
-        '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>',
-        
-        
-    ].join('');
+    var ret = '<button type="button" class="btn btn-default verTarea" aria-label="Right Align">' +
+        '<i class="fa fa-external-link" aria-hidden="true"></i></button>';
+    if ($("#tipo").val() == 1)
+        ret += '<button type="button" class="btn btn-default editarTarea" aria-label="Right Align">' +
+        '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';               
+    return ret;
 }
 
 function labelprioridad(value, row, index) {

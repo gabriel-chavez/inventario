@@ -81,7 +81,7 @@ namespace sistemainventario.Models
         public void comentarioSistema(int idtarea, string comentario)
         {
             DateTime hoy = DateTime.Now;
-            int usuario = 1;
+            int usuario = Helper.SessionHelper.GetIdUser();
             this.IdTarea = idtarea;
             this.Comentario = comentario;
             this.Visible = 1;

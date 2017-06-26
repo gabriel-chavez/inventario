@@ -1,4 +1,10 @@
-﻿<div class="col-md-3 left_col">
+﻿@{ 
+    //var menu = sistemainventario.Helper.SessionHelper.GetMenuUser();
+    //existemenu(int menu, bool principal);
+  
+
+}  
+<div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
             <a href="#" class="site_title"><i class="fa fa-dribbble"></i> <span>Sistema</span></a>
@@ -25,33 +31,49 @@
                         </ul>
                     </li>                    
                 </ul>
-                <ul class="nav side-menu">
-                    <li>
-                        <a><i class="fa fa-wifi"></i> Comunicaciones <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="~/enlaces">Enlaces de comunicacion</a></li>
-                            
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav side-menu">
-                    <li>
-                        <a><i class="fa fa-check-square-o"></i> Asignacion de Tareas <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="~/tareas">Tareas</a></li>
+                <!--option 1-->
+                @if (sistemainventario.Helper.SessionHelper.existemenu(1, true))
+                {
+                    <ul class="nav side-menu">
+                        <li>
+                            <a><i class="fa fa-wifi"></i> Comunicaciones <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                @if (sistemainventario.Helper.SessionHelper.existemenu(11, false))
+                                {
+                                    <li><a href="~/enlaces">Enlaces de comunicacion</a></li>
+                                }                                
+                            </ul>
+                        </li>
+                    </ul>
+                }                
+                <!--option 2-->
+                @if (sistemainventario.Helper.SessionHelper.existemenu(2, true))
+                {
+                    <ul class="nav side-menu">
+                        <li>
+                            <a><i class="fa fa-check-square-o"></i> Asignacion de Tareas <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                @if (sistemainventario.Helper.SessionHelper.existemenu(21, false))
+                                {
+                                    <li><a href="~/tareas">Tareas</a></li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
+                <!--option adm-->
+                @if (sistemainventario.Helper.SessionHelper.esAdmin())
+                {
+                    <ul class="nav side-menu">
+                        <li>
+                            <a><i class="fa fa-cogs"></i> Admin <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="~/usuarios">Usuarios</a></li>
 
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav side-menu">
-                    <li>
-                        <a><i class="fa fa-cogs"></i> Admin <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="~/usuarios">Usuarios</a></li>
-
-                        </ul>
-                    </li>
-                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+                }                
             </div>
             
 

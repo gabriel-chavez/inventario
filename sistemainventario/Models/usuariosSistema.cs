@@ -76,15 +76,30 @@ namespace sistemainventario.Models
                 {                  
                     ctx.Configuration.LazyLoadingEnabled = false;                    
                     ctx.Configuration.ProxyCreationEnabled = false;
-
-                    //para retornar solo de la tabla alumno
-                    // alumno = ctx.Alumno.Where(x => x.id == id)
-                    //                   .SingleOrDefault();
-                    //para retornar la relacion
-
                     usuariosSistema =  ctx.usuariosSistema
                                        .Where(x => x.Usuario == usuario)
                                        .FirstOrDefault();                    
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return usuariosSistema;
+        }
+        public usuariosSistema ObtenerporId(int idUsuario)
+        {
+            var usuariosSistema = new usuariosSistema();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    ctx.Configuration.ProxyCreationEnabled = false;
+                    usuariosSistema = ctx.usuariosSistema
+                                       .Where(x => x.idUsuario == idUsuario)
+                                       .FirstOrDefault();
                 }
             }
             catch (Exception)

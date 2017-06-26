@@ -17,8 +17,8 @@ namespace sistemainventario.Models
             if (ldap.autendicado)
             {
                 rm.SetResponse(true, "Correcto");
-                var usuariosistema = new usuariosSistema();                
-                rm.result=usuariosistema.Obtener(usuario);                
+                var usuariosistema = new usuariosSistema();
+                rm.result = usuariosistema.Obtener(usuario);
             }
             else
             {
@@ -26,5 +26,6 @@ namespace sistemainventario.Models
             }
             return rm;
         }
+        
     }
 }

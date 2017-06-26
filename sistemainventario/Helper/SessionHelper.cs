@@ -12,8 +12,9 @@ using Newtonsoft.Json;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using sistemainventario.Helper;
+using sistemainventario.Models;
 
-namespace Helper
+namespace sistemainventario.Helper
 {
     public class SessionHelper
     {
@@ -53,10 +54,37 @@ namespace Helper
                     var serializer = new JavaScriptSerializer();
                     serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
                     dynamic obj = serializer.Deserialize(ticket.UserData, typeof(object));
-                    id = obj.idUsuario;
+                    id =Convert.ToInt32(obj.Data.idUsuario);
                 }
             }
             return id;
+        }
+        public static string GetNameUser()
+        {
+            //int user_id = 0;
+            string nombre="";
+            if (HttpContext.Current.User != null && HttpContext.Current.User.Identity is FormsIdentity)
+            {
+                FormsAuthenticationTicket ticket = ((FormsIdentity)HttpContext.Current.User.Identity).Ticket;
+                if (ticket != null)
+                {
+                    var serializer = new JavaScriptSerializer();
+                    serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
+                    dynamic obj = serializer.Deserialize(ticket.UserData, typeof(object));
+                    nombre = (obj.Data.Nombre);
+                }
+            }
+            return nombre;
+        }
+        public static dynamic GetMenuUser()
+        {                        
+
+            var usuario = new usuariosSistema();
+            usuario = usuario.ObtenerporId(SessionHelper.GetIdUser());
+            var serializer = new JavaScriptSerializer();
+            serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
+            dynamic obj = serializer.Deserialize(usuario.Roles, typeof(object));
+            return obj;
         }
         public static void AddUserToSession(JsonResult datos)
         {
@@ -73,6 +101,32 @@ namespace Helper
 
             cookie.Value = FormsAuthentication.Encrypt(newTicket);
             HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+        public static bool existemenu(int menu, bool principal) //menu principal true
+        {
+            var menuUsuario = sistemainventario.Helper.SessionHelper.GetMenuUser();
+            int op;
+            bool existe = false;            
+            foreach (var item in menuUsuario)
+            {
+                if(principal)
+                    op = Convert.ToInt32(item.Substring(0, 1));
+                else
+                    op = Convert.ToInt32(item);
+
+                if (op == menu)
+                    return true;
+            }            
+            return existe;
+        }
+        public static bool esAdmin()
+        {
+            var usuario = new usuariosSistema();
+            usuario = usuario.ObtenerporId(SessionHelper.GetIdUser());
+            if (usuario.Tipo == 1)
+                return true;
+            else
+                return false;            
         }
     }
 }

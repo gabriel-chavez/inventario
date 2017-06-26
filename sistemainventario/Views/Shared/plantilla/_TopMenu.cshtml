@@ -1,8 +1,16 @@
-﻿
-@*<input id="baseurl2" value="@Request.Url.GetLeftPart(UriPartial.Authority)" class="hidden"/>*@
+﻿@{ 
+    var usr = sistemainventario.Helper.SessionHelper.GetNameUser();
+    var tipo = 0;
+    if(sistemainventario.Helper.SessionHelper.esAdmin())
+    {
+        tipo = 1;
+    }
+}
+    
 
 <input id="baseurl" value="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))" class="hidden" />
-
+<input id="user" value="@usr" class="hidden" />
+<input id="tipo" value="@tipo" class="hidden"/>
 <!-- top navigation -->
 <div class="top_nav">
     <div class="nav_menu">
@@ -14,7 +22,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="~/assets/images/img.png" alt="">Admin
+                        <img src="~/assets/images/img.png" alt="">@usr
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
