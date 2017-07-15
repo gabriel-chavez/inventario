@@ -1,5 +1,7 @@
 namespace sistemainventario.Models
 {
+    using App_Start;
+    using Helper;
     using Proyecto.Models;
     using System;
     using System.Collections.Generic;
@@ -26,19 +28,18 @@ namespace sistemainventario.Models
 
         public virtual tareas tareas { get; set; }
 
-        public ResponseModel Guardar(bool editar)//guardar tarea responsable
+        public ResponseModel Guardar()//guardar tarea responsable
         {
             var rm = new ResponseModel();
             try
             {
                 using (var ctx = new inventarioContext())
                 {
-                    if (editar) // si existe responsable eliminar
-                    {
-                        this.Eliminar(this.IdTarea);// eliminar a todos los responsables de la tarea
+                     
+                        //this.Eliminar(this.IdTarea);// eliminar a todos los responsables de la tarea // bloqueado por ahora
                         ctx.Entry(this).State = EntityState.Added;
                         ctx.SaveChanges();
-                    }                   
+                                     
                     rm.SetResponse(true);
                 }
             }
@@ -49,7 +50,7 @@ namespace sistemainventario.Models
             }
             return rm;
         }
-        public void Eliminar(int? id)
+        public static void Eliminar(int? id)
         {
             if(id!=null)
             {
@@ -73,7 +74,7 @@ namespace sistemainventario.Models
                 //return rm;
             }
         }
-        public bool SeEditoArea(int idArea, int IdTarea) //consulta si el area se edito
+        public bool SeEditoArea(int idArea, int IdTarea) //consulta si el area se edito 
         {
             bool ret = true;
             if(IdTarea>0)
@@ -100,8 +101,36 @@ namespace sistemainventario.Models
                     throw;
                 }
             }
-            
+
             return ret;
+            
+        }
+
+        public static bool esResponsable(int _IdTarea)
+
+        {            
+            int _IdResponsable = SessionHelper.GetIdUser();
+            _IdResponsable = responsable.ObtenerIdResponsableUsuario(_IdResponsable);
+            tareaResponsable aux = new tareaResponsable();
+            try
+            {
+                using (var ctx = new inventarioContext())
+                {
+                    aux = ctx.tareaResponsable.Where(x => x.IdTarea == _IdTarea)
+                                            .Where(x => x.IdResponsable == _IdResponsable)
+                                            .SingleOrDefault();
+                }
+                if (aux == null)
+                    return false;
+                else
+                    return true;
+                    
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ using sistemainventario.Helper;
 namespace sistemainventario.Controllers
 {
     [Autenticado]
+    [Persmiso(11)]
     public class enlacesController : Controller
     {
         // GET: enlaces

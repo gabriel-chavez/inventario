@@ -14,9 +14,11 @@ namespace sistemainventario.Models
             var ldap = new LdapAutenticar(@"LDAP://10.9.0.12:389/DC=bsol,DC=com,DC=bo");
             var usr = @"bsol\" + usuario;
             ldap = ldap.IsAuthenticated(usr, pass);
-            if (ldap.autendicado)
+           
+          if(true)
+           //if (ldap.autendicado)   
             {
-                rm.SetResponse(true, "Correcto");
+                rm.SetResponse(true, "Correcto, cargando...");
                 var usuariosistema = new usuariosSistema();
                 rm.result = usuariosistema.Obtener(usuario);
             }

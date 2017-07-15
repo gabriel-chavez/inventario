@@ -215,4 +215,9 @@ function base_url(complemento) {
             var new_text = text.substr(0, limit);  
             $(this).val(new_text);  
         }  
-    }); 
+ });
+ function retrasarBoton(id) {
+     setTimeout(function () {
+         $(id).attr("disabled", false);
+     }, 2000);
+ }

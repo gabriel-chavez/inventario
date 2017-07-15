@@ -1,0 +1,285 @@
+﻿
+@model sistemainventario.Models.TareasIng
+@{
+    List<sistemainventario.Models.TipoTareaIng> tipoTareas = ViewBag.tipoTareas;
+    sistemainventario.Models.usuariosSistema usuario = ViewBag.usuario;
+    sistemainventario.Models.responsable responsable = ViewBag.responsable;
+    sistemainventario.Models.AutorizadorTarea autorizador = ViewBag.autorizador;
+    List<sistemainventario.Models.ComentariosTareasIng> comentarios = ViewBag.comentarios;
+    bool esautorizador = ViewBag.esautorizador;
+    DateTime hoy = ViewBag.hoy;
+
+    //List<sistemainventario.Models.comentarios> comentarios = ViewBag.comentarios;
+    //List<sistemainventario.Models.responsable> usuariosArea = ViewBag.usuariosArea;
+    //List<int> arrayresponsables = new List<int>();
+    //bool existe = false;
+    //int x = 0;
+    //DateTime myDateTime;
+    string[] meses = new string[] { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
+    bool isreadonly = (Model.IdEstadoTareaIng == 1) || (Model.IdEstadoTareaIng == 2) || (Model.IdEstadoTareaIng == 4) || (Model.IdEstadoTareaIng == 5);
+
+}
+@*<input name="idtareaIng" id="idtarea" value="@tarea.IdTarea" class="hidden" />*@
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Formulario de cambios en Ingeniería</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Creacion de formulario</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <div>
+                            <ul class="messages" id="mensajesusuario">
+                                <li>
+                                    <div class="message_wrapper" style="margin-left:0px">
+                                        @using (Html.BeginForm("Guardar", "CambiosIngenieria", FormMethod.Post, new { id = "frm-CambiosIng", name= "frm-CambiosIng" }))
+                                        {
+                                            if (!isreadonly && !esautorizador)
+                                            {
+                                                @Html.HiddenFor(xx => xx.IdTareaIng, new { id= "IdTareaIng" });
+                                                @Html.HiddenFor(xx => xx.IdEstadoTareaIng);
+                                                <label for="TareaAccion">Tarea o acción a realizar:</label>
+                                                @Html.TextBoxFor(xx => xx.TareaAccion, new { @class = "form-control", placegolder = "Ingrese la Tarea o accion a realizar" })
+                                                @Html.ValidationMessageFor(xx => xx.TareaAccion, null, new { @class = "label label-danger" })
+                                                <label for="Motivo">Motivo:</label>
+                                                @Html.TextBoxFor(xx => xx.Motivo, new { @class = "form-control", placegolder = "Ingrese el motivo" })
+                                                @Html.ValidationMessageFor(xx => xx.Motivo, null, new { @class = "label label-danger" })
+                                                <label for="FechaEjecucion">Fecha y hora de ejecución programada:</label>                                               
+                                                    <div class='input-group date' id='FechaEjecucionForm'>
+                                                        <input type='text' class="form-control" name="FechaEjecucion" id="FechaEjecucion" placeholder="Ingrese la fecha" value="@hoy"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                @Html.ValidationMessageFor(xx => xx.FechaEjecucion, null, new { @class = "label label-danger" })
+                                                <label for="heard">Tipo de tarea:</label>
+                                                <select id="heard" class="form-control" required name="IdTipoTareaIng">
+                                                    <option value="">Seleccione</option>
+                                                    @foreach (var item in tipoTareas)
+                                                    {
+                                                        <option value="@item.idTipoTareaIng" @(item.idTipoTareaIng == Model.IdTipoTareaIng ? "selected" : "")>@item.TipoTarea</option>
+                                                    }
+                                                </select>
+                                                <hr />
+                                                <label for="descripcion">Descripción actual o antes de efectuar la tarea descrita:</label>
+                                                @Html.TextAreaFor(xx => xx.Descripcion, new { @class = "form-control vresize", placegolder = "Ingrese la descripción" })
+                                                @Html.ValidationMessageFor(xx => xx.Descripcion, null, new { @class = "label label-danger" })
+
+                                                <label for="detalle">Detalle de los efectos colaterales en los sistemas en producción asociados:</label>
+                                                @Html.TextAreaFor(xx => xx.Detalle, new { @class = "form-control vresize", placegolder = "Ingrese del detalle" })
+                                                @Html.ValidationMessageFor(xx => xx.Detalle, null, new { @class = "label label-danger" })
+
+                                                if (Model.IdEstadoTareaIng == 2 || Model.IdEstadoTareaIng == 4 || Model.IdEstadoTareaIng == 5)
+                                                {
+                                                    <label for="resultado">Resultado posterior a la ejecución de la tarea descrita:</label>
+                                                    @Html.TextAreaFor(xx => xx.Resultado, new { @class = "form-control vresize", placegolder = "Ingrese del resultado" })
+                                                    @Html.ValidationMessageFor(xx => xx.Resultado, null, new { @class = "label label-danger" })
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @Html.HiddenFor(xx => xx.IdTareaIng);
+                                                @Html.HiddenFor(xx => xx.IdEstadoTareaIng);
+                                                <label for="TareaAccion">Tarea o acción a realizar:</label>
+                                                @Html.TextBoxFor(xx => xx.TareaAccion, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(xx => xx.TareaAccion, null, new { @class = "label label-danger" })
+                                                <label for="Motivo">Motivo:</label>
+                                                @Html.TextBoxFor(xx => xx.Motivo, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(xx => xx.Motivo, null, new { @class = "label label-danger" })
+                                                <label for="FechaEjecucion">Fecha y hora de ejecución programada:</label>
+                                               
+                                                <input type='text' class="form-control" name="FechaEjecucion" id="FechaEjecucion" placeholder="Ingrese la fecha" value="@Model.FechaEjecucion" readonly />
+                                                @Html.ValidationMessageFor(xx => xx.FechaEjecucion, null, new { @class = "label label-danger", @readonly = "readonly" })
+                                                <label for="heard">Tipo de tarea:</label>
+                                                <select id="heard" class="form-control" required name="IdTipoTareaIng" readonly disabled>
+                                                    <option value="">Seleccione</option>
+                                                    @foreach (var item in tipoTareas)
+                                                    {
+                                                        <option value="@item.idTipoTareaIng" @(item.idTipoTareaIng == Model.IdTipoTareaIng ? "selected" : "")>@item.TipoTarea</option>
+                                                    }
+                                                </select>
+                                                <hr />
+                                                <label for="descripcion">Descripción actual o antes de efectuar la tarea descrita:</label>
+                                                @Html.TextAreaFor(xx => xx.Descripcion, new { @class = "form-control vresize", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(xx => xx.Descripcion, null, new { @class = "label label-danger" })
+
+                                                <label for="detalle">Detalle de los efectos colaterales en los sistemas en producción asociados:</label>
+                                                @Html.TextAreaFor(xx => xx.Detalle, new { @class = "form-control vresize", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(xx => xx.Detalle, null, new { @class = "label label-danger" })
+
+                                                if (Model.IdEstadoTareaIng == 2)
+                                                {
+                                                    <label for="resultado">Resultado posterior a la ejecución de la tarea descrita:</label>
+                                                    @Html.TextAreaFor(xx => xx.Resultado, new { @class = "form-control vresize",id="resultado" })
+                                                    @Html.ValidationMessageFor(xx => xx.Resultado, null, new { @class = "label label-danger" })
+                                                }
+                                                if ( Model.IdEstadoTareaIng == 4 || Model.IdEstadoTareaIng == 5)
+                                                {
+                                                    <label for="resultado">Resultado posterior a la ejecución de la tarea descrita:</label>
+                                                    @Html.TextAreaFor(xx => xx.Resultado, new { @class = "form-control vresize", id = "resultado", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(xx => xx.Resultado, null, new { @class = "label label-danger" })
+                                                }
+                                            }
+                                            <br />
+                                            if (!esautorizador)
+                                            {
+                                                //Botones Usuario
+                                                if (Model.IdEstadoTareaIng == null || Model.IdEstadoTareaIng == 3)//si el estado es == 0(nuevo) o estado es ==3 (Observado)=>Mostrar enviar
+                                                {
+                                                    <button type="submit" data-ajax="true" class="btn btn-primary" id="guardarTareaIng">Enviar Formulario</button>
+
+                                                }
+                                                if (Model.IdEstadoTareaIng == 2)//si estado es == 2(aprobado)=>mostrar finalizar
+                                                {
+                                                    <button type="button" class="btn btn-primary pull-right" id="finalizartareaing">Finalizar</button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                //botones Autorizador
+                                                if (Model.IdEstadoTareaIng == 1)//solo se muestra cuando el estado es == 1 (enviado)
+                                                {
+                                                    <button type="button" class="btn btn-primary pull-right" id="aprobartareaing">Aprobar</button>
+                                                    <button type="button" class="btn btn-primary pull-right" id="observartareaing">Observar</button>
+                                                }
+                                            }
+
+
+
+
+                                        }
+                                    </div>
+                                </li>
+                                @if (comentarios != null)
+                                {
+                                    foreach (var fila in comentarios)
+                                    {
+                                        if (fila.ComSist == 1) //comentario de usuario 1, comentario de sistema 2
+                                        {
+                                            var myDateTime = DateTime.Parse(fila.Fecha.ToString());
+                                            <li>
+                                                <img src="~/assets/images/img.png" class="avatar" alt="Avatar" />
+
+                                                <div class="message_date">
+                                                    <h3 class="date text-info">@myDateTime.ToString("dd")</h3>
+                                                    <p class="month">@meses[(Int32.Parse(myDateTime.ToString("MM"))) - 1]</p>
+                                                    <p class="year">@myDateTime.ToString("yyyy")</p>
+
+                                                </div>
+                                                <div class="message_wrapper">
+                                                    <h4 class="heading">
+                                                        @fila.usuariosSistema.Nombre
+                                                        <span> @myDateTime.ToString("H:mm:ss")</span>
+                                                    </h4>
+                                                    <blockquote class="message">
+                                                        @fila.Comentario
+                                                    </blockquote>
+                                                    <br />
+
+                                                </div>
+                                            </li>
+                                        }
+                                        if (fila.ComSist == 2) //comentario de sistema 2
+                                        {
+                                            var myDateTime1 = DateTime.Parse(fila.Fecha.ToString());
+                                            <li>
+                                                <div class="timeline">
+                                                    <div class="block block_content">
+                                                        <h2 class="title"></h2>
+                                                        <span>@fila.Comentario</span>
+                                                        <div class="byline">
+                                                            <a>@fila.usuariosSistema.Nombre </a><span>@myDateTime1.ToString("H:mm:ss")</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                }
+                                 </ul>
+                                  
+                                       @if (((Model.IdEstadoTareaIng == 1) || (Model.IdEstadoTareaIng == 2) || (Model.IdEstadoTareaIng == 3)))
+                                       {
+                                        <div id="bloqueAgregarCom">
+                                            <textarea class="form-control vresize" rows="4" maxlength='1000' id="comentariotxtIng"></textarea>
+                                            <br />
+                                            <div class="pull-right">
+                                                <button type="button" id="comentartareaIng" class="btn btn-primary">Comentar</button>
+                                            </div>
+                                        </div>
+                                       }
+                           
+                                   
+                                   
+                                
+                                
+
+
+
+
+                            <!-- end of user messages -->
+                        </div>
+                    </div>
+                    <!-- start project-detail sidebar -->
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <section class="panel">
+                            <div class="x_title">
+                                <h2>Descripcion</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="project_detail">
+                                    <p class="title">Fecha de solicitud</p>
+                                    <p>
+                                        @hoy
+                                    </p>
+                                    <hr />
+                                    <p class="title">Responsable</p>
+                                    <p>
+                                        @usuario.Nombre
+                                    </p>
+                                    <hr />
+                                    <p class="title">Cargo</p>
+                                    <p>@usuario.Cargo</p>
+                                    <hr />
+                                    <p class="title">Area</p>
+                                    <p>@responsable.areas.Area</p>
+                                    <hr />
+                                    <p class="title">Autorizador</p>
+                                    <p>@autorizador.responsable.usuariosSistema.Nombre</p>
+                                    <hr />
+                                </div>
+
+                                <hr />
+
+                            </div>
+                        </section>
+                    </div>
+                    <!-- end project-detail sidebar -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    
+    $(document).ready(function () {
+        /**Iniciando datetime**/
+        moment.locale("es");
+        $('#FechaEjecucionForm').datetimepicker();
+    })
+</script>

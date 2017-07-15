@@ -70,7 +70,7 @@ namespace sistemainventario.Models
                 throw;
             }
             return areas;
-        }
+        }        
     }
     
 }

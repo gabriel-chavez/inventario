@@ -24,10 +24,13 @@
             </ul>
             <div class="clearfix"></div>
         </div>
+        @if (sistemainventario.Helper.SessionHelper.esAdmin())
+        {
+            <div class="text-right">
+                <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#agregartarea" id="btnnuevatarea">Agregar nueva tarea</button>
+            </div>
+        }
         
-        <div class="text-right">
-            <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#agregartarea" id="btnnuevatarea">Agregar nueva tarea</button>
-        </div>   
         <div class="x_content">
             <div class="">
                 <div id="toolbar2" class="form-inline">
@@ -37,15 +40,16 @@
                         </span>
                         <i class="fa fa-caret-down"></i>
                     </button>
-
-                    <select class="selectpicker" name="area" id="area">                        
-                        <option value="0" selected>Todos</option>
-                        @foreach (var fila in areas)
-                        {
-                            <option value="@fila.IdArea">@fila.Area</option>
-                        }
-                    </select>
-                    
+                    @if (sistemainventario.Helper.SessionHelper.esAdmin())
+                    {
+                        <select class="selectpicker" name="area" id="area">                        
+                            <option value="0" selected>Todos</option>
+                            @foreach (var fila in areas)
+                            {
+                                <option value="@fila.IdArea">@fila.Area</option>
+                            }
+                        </select>
+                    }
 
                 </div>
                 <table id="tareasAsignadas"
@@ -114,13 +118,14 @@
                         </div>
                     </div>
                     <div>
-                        <div class="form-group">
-                            <label>Acciones realizadas</label>
-                            <textarea class="form-control" rows="4" name="Acciones" id="Acciones"></textarea>
-                        </div>
+                        
                         <div class="form-group">
                             <label>Tarea</label>
-                            <textarea class="form-control" rows="8" name="TareaAsignada" id="TareaAsignada"></textarea>
+                            <textarea class="form-control" rows="2" name="TareaAsignada" id="TareaAsignada"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Acciones realizadas</label>
+                            <textarea class="form-control" rows="8" name="Acciones" id="Acciones"></textarea>
                         </div>
                     </div>
                 </div>

@@ -365,12 +365,7 @@ function agregarcom(e)
     $("#comentariotxt").val("");
     retrasarBoton("#comentartarea")        
 }
-function retrasarBoton(id)
-{
-    setTimeout(function () {
-        $(id).attr("disabled", false);
-    }, 2000);
-}
+
 
 function retornarTablaTareas()
 {

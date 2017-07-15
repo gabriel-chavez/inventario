@@ -102,7 +102,7 @@
                                     }
                                 }
                             </ul>
-                            @if (tarea.IdEstadoTarea != 2)
+                            @if ((tarea.IdEstadoTarea != 2) && (sistemainventario.Models.tareaResponsable.esResponsable(tarea.IdTarea)))
                             {
                                 <div id="bloqueAgregarCom">
                                     <textarea class="form-control vresize" rows="4" maxlength='1000' id="comentariotxt"></textarea>
@@ -249,7 +249,7 @@
                                        // fila.responsable.usuariosSistema.idUsuario
                                         <p class="">@fila.responsable.usuariosSistema.Nombre</p>
                                     }
-                                    @if (tarea.IdEstadoTarea != 2)
+                                    @if ((tarea.IdEstadoTarea != 2)&&(sistemainventario.Models.tareaResponsable.esResponsable(tarea.IdTarea))&&(sistemainventario.Models.responsable.esEncargado()))
                                     {
                                     <div class="text-center">
                                         <button type="button" class="btn btn-sm btn-default btn-block" data-toggle="modal" data-target="#editarresponsable_horas">Editar</button>
@@ -311,7 +311,7 @@
                             @foreach (var fila in usuariosArea)
                             {
                                 existe = Array.Exists(arrayresponsables.ToArray(), elem => elem == fila.IdUsuario);
-                                <option value="@((fila.Encargado == 1) ? "" : fila.IdUsuario.ToString())" @((fila.Encargado == 1) ? "Disabled" : "") @(existe == true ? "selected" : "")>@fila.usuariosSistema.Nombre</option>                                
+                                <option value="@fila.IdUsuario.ToString()" @((fila.Encargado == 1) ? "Disabled" : "") @(existe == true ? "selected" : "")>@fila.usuariosSistema.Nombre</option>                                
                             }
                         </select>
                     </div>

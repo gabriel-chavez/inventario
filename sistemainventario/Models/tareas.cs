@@ -105,10 +105,7 @@ namespace sistemainventario.Models
                                         .OrderByDescending(x => x.Nro)
                                         .OrderByDescending(x => x.FechaAsignacion)
                                         .ToList();
-                    }
-                    
-                  
-
+                    }                                      
                 }
                 rm.response = true;
                 rm.message = "";
@@ -139,8 +136,7 @@ namespace sistemainventario.Models
                 using (var ctx = new inventarioContext())
                 {
                     if (this.IdTarea > 0)
-                    {
-                        
+                    {                        
                         ctx.Entry(this).State = EntityState.Modified;
                     }
                     else
@@ -148,7 +144,6 @@ namespace sistemainventario.Models
                         this.Nro = this.ObtenerCorrelativo();
                         ctx.Entry(this).State = EntityState.Added;
                     }
-
                     if(this.editardatos(this.IdTarea))//se puede editar?
                     {
                         ctx.SaveChanges();
@@ -162,7 +157,6 @@ namespace sistemainventario.Models
             }
             catch (Exception e)
             {
-
                 throw;
             }
             return rm;
@@ -174,7 +168,6 @@ namespace sistemainventario.Models
             {
                 using (var ctx = new inventarioContext())
                 {
-
                     tarea = ctx.tareas.Include(x => x.areas)
                                        .Include(x => x.prioridades)
                                        .Include(x => x.tipoTareas)
@@ -222,8 +215,7 @@ namespace sistemainventario.Models
         public DateTime retornarFechaComprometida(int idTarea)
         {
             DateTime comprometida=new DateTime();
-            string sql;
-            
+            string sql;            
             try
             {
                /* using (var ctx = new inventarioContext())
@@ -301,10 +293,17 @@ namespace sistemainventario.Models
             {
                 throw;
             }
-            if (tareas1.Nro == null)
+            if(tareas1 != null)
+            {
+                if (tareas1.Nro == null)
+                    correlativo = 0;
+                else
+                    correlativo = (int)tareas1.Nro;
+            }
+            else
+            {
                 correlativo = 0;
-            else               
-                correlativo = (int)tareas1.Nro;           
+            }            
             return correlativo+1;
         }
     }

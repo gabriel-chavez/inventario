@@ -35,7 +35,13 @@ namespace sistemainventario.Models
         public virtual DbSet<tareas> tareas { get; set; }
         public virtual DbSet<tipoTareas> tipoTareas { get; set; }
         public virtual DbSet<usuariosSistema> usuariosSistema { get; set; }
-
+        /*******************TAREAS INGENIERIA****************/
+        public virtual DbSet<AutorizadorTarea> AutorizadorTarea { get; set; }
+        public virtual DbSet<ComentariosTareasIng> ComentariosTareasIng { get; set; }
+        public virtual DbSet<EstadoTareasIng> EstadoTareasIng { get; set; }
+        //public virtual DbSet<responsable> responsable { get; set; }
+        public virtual DbSet<TareasIng> TareasIng { get; set; }
+        public virtual DbSet<TipoTareaIng> TipoTareaIng { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ciudades>()
@@ -238,6 +244,76 @@ namespace sistemainventario.Models
             modelBuilder.Entity<usuariosSistema>()
                 .HasMany(e => e.comentarios)
                 .WithRequired(e => e.usuariosSistema)
+                .WillCascadeOnDelete(false);
+            /***TAREAS INGENIERIA***/
+            modelBuilder.Entity<AutorizadorTarea>()
+                .HasMany(e => e.TareasIng)
+                .WithOptional(e => e.AutorizadorTarea)
+                .HasForeignKey(e => e.IdAutorizadorTarea);
+
+            modelBuilder.Entity<ComentariosTareasIng>()
+                .Property(e => e.Comentario)
+                .IsUnicode(false);
+
+            //modelBuilder.Entity<ComentariosTareasIng>()
+            //    .Property(e => e.ComSist)
+            //    .IsUnicode(false);
+
+            modelBuilder.Entity<EstadoTareasIng>()
+                .Property(e => e.EstadoTareaIng)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<EstadoTareasIng>()
+                .HasMany(e => e.TareasIng)
+                .WithRequired(e => e.EstadoTareasIng)
+                .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<responsable>()
+            //    .HasMany(e => e.AutorizadorTarea)
+            //    .WithRequired(e => e.responsable)
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<responsable>()
+            //    .HasMany(e => e.TareasIng)
+            //    .WithRequired(e => e.responsable)
+            //    .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TareasIng>()
+                .Property(e => e.TareaAccion)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TareasIng>()
+                .Property(e => e.Motivo)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TareasIng>()
+                .Property(e => e.Descripcion)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TareasIng>()
+                .Property(e => e.Detalle)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TareasIng>()
+                .Property(e => e.Resultado)
+                .IsUnicode(false);
+
+            /*modelBuilder.Entity<TareasIng>()
+                .Property(e => e.secuencia)
+                .IsUnicode(false);*/
+
+            modelBuilder.Entity<TareasIng>()
+                .HasMany(e => e.ComentariosTareasIng)
+                .WithRequired(e => e.TareasIng)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TipoTareaIng>()
+                .Property(e => e.TipoTarea)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TipoTareaIng>()
+                .HasMany(e => e.TareasIng)
+                .WithRequired(e => e.TipoTareaIng)
                 .WillCascadeOnDelete(false);
         }
     }

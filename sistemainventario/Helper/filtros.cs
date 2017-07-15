@@ -1,4 +1,5 @@
 ﻿
+using sistemainventario.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,4 +48,59 @@ namespace sistemainventario.Helper
             }
         }
     }
+    [Autenticado]
+    public class PersmisoAttribute : ActionFilterAttribute
+    {
+        int menu;
+        public PersmisoAttribute(int _menu)
+        {
+            this.menu = _menu;
+        }
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+            
+            if (!SessionHelper.existemenu(menu, false))
+            {
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                {
+                    controller = "Error",
+                    action = "Index"
+                }));
+            }
+        }
+    }
+    [Autenticado]
+    public class AdminAttribute : ActionFilterAttribute
+    {      
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+
+            if (!SessionHelper.esAdmin())
+            {
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                {
+                    controller = "Error",
+                    action = "Index"
+                }));
+            }
+        }
+    }
+    //public class PermisoVerAttribute : ActionFilterAttribute
+    //{
+    //    public override void OnActionExecuting(ActionExecutingContext filterContext)
+    //    {
+    //        base.OnActionExecuting(filterContext);
+    //        var tarea = new tareas();            
+    //        if (responsable.ObtenerArea(SessionHelper.GetIdUser())!=tarea.)
+    //        {
+    //            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+    //            {
+    //                controller = "Error",
+    //                action = "Index"
+    //            }));
+    //        }
+    //    }
+    //}
 }

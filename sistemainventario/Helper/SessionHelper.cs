@@ -16,6 +16,7 @@ using sistemainventario.Models;
 
 namespace sistemainventario.Helper
 {
+    [Autenticado]
     public class SessionHelper
     {
         public static bool ExistUserInSession()
@@ -75,7 +76,7 @@ namespace sistemainventario.Helper
                 }
             }
             return nombre;
-        }
+        }        
         public static dynamic GetMenuUser()
         {                        
 
@@ -83,7 +84,11 @@ namespace sistemainventario.Helper
             usuario = usuario.ObtenerporId(SessionHelper.GetIdUser());
             var serializer = new JavaScriptSerializer();
             serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
-            dynamic obj = serializer.Deserialize(usuario.Roles, typeof(object));
+            dynamic obj=null;
+            
+                obj = serializer.Deserialize(usuario.Roles, typeof(object));
+            
+            
             return obj;
         }
         public static void AddUserToSession(JsonResult datos)
@@ -106,16 +111,19 @@ namespace sistemainventario.Helper
         {
             var menuUsuario = sistemainventario.Helper.SessionHelper.GetMenuUser();
             int op;
-            bool existe = false;            
-            foreach (var item in menuUsuario)
+            bool existe = false; 
+            if(menuUsuario!=null)
             {
-                if(principal)
-                    op = Convert.ToInt32(item.Substring(0, 1));
-                else
-                    op = Convert.ToInt32(item);
+                foreach (var item in menuUsuario)
+                {
+                    if (principal)
+                        op = Convert.ToInt32(item.Substring(0, 1));
+                    else
+                        op = Convert.ToInt32(item);
 
-                if (op == menu)
-                    return true;
+                    if (op == menu)
+                        return true;
+                }
             }            
             return existe;
         }

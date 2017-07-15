@@ -13,7 +13,8 @@ using System.Web.Mvc;
 
 namespace sistemainventario.Controllers
 {
-    [Autenticado]
+    [Persmiso(21)]
+    [Autenticado]   
     public class TareasController : Controller
     {
         private tareas tareas = new tareas();
@@ -32,6 +33,11 @@ namespace sistemainventario.Controllers
         }
         public ActionResult Ver(int id)
         {
+            var tarea = new tareas();
+            if ((responsable.ObtenerArea(SessionHelper.GetIdUser()) != (tarea.Obtener(id).IdArea))&&(!SessionHelper.esAdmin()))
+            {
+                return RedirectToAction("Error", "Index");
+            }
             var responsables = new responsable();
             var comentarios = new comentarios();
             ViewBag.comentarios = comentarios.Listar(id);
@@ -45,8 +51,16 @@ namespace sistemainventario.Controllers
         {
             DateTime ini = Convert.ToDateTime(fechaIni);
             DateTime fin = Convert.ToDateTime(fechaFin+" 23:59:59");
-        
-            int a = Convert.ToInt32(area);
+            int a;
+            if(SessionHelper.esAdmin())
+            {
+                a = Convert.ToInt32(area);
+            }
+            else
+            {
+                a = responsable.ObtenerArea(SessionHelper.GetIdUser());
+            }
+            
 
             var rm = new ResponseModel();
             rm = tareas.Listar(ini,fin,a);
@@ -62,6 +76,7 @@ namespace sistemainventario.Controllers
             // return Json(rm);
             return resultado;
         }
+        [Admin]
         public JsonResult Guardar(tareas model)
         {            
             DateTime hoy = DateTime.Now;
@@ -80,16 +95,26 @@ namespace sistemainventario.Controllers
                 if (rm.response)
                 {                    
                     rm.function = "retornarAjax(base_url('tareas/retornarTareas'))";
-                    //agregar resposable de tarea
-                    tarearesponsable.IdTarea = model.IdTarea;
-                    tarearesponsable.FechaAsignacionResponsable = hoy;
-                    tarearesponsable.IdResponsable = responsable.ObtenerIdResponsable(model.IdArea);
-                    tarearesponsable.Guardar(editar);                    
+                    if(editar)
+                    {
+                        tareaResponsable.Eliminar(model.IdTarea);
+                        foreach (var item in responsable.obtenerResposables(model.IdArea))
+                        {
+                            tarearesponsable.IdTarea = model.IdTarea;
+                            tarearesponsable.FechaAsignacionResponsable = hoy;
+                            tarearesponsable.IdResponsable = item.IdResponsable;
+                            tarearesponsable.Guardar();
+                        }
+                    }
+                    //agregar resposable de tarea segun encargados (responsables)
+                    
+
+                              
                 }
             }
             return Json(rm);
         }
-        [HttpPost]
+        [HttpPost]        
         public JsonResult agregarComentario(comentarios com)
         {
             DateTime hoy = DateTime.Now;          

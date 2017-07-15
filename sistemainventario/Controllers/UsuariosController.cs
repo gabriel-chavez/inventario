@@ -151,6 +151,16 @@ namespace sistemainventario.Controllers
                 responsable.IdUsuario = IdUsuario;
                 responsable.Guardar();
             }
+            else //eliminar responsable
+            {
+                var _idresponsable= Convert.ToInt32(IdResponsable);
+                if (_idresponsable > 0)
+                {
+                    var responsable = new responsable();
+                    responsable.eliminarResponsable(_idresponsable);
+                }
+                
+            }
         }
     }
     

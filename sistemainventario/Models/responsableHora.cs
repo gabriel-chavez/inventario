@@ -18,6 +18,7 @@ namespace sistemainventario.Models
             var rm = new ResponseModel();
             string sql;
             DateTime hoy = DateTime.Now;
+            int _idResponsable;
             try
             {
                 using (var ctx = new inventarioContext())
@@ -25,9 +26,11 @@ namespace sistemainventario.Models
                     this.EliminarResponsablesArea();
                     foreach (var fila in this.responsables)
                     {
-                        if (fila != 0)
+                        _idResponsable = responsable.ObtenerIdResponsableUsuario(fila);
+                        if (_idResponsable > 0)
                         {
-                            sql = "INSERT INTO dbo.TareaResponsable (IdTarea,FechaAsignacionResponsable,IdResponsable) values(" + this.idtarea + ",'" + hoy.ToString("s") + "'," + fila + ")";
+
+                            sql = "INSERT INTO dbo.TareaResponsable (IdTarea,FechaAsignacionResponsable,IdResponsable) values(" + this.idtarea + ",'" + hoy.ToString("s") + "'," + _idResponsable + ")";
                             ctx.Database.ExecuteSqlCommand(sql);
                         }                        
                     }
@@ -54,13 +57,13 @@ namespace sistemainventario.Models
         public void EliminarResponsablesArea() //eliminar reponsables de area excepto el encargado 
         {
             var responsable = new responsable();
-            int idResponsable = responsable.ObtenerIdResponsable(this.idarea);
+            //int idResponsable = responsable.ObtenerIdResponsable(this.idarea);
             string sql;
                 try
                 {
                     using (var ctx = new inventarioContext())
                     {                    
-                       sql = "DELETE FROM dbo.TareaResponsable WHERE idTarea = " + this.idtarea+ " and idResponsable<> "+idResponsable;
+                       sql = "DELETE FROM dbo.TareaResponsable WHERE idTarea = " + this.idtarea;
                        ctx.Database.ExecuteSqlCommand(sql);       
                     }
                 }
