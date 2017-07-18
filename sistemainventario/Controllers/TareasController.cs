@@ -169,5 +169,6 @@ namespace sistemainventario.Controllers
                 
             return Json(rm);
         }
+       
     }
 }

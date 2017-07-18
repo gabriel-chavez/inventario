@@ -1,0 +1,655 @@
+﻿
+@{
+    Layout = null;
+    DateTime fecha = ViewBag.fecha;
+}
+
+<html>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
+    <style type="text/css">
+        body {
+            font-size: 14px;
+            margin-top: 200px;
+        }
+
+        ol {
+            margin: 0;
+            padding: 0;
+        }
+
+        table td,
+        table th {
+            padding: 0;
+        }
+
+        .c4 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: bottom;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            background-color: #ffffff;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 300.8pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+        }
+
+        .c19 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: bottom;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            background-color: #ffffff;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 120.2pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+        }
+
+        .c15 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: bottom;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            background-color: #ffffff;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 190.8pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+        }
+
+        .c22 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: bottom;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            background-color: #ffffff;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 110pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+        }
+
+        .c8 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: middle;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 63.8pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+        }
+
+        .c13 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: top;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 56.7pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+            vertical-align: middle;
+        }
+
+        .c28 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: middle;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 340.2pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+        }
+
+        .c26 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: middle;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 283.5pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+        }
+
+        .c31 {
+            border-right-style: solid;
+            padding: 0pt 3.5pt 0pt 3.5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: middle;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 72pt;
+            border-top-color: #000000;
+            border-bottom-style: solid;
+        }
+
+        .c17 {
+            color: #000000;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 10pt;
+            font-family: "Verdana";
+            font-style: normal;
+        }
+
+        .c16 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Calibri";
+            font-style: normal;
+        }
+
+        .c9 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 13pt;
+            font-family: "Verdana";
+            font-style: normal;
+        }
+
+        .c34 {
+            color: #000000;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Verdana";
+            font-style: normal;
+        }
+
+        .c18 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 10pt;
+            font-family: "Verdana";
+            font-style: normal;
+        }
+
+        .c0 {
+            color: #000000;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 14pt;
+            font-family: "Verdana";
+            font-style: normal;
+        }
+
+        .c12 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 9pt;
+            font-family: "Calibri";
+            font-style: normal;
+        }
+
+        .c1 {
+            padding-top: 0pt;
+            padding-bottom: 8pt;
+            line-height: 1.0791666666666666;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+            height: 11pt;
+        }
+
+        .c5 {
+            color: #2e75b5;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Calibri";
+            font-style: italic;
+        }
+
+        .c35 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal;
+        }
+
+        .c11 {
+            color: #000000;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 13pt;
+            font-family: "Calibri";
+            font-style: normal;
+            vertical-align: super;
+        }
+
+        .c14 {
+            border: 1px solid black;
+            padding: 10px;
+            line-height: 1.0791666666666666;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        .c24 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.0791666666666666;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        .c32 {
+            padding-top: 35.4pt;
+            padding-bottom: 0pt;
+            line-height: 1.0;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        .c29 {
+            padding-top: 0pt;
+            padding-bottom: 35.4pt;
+            line-height: 1.0;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        .c27 {
+            padding-top: 0pt;
+            padding-bottom: 8pt;
+            line-height: 1.0;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        .c21 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.0;
+            orphans: 2;
+            widows: 2;
+            text-align: center;
+        }
+
+        .c3 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.0;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        .c10 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            text-align: left;
+            height: 11pt;
+        }
+
+        .c33 {
+            /*margin-left: auto;*/
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin-right: auto;
+            width: 80%;
+        }
+
+        .c37 {
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        .c36 {
+            background-color: #ffffff;
+            /*max-width: 441.9pt;*/
+            /*width: 100%;*/
+            /* min-height: 29.7cm;*/
+            /* border: 1px solid red;*/
+            margin: 2pt 2pt 2pt 2pt;
+            padding: 2pt 2pt 2pt 2pt;
+            /*padding: 70.8pt 85pt 70.8pt 85pt*/
+        }
+
+        .c2 {
+            font-size: 11pt;
+            font-family: "MS Gothic";
+            font-weight: 400;
+        }
+
+        .c30 {
+            margin-left: 35.4pt;
+            text-indent: 35.4pt;
+        }
+
+        .c23 {
+            height: 17pt;
+        }
+
+        .c7 {
+            height: 20pt;
+        }
+
+        .c20 {
+            height: 11pt;
+        }
+
+        .c25 {
+            font-size: 13pt;
+        }
+
+        .c6 {
+            height: 16pt;
+        }
+
+        .title {
+            padding-top: 24pt;
+            color: #000000;
+            font-weight: 700;
+            font-size: 36pt;
+            padding-bottom: 6pt;
+            font-family: "Calibri";
+            line-height: 1.0791666666666666;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        .subtitle {
+            padding-top: 18pt;
+            color: #666666;
+            font-size: 24pt;
+            padding-bottom: 4pt;
+            font-family: "Georgia";
+            line-height: 1.0791666666666666;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Calibri";
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Calibri";
+        }
+
+        h1 {
+            padding-top: 24pt;
+            color: #000000;
+            font-weight: 700;
+            font-size: 24pt;
+            padding-bottom: 6pt;
+            font-family: "Calibri";
+            line-height: 1.0791666666666666;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-weight: 700;
+            font-size: 18pt;
+            padding-bottom: 4pt;
+            font-family: "Calibri";
+            line-height: 1.0791666666666666;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        h3 {
+            padding-top: 14pt;
+            color: #000000;
+            font-weight: 700;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Calibri";
+            line-height: 1.0791666666666666;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        h4 {
+            padding-top: 12pt;
+            color: #000000;
+            font-weight: 700;
+            font-size: 12pt;
+            padding-bottom: 2pt;
+            font-family: "Calibri";
+            line-height: 1.0791666666666666;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        h5 {
+            padding-top: 11pt;
+            color: #000000;
+            font-weight: 700;
+            font-size: 11pt;
+            padding-bottom: 2pt;
+            font-family: "Calibri";
+            line-height: 1.0791666666666666;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        h6 {
+            padding-top: 10pt;
+            color: #000000;
+            font-weight: 700;
+            font-size: 10pt;
+            padding-bottom: 2pt;
+            font-family: "Calibri";
+            line-height: 1.0791666666666666;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+        }
+
+        div.centraTabla {
+            text-align: center;
+        }
+
+            div.centraTabla table {
+                margin: 0 auto;
+                text-align: left;
+            }
+
+        div.firma {
+            width: 50%;
+            margin: 0 auto;
+            border-top: 1px solid black;
+        }
+    </style>
+    <script>
+        /*Paginacion*/
+        function subst() {
+                var vars={};
+                var x=document.location.search.substring(1).split('&');
+                for (var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+                var x=['topage','page'];
+                for (var i in x) {
+                    var y = document.getElementsByClassName(x[i]);
+                    for (var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+                }
+            }
+    </script>
+
+
+</head>
+
+<body class="c36" style="margin-top:50px;height: 120px;" onload="subst();">
+
+    <div>
+
+        <div style="position: absolute;
+             width: 100%;
+             height: 80px;
+             background-color: white;
+            /* opacity: initial; */
+             z-index: 150;
+             opacity: 0.6;
+             filter: alpha(opacity=50); /* For IE8 and earlier */">
+        </div>
+        <table class="c37">
+            <tbody>
+                <tr class="c23">
+                    <td class="c13" colspan="1" rowspan="2">
+                        <p class="c3" style="text-align: center"><span style="overflow: hidden; display: inline-block;  transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 59.13px; height: 31.47px;"><img alt="Logooficial" src="~/assets/images/logo.png" style="width: 59.13px; height: 39.03px; margin-left: -0.00px; margin-top: -0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""></span></p>
+                    </td>
+                    
+                    <td class="c26" colspan="1" rowspan="2">
+                        <p class="c21"><span class="c0">Formulario de Registro</span></p>
+                    </td>
+                    <td class="c8" colspan="1" rowspan="1">
+                        <p class="c3"><span class="c17">Versi&oacute;n</span></p>
+                    </td>
+                    <td class="c31" colspan="1" rowspan="1">
+                        <p class="c21" id="h.gjdgxs"><span class="c18">1.2</span></p>
+                    </td>
+                </tr>
+                <tr class="c23">
+                    <td class="c8" colspan="1" rowspan="1">
+                        <p class="c3"><span class="c17">Vigencia</span></p>
+                    </td>
+                    <td class="c31" colspan="1" rowspan="1">
+                        <p class="c21"><span class="c18">@fecha.ToString("dd/MM/yyyy")</span></p>
+                    </td>
+                </tr>
+                <tr class="c6">
+                    <td class="c28" colspan="2" rowspan="1">
+                        <p class="c21"><span class="c9">Tareas de Ingenier&iacute;a en ambientes de Producci&oacute;n</span></p>
+                    </td>
+                    <td class="c8" colspan="1" rowspan="1">
+                        <p class="c3"><span class="c17">P&aacute;gina</span></p>
+                    </td>
+                    <td class="c31" colspan="1" rowspan="1">
+                        <p class="c21 c20"><span class="c18 page">{[page]} </span></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

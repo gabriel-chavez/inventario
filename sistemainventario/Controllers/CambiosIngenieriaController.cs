@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Proyecto.Models;
+using Rotativa.Core.Options;
 using sistemainventario.Helper;
 using sistemainventario.Models;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace sistemainventario.Controllers
 {
@@ -173,6 +175,47 @@ namespace sistemainventario.Controllers
             rm.result = coment;
             return Json(rm);
         }
+        public ActionResult ExportarAPDF()
+        {
+            var tareasingtmp = tareasing.Obtener(9);
+            string json;
+            try
+            {
+                json = new JavaScriptSerializer().Serialize(tareasingtmp);
+            }
+            catch (Exception e)
+            {
 
+                throw;
+            }
+            
+
+
+            string cusomtSwitches = string.Format("--print-media-type --header-html {0} --header-spacing 0",
+                Url.Action("Footer", "CambiosIngenieria", new { fecha = tareasingtmp.fecha }, "http"));
+            return new Rotativa.MVC.ActionAsPdf("PDF",new { json= json } )
+            {
+
+                RotativaOptions = {
+                    PageSize = Size.Letter,
+                    PageOrientation = Orientation.Portrait,
+                    CustomSwitches=cusomtSwitches,
+                    PageMargins = { Left = 20, Right = 20, Top=40, Bottom=20 }, // it's in millimeters
+                    
+                }
+
+            };
+        }
+        [AllowAnonymous]
+        public ActionResult Footer(DateTime fecha)
+        {
+            ViewBag.fecha = fecha;
+            return View();
+        }
+        public ActionResult PDF(string json)
+        {
+            var _tareasing = new JavaScriptSerializer().Deserialize<TareasIng>(json);
+            return View(_tareasing);
+        }
     }
 }
