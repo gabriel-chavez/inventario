@@ -7,6 +7,20 @@ $(document).ready(function () {
         format: 'DD/MM/YYYY'
     });
 })
+function retornarTablaTareasIngenieriaReportes() {
+    ini = iniciofecha.format('YYYY-MM-DD');
+    fin = finfecha.format('YYYY-MM-DD');
+    area = $("#areaReportes").val();
+    estado = $("#idestadoReportes").val();
+    var dataJson = {
+        fechaIni: ini,
+        fechaFin: fin,
+        _idarea: area,
+        _idestado: estado,
+    };
+    console.log(area)
+    retornarAjaxParametros(base_url("CambiosIngenieria/retornarTareasIngReporte"), dataJson);
+}
 function retornarTablaTareasIngenieria() {
     ini = iniciofecha.format('YYYY-MM-DD');
     fin = finfecha.format('YYYY-MM-DD');    
@@ -16,6 +30,81 @@ function retornarTablaTareasIngenieria() {
     };
     $("#comentartarea").attr("disabled", true);
     retornarAjaxParametros(base_url("CambiosIngenieria/retornarTareasIng"), dataJson);
+}
+
+function mostrarTablaTareasIngReportes(r) {    
+    res = r.result
+    
+    console.log(res)
+    
+    $("#tareasIngenieriaReportes").bootstrapTable('destroy');
+    $("#tareasIngenieriaReportes").bootstrapTable({
+
+        data: res,
+
+        striped: true,
+        pagination: true,
+        pageSize: "10",
+        search: true,
+        searchOnEnterKey: true,
+        filter: true,
+        showColumns: true,
+
+        columns: [
+             {
+                 field: 'secuencia',
+                 width: '2%',
+                 title: 'Secuencia',
+                 align: 'center',
+                 sortable: true,
+             },
+              {
+                  field: 'areas.Area',
+                  width: '5%',
+                  title: 'Area',
+                  align: 'center',
+                  sortable: true,
+              },
+            {
+                field: 'fecha',
+                width: '5%',
+                title: 'Fecha',
+                align: 'center',
+                sortable: true,
+                formatter: formato_fecha_corta,
+            },
+            {
+                field: 'TareaAccion',
+                width: '5%',
+                title: 'Tarea o Accion a realizar',
+                align: 'center',
+            },
+            {
+                field: 'TipoTareaIng.TipoTarea',
+                width: '10%',
+                title: "Tipo",
+            },
+            {
+                field: 'AutorizadorTarea.responsable.usuariosSistema.Nombre',
+                width: '10%',
+                title: "Autorizador",
+            },
+            {
+                field: 'EstadoTareasIng.EstadoTareaIng',
+                width: '10%',
+                title: "Estado",
+                align: 'center',
+                formatter: operateEstado,
+            },
+            {
+                title: 'Acciones',
+                align: 'center',
+                width: '10%',
+                events: operateEventsing,
+                formatter: operateFormatteringReportes,
+            }]
+    });
+    $("#tareasIngenieriaReportes").bootstrapTable('resetView');
 }
 function mostrarTablaTareasIng(r) {
     $('#agregartarea').modal('hide');
@@ -46,6 +135,13 @@ function mostrarTablaTareasIng(r) {
                  align: 'center',
                  sortable: true,
              },
+              {
+                  field: 'areas.Area',
+                  width: '5%',
+                  title: 'Area',
+                  align: 'center',
+                  sortable: true,                  
+              },
             {
                 field: 'fecha',
                 width: '5%',
@@ -88,25 +184,24 @@ function mostrarTablaTareasIng(r) {
     $("#tareasIngenieria").bootstrapTable('resetView');
 }
 window.operateEventsing = {
-    'click .editarTarea': function (e, value, row, index) {
-        console.log(row)
-        if (row.IdEstadoTarea != 2) {
-            mostrarModalEditar(row);
-            $("#tarticulo").bootstrapTable('hideLoading');
-        }
-        else {
-            swal("Atencion!", "Este registro no puede ser editado", "warning")
-        }
-
-    },
+    
     'click .crudtarea': function (e, value, row, index) {
 
         window.location = base_url("cambiosingenieria/crud/" + row.IdTareaIng);
     }
 };
+
+
 function operateFormattering(value, row, index) {
     var ret = '<button type="button" class="btn btn-default crudtarea" aria-label="Right Align">' +
         '<i class="fa fa-external-link" aria-hidden="true"></i></button>';  
+    return ret;
+}
+function operateFormatteringReportes(value, row, index) {
+    var ret = '<button type="button" class="btn btn-default crudtarea" aria-label="Right Align">' +
+        '<i class="fa fa-external-link" aria-hidden="true"></i></button>';
+    ret += '<a href="ExportarAPDF/' + row.IdTareaIng+'" target="_blank"class="btn btn-default " aria-label="Right Align">' +
+        '<i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
     return ret;
 }
 function operateEstado(value, row, index) {
@@ -216,3 +311,9 @@ function agregarcomIng(e) {
     $("#comentariotxtIng").val("");
     retrasarBoton("#comentartareaIng")
 }
+$(document).on("change", "#areaReportes", function () {
+    retornarTablaTareasIngenieriaReportes();
+})
+$(document).on("change", "#idestadoReportes", function () {
+    retornarTablaTareasIngenieriaReportes();
+})

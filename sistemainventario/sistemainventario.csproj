@@ -822,6 +822,7 @@
     <Content Include="Views\CambiosIngenieria\crud.cshtml" />
     <Content Include="Views\CambiosIngenieria\Footer.cshtml" />
     <Content Include="Views\CambiosIngenieria\PDF.cshtml" />
+    <Content Include="Views\CambiosIngenieria\reportes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

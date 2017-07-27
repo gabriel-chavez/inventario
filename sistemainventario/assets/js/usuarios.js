@@ -139,6 +139,12 @@ function opciones(op)
         case "21":
             return "Tareas";
             break;
+        case "31":
+            return "Inbox (cambios ingenieria)";
+            break;
+        case "32":
+            return "Reportes (cambios ingenieria)";
+            break;
     }
 }
 function formatoTipo(value, row, index) {

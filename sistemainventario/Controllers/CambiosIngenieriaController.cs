@@ -12,6 +12,7 @@ using System.Web.Script.Serialization;
 
 namespace sistemainventario.Controllers
 {
+    [Persmiso(31)]
     [Autenticado]
     public class CambiosIngenieriaController : Controller
     {
@@ -42,7 +43,33 @@ namespace sistemainventario.Controllers
                     );
             //return Json(rm);           
             return resultado;
-        }   
+        } 
+        public ActionResult reportes()
+        {
+            var areas = new areas();
+            ViewBag.areas = areas.Listar();
+            return View();
+        }
+        public string retornarTareasIngReporte(string fechaIni, string fechaFin, string _idestado="0", string _idarea="0")
+        {
+            DateTime ini = Convert.ToDateTime(fechaIni);
+            DateTime fin = Convert.ToDateTime(fechaFin + " 23:59:59");
+            int a = Convert.ToInt32(_idarea);            
+            int estado = Convert.ToInt32(_idestado);
+            var rm = new ResponseModel();          
+            rm = tareasing.Listar(ini, fin, estado, a);
+            rm.function = "mostrarTablaTareasIngReportes";
+            string resultado;
+            resultado = JsonConvert.SerializeObject(rm, Formatting.Indented,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+
+                        }
+                    );
+            //return Json(rm);           
+            return resultado;
+        }
         public ActionResult crud(int id = 0)
         {
             int idusuario = SessionHelper.GetIdUser();
@@ -175,13 +202,21 @@ namespace sistemainventario.Controllers
             rm.result = coment;
             return Json(rm);
         }
-        public ActionResult ExportarAPDF()
+        [AllowAnonymous]
+        public ActionResult ExportarAPDF(int id=0)
         {
-            var tareasingtmp = tareasing.Obtener(9);
+            var tareasingtmp = tareasing.Obtener(id);
             string json;
             try
             {
-                json = new JavaScriptSerializer().Serialize(tareasingtmp);
+                
+                json = JsonConvert.SerializeObject(tareasingtmp, Formatting.Indented,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+
+                        }
+                    );
             }
             catch (Exception e)
             {
@@ -214,7 +249,8 @@ namespace sistemainventario.Controllers
         }
         public ActionResult PDF(string json)
         {
-            var _tareasing = new JavaScriptSerializer().Deserialize<TareasIng>(json);
+            //var _tareasing = new JavaScriptSerializer().Deserialize<TareasIng>(json);
+            var _tareasing = JsonConvert.DeserializeObject<TareasIng>(json);
             return View(_tareasing);
         }
     }

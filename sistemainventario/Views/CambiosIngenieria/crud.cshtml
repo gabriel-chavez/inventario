@@ -261,7 +261,18 @@
                                     <hr />
                                     <p class="title">Autorizador</p>
                                     <p>@autorizador.responsable.usuariosSistema.Nombre</p>
+                                   
                                     <hr />
+                                    @if (Model.IdEstadoTareaIng == 4)
+                                    {
+                                        <div class="text-center">
+
+                                            <a class="btn btn-sm btn-default btn-block" href="~/cambiosIngenieria/ExportarAPDF/@Model.IdTareaIng" target="_blank">
+                                                Exportar a PDF  <span class="fa fa-file-pdf-o"></span>
+                                            </a>
+                                        </div>
+                                    }
+                                    
                                 </div>
 
                                 <hr />

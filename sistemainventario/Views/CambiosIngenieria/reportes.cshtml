@@ -1,8 +1,11 @@
-﻿<div class="">
+﻿@{ 
+    var areas = ViewBag.areas;
+}
+<div class="">
     <div class="page-title">
         <div class="title_left">
             <h3>
-                Formulario de cambios en Ingeniería
+                Reportes cambios ingenieria
             </h3>
         </div>
     </div>
@@ -15,13 +18,8 @@
                 </li>
             </ul>
             <div class="clearfix"></div>
-        </div>       
-        @if (!sistemainventario.Helper.SessionHelper.esAdmin())
-        {
-            <div class="text-right">
-                <a href="~/CambiosIngenieria/crud" class="btn btn-sm btn-default" id="btnnuevatarea">Crear formulario</a>
-            </div>
-        }            
+        </div>
+        
         <div class="x_content">
             <div class="">
                 <div id="toolbar2" class="form-inline">
@@ -30,9 +28,24 @@
                             <i class="fa fa-calendar"></i> Fecha Asignacion
                         </span>
                         <i class="fa fa-caret-down"></i>
-                    </button>                   
+                    </button>
+                    <select class="selectpicker" name="area" id="areaReportes">
+                        <option value="0" selected>Area (Todos)</option>
+                        @foreach (var fila in areas)
+                        {
+                            <option value="@fila.IdArea">@fila.Area</option>
+                        }
+                    </select>
+                    <select class="selectpicker" name="estado" id="idestadoReportes">
+                        <option value="0" selected>Estado (Todos)</option>
+                        <option value="1" >Enviado</option>
+                        <option value="2" >Aprobado</option>
+                        <option value="3" >Observado</option>
+                        <option value="4" >Finalizado</option>
+                    </select>
                 </div>
-                <table id="tareasIngenieria"@*tareasAsignadas*@
+                
+                <table id="tareasIngenieriaReportes" @*tareasAsignadas*@
                        data-toolbar="#toolbar2"></table>
             </div> <!--div class="table-responsive"-->
         </div>
@@ -73,8 +86,8 @@
             cb(start, end);
         });
         $('#fechapersonalizada').on('apply.daterangepicker', function (ev, picker) {
-            retornarTablaTareasIngenieria();
+            retornarTablaTareasIngenieriaReportes();
         });
-        retornarTablaTareasIngenieria();
+        retornarTablaTareasIngenieriaReportes();
     })
 </script>

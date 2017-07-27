@@ -61,6 +61,25 @@
                         </li>
                     </ul>
                 }
+                <!--option 3-->
+                @if (sistemainventario.Helper.SessionHelper.existemenu(3, true))
+                {
+                    <ul class="nav side-menu">
+                        <li>
+                            <a><i class="fa fa-hdd-o"></i> Cambios Ingenieria <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                @if (sistemainventario.Helper.SessionHelper.existemenu(31, false))
+                                {
+                                    <li><a href="~/cambiosingenieria">Bandeja</a></li>
+                                }
+                                @if (sistemainventario.Helper.SessionHelper.existemenu(32, false))
+                                {
+                                    <li><a href="~/cambiosingenieria/reportes">Reportes</a></li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
                 <!--option adm-->
                 @if (sistemainventario.Helper.SessionHelper.esAdmin())
                 {
