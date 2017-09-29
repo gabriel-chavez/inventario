@@ -106,7 +106,10 @@ function mostrarTablaTareas(r)
         searchOnEnterKey: true,
         filter: true,
         showColumns: true,
-
+        showExport: true,
+        exportTypes: ['excel'],
+        exportDataType: 'all',
+        exportOptions: { fileName: 'Tarea', worksheetName: "Tareas" },
         columns: [
              {
                  field: 'Nro',

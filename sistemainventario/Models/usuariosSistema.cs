@@ -81,7 +81,7 @@ namespace sistemainventario.Models
                                        .FirstOrDefault();                    
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 throw;

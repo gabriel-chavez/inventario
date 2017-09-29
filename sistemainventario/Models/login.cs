@@ -16,7 +16,7 @@ namespace sistemainventario.Models
             ldap = ldap.IsAuthenticated(usr, pass);
            
           if(true)
-           //if (ldap.autendicado)   
+         //  if (ldap.autendicado)   
             {
                 rm.SetResponse(true, "Correcto, cargando...");
                 var usuariosistema = new usuariosSistema();
